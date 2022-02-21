@@ -1,0 +1,50 @@
+.ps-rl {
+  position: relative;
+}
+
+.c-cross {
+  cursor: crosshair;
+}
+
+.canvas-wrapper {
+  border-radius: 10px;
+  overflow: hidden
+}
+
+.bar-wrapper {
+  position: relative;
+  width: 294px;
+  height: 14px;
+  cursor: ew-resize;
+  margin-top: 14px
+}
+
+.opacity-overlay {
+  position:absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+}
+
+.opacity-bg {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  overflow: hidden
+}
+
+.handle {
+  position: absolute;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0px 0px 3px rgba(0,0,0,.5);
+  width: 18px;
+  height: 18px;
+  z-index: 1000
+}
+
+.npe {
+  pointer-events: none;
+}

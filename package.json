@@ -1,10 +1,10 @@
 {
-  "name": "react-gradient-color-picker",
-  "version": "1.0.0",
+  "name": "react-best-gradient-color-picker",
+  "version": "1.0.7",
   "description": "An easy to use color/gradient picker for React.js",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "exit 0"
+    "build": "babel src --out-dir lib --copy-files"
   },
   "repository": {
     "type": "git",
@@ -16,13 +16,31 @@
     "color",
     "picker"
   ],
-  "author": "hxf31891",
+  "author": {
+    "name": "Harry Fox",
+    "email": "hxfox1@gmail.com"
+  },
+  "peerDependencies": {
+    "react": "^16.3.0 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.4",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hxf31891/react-gradient-color-picker/issues"
   },
   "homepage": "https://github.com/hxf31891/react-gradient-color-picker#readme",
   "publishConfig": {
-   "@hxf31891:registry": "https://npm.pkg.github.com"
+    "@hxf31891:registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "gradient-parser": "^1.0.2",
+    "lodash": "^4.17.21",
+    "react-use-window-sizes": "^1.0.3",
+    "styled-components": "^5.3.3"
   }
 }
