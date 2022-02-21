@@ -34,13 +34,8 @@ export default function PickerContextWrapper({ children, bounds, colors, isGradi
       let deepCopy = cloneDeep(colors)
       let sorted = deepCopy.sort((a, b) => a.left - b.left)
       let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
-      let newGrad = `${getGradientType(value)}, ${colorString.join(', ')})`
-      if (getGradientType(value)) {
-        setColor(newGrad)
-        onChange(newGrad)
-      }
+      // setColor(`${getGradientType(value)}, ${colorString.join(', ')})`)
     } else {
-      setColor(newColor)
       onChange(newColor)
     }
   }, [hue, square, opacity, gradientLeft])
