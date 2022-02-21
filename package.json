@@ -1,0 +1,25 @@
+{
+  "name": "react-gradient-color-picker",
+  "version": "1.0.0",
+  "description": "An easy to use color/gradient picker for React.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hxf31891/react-gradient-color-picker.git"
+  },
+  "keywords": [
+    "gradient",
+    "react",
+    "color",
+    "picker"
+  ],
+  "author": "hxf31891",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hxf31891/react-gradient-color-picker/issues"
+  },
+  "homepage": "https://github.com/hxf31891/react-gradient-color-picker#readme"
+}
