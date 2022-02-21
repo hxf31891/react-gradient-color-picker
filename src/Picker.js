@@ -1,5 +1,6 @@
 import React from "react"
 import Hue from "./Hue"
+import Inputs from './Inputs'
 import Square from "./Square"
 import Opacity from './Opacity'
 import GradientBar from './GradientBar'
@@ -14,6 +15,7 @@ const Picker = () => {
       {isGradient && <GradientBar />}
       <Hue />
       <Opacity />
+      <Inputs />
     </div>
   )
 }

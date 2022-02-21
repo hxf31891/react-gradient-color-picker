@@ -3,11 +3,13 @@ import throttle from "lodash.throttle"
 import usePaintSquare from "./usePaintSquare"
 import { usePicker } from './context'
 import { Handle, PickerCanvas, CanvasWrapper } from './components'
+import { useColor } from './useColor'
 
 const Square = () => {
-  const { hue, handleColor, offsetLeft } = usePicker();
+  const { handleColor, offsetLeft } = usePicker();
   const square = useRef(null);
   const canvas = useRef(null);
+  const { hue } = useColor()
 
   usePaintSquare(canvas, hue);
 
@@ -40,7 +42,7 @@ const Square = () => {
       document.body.removeEventListener("mousemove", onMouseMove)
       document.body.removeEventListener("mouseup", onMouseUp)
     }
-  }, [offsetLeft])
+  }, [handleColor, offsetLeft])
 
   return (
     <div ref={square} className='ps-rl c-cross' style={{height: 294, width: 294 }}>

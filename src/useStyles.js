@@ -1,7 +1,10 @@
 import { usePicker } from './context'
+import { computeHueX } from './utils'
 
 export const useHandleStyle = () => {
-  const { hue, hueX, opacityX, squareXY} = usePicker()
+  const { hue, opacity, x, y} = usePicker()
+  const hueX = computeHueX(hue)
+  const opacityX = opacity * 280
 
   const backgrounds = {
     hue: `hsla(${hue}, 100%, 50%, 1)`,
@@ -9,13 +12,13 @@ export const useHandleStyle = () => {
   }
 
   const getHandleLeft = (type) => {
-    return type === 'hue' ? hueX : type === 'opacity' ? opacityX : squareXY[0]
+    return type === 'hue' ? hueX : type === 'opacity' ? opacityX : x
   }
 
   const getHandleStyles = (type) => {
     return {
       left: getHandleLeft(type),
-      top: type === 'picker' ? squareXY[1] : -2,
+      top: type === 'picker' ? y : -2,
       background: backgrounds[type]
     }
   }

@@ -4,15 +4,15 @@ import throttle from "lodash.throttle"
 import { computeBarPosition } from './utils'
 
 const GradientBar = ({}) => {
-  const { color, addPoint, colors } = usePicker()
-  const [tempColor, setTempColor] = useState(color)
+  const { value, addPoint, colors } = usePicker()
+  const [tempColor, setTempColor] = useState(value)
 
   useEffect(() => {
-    setTimeout(() => setTempColor(color), 300)
-  }, [color])
+    setTimeout(() => setTempColor(value), 300)
+  }, [value])
 
   return(
-    <div style={{width: '100%', height: 14, marginTop: 14, backgroundImage: tempColor, borderRadius: 10}} className='ps-rl' onClick={(e) => addPoint(e)}>
+    <div style={{width: '100%', height: 14, marginTop: 14, backgroundImage: tempColor, borderRadius: 10}} className='ps-rl' onMouseDown={(e) => addPoint(e)}>
       {colors?.map((c, i) => (<Handle left={c.left} key={`${i}-${c}`} i={i} />))}
     </div>
   )
@@ -21,12 +21,12 @@ const GradientBar = ({}) => {
 export default GradientBar
 
 export const Handle = ({ left, i }) => {
-  const { handleSelectedColor, setGradientLeft, offsetLeft } = usePicker()
+  const { handleSelectedColor, handleGradientLeft, offsetLeft } = usePicker()
   const handleRef = useRef(null)
 
   useEffect(() => {
     const onMouseMove = throttle(e => {
-      setGradientLeft((e.clientX - offsetLeft) / 2.8)
+      handleGradientLeft((e.clientX - offsetLeft) / 2.8)
     }, 150)
 
     function onMouseUp(e) {
@@ -49,7 +49,7 @@ export const Handle = ({ left, i }) => {
       document.body.removeEventListener("mousemove", onMouseMove)
       document.body.removeEventListener("mouseup", onMouseUp)
     }
-  }, [offsetLeft])
+  }, [offsetLeft, handleGradientLeft])
 
 
 

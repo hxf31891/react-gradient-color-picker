@@ -35,7 +35,7 @@ const Hue = () => {
       document.body.removeEventListener("mousemove", onMouseMove)
       document.body.removeEventListener("mouseup", onMouseUp)
     }
-  }, [offsetLeft])
+  }, [handleHue, offsetLeft])
 
   return (
     <BarWrapper reffy={bar}>

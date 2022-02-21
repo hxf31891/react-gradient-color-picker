@@ -31,7 +31,7 @@ const Opacity = () => {
       document.body.removeEventListener("mousemove", onMouseMove)
       document.body.removeEventListener("mouseup", onMouseUp)
     }
-  }, [offsetLeft])
+  }, [offsetLeft, handleOpacity])
 
   return(
     <BarWrapper reffy={bar}>
