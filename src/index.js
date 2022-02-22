@@ -12,6 +12,7 @@ function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hid
 
   useEffect(() => {
     setBounds(contRef?.current?.getBoundingClientRect())
+    setTimeout(() => setBounds(contRef?.current?.getBoundingClientRect()), 150)
   }, [width])
 
   return (
