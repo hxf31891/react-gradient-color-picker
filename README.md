@@ -8,8 +8,8 @@
   <a href="https://bundlephobia.com/result?p=react-best-gradient-color-picker">
     <img alt="" src="https://badgen.net/bundlephobia/min/react-best-gradient-color-picker?color=2c139f" />
   </a>
-   <a href="https://github.com/hxf31891/react-best-gradient-color-picker/blob/main/LICENSE">
-    <img alt="" src="https://badgen.net/github/license/react-best-gradient-color-picker/react-best-gradient-color-picker?color=2c139f" />
+   <a href="https://github.com/hxf31891/react-gradient-color-picker/blob/main/LICENSE">
+    <img alt="" src="https://badgen.net/github/license/react-gradient-color-picker/react-gradient-color-picker?color=2c139f" />
   </a>
 </div>
 
