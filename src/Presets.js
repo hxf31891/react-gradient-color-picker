@@ -1,14 +1,22 @@
 import React from 'react'
 import { usePicker } from './context'
 
-const Presets = () => {
+const Presets = ({ presets = [] }) => {
   const { value, handleChange } = usePicker();
+
+  const getPresets = () => {
+    if (presets?.length > 0) {
+      return presets?.slice(0, 18)
+    } else {
+      return fakePresets
+    }
+  }
 
   return(
     <div style={{display: 'flex', justifyContent: 'space-between', marginTop: 20}}>
       <div style={{width: 50, height: 50, background: value, borderRadius: 6, flexShrink: 0}}/>
       <div style={{display: 'flex', flexWrap: 'wrap', marginLeft: 16, justifyContent: 'space-between'}}>
-      {fakePresets?.map((p, key) => (<div key={key} style={{height: 23, width: 23, borderRadius: 4, background: p, marginLeft: 2, marginBottom: 2, border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : ''}} onClick={() => handleChange(p)}/>))}
+      {getPresets().map((p, key) => (<div key={key} style={{height: 23, width: 23, borderRadius: 4, background: p, marginLeft: 2, marginBottom: 2, border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : ''}} onClick={() => handleChange(p)}/>))}
       </div>
     </div>
   )
