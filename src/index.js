@@ -5,7 +5,7 @@ import Picker from "./Picker"
 import './styles.css'
 
 
-function ColorPicker({ value, onChange }) {
+function ColorPicker({ value, onChange, hideControls, hideInputs, hidePresets }) {
   const contRef = useRef(null)
   const { width } = useWindowSizes()
   const [bounds, setBounds] = useState({})
@@ -17,7 +17,7 @@ function ColorPicker({ value, onChange }) {
   return (
     <div ref={contRef}>
       <PickerContextWrapper bounds={bounds} value={value} onChange={onChange}>
-        <Picker />
+        <Picker hideControls={hideControls} hideInputs={hideInputs} hidePresets={hidePresets} />
       </PickerContextWrapper>
     </div>
   )

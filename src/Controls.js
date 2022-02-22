@@ -15,7 +15,7 @@ const Controls = () => {
   }
 
   return(
-    <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: 12, paddingBottom: 8}}>
+    <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: 12, paddingBottom: 2}}>
       <div style={{width: "25%"}}>
         {isGradient && <GradientType />}
       </div>

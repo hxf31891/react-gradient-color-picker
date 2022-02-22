@@ -11,7 +11,7 @@ const Inputs = () => {
   const rgba = getRGBValues(currentColor)
 
   useEffect(() => {
-    if (!disable === 'hex') {
+    if (disable !== 'hex') {
       setNewHex(getHex(currentColor))
     }
   }, [currentColor])

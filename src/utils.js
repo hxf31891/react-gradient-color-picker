@@ -62,7 +62,7 @@ export const getGradientType = (value) => {
 }
 
 export const getRGBValues = (color) => {
-  let strs = color.split('(')[1]?.slice(0,-1)?.split(',')
+  let strs = color?.split('(')[1]?.slice(0,-1)?.split(',')
   return strs?.map(v => parseFloat(v))
 }
 
