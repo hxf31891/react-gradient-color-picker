@@ -75,7 +75,7 @@ export const getHsl = (color) => {
 
 export const getHue = (color) => {
   let hsl = getHsl(color)
-  let safeHsl = hsl?.length > 0 ? nums : [{}]
+  let safeHsl = hsl?.length > 0 ? hsl : [{}]
   return safeHsl[0]
 }
 
