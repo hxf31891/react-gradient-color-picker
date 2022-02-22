@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { usePicker } from './context'
 import { getRGBValues, getHue, getHex } from './utils'
 var convert = require('color-convert');

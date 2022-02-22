@@ -1,3 +1,4 @@
+import React from 'react'
 import { usePicker } from './context'
 
 const Presets = () => {
