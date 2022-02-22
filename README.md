@@ -20,8 +20,8 @@
 - You can customize the UI by hiding the various elements and using the API functions to build your own inputs, controls, etc.
 
 <div align="center">
-  <img alt="" src="https://github.com/hxf31891/react-gradient-color-picker/blob/main/demo/demo.png" width="200px"/>
-  <img alt="" src="https://github.com/hxf31891/react-gradient-color-picker/blob/main/demo/demo2.png" width="201px"/>
+  <img alt="" src="https://i.ibb.co/J553FGJ/demo.png" width="200px"/>
+  <img alt="" src="https://i.ibb.co/ZdzKxCw/demo2.png" width="201px"/>
 </div>
 
 ## Install
