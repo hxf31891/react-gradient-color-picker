@@ -30,6 +30,9 @@
 ## Install
 `npm install react-best-gradient-color-picker`
 
+## Demo
+See the picker in action [here](https://gradient-package-demo.web.app/)
+
 ## Example 
 ```js
 import React from 'react'
