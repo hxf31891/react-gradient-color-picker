@@ -5,7 +5,7 @@ import Picker from "./Picker"
 import './styles.css'
 
 
-function ColorPicker({ value, onChange, hideControls, hideInputs, hidePresets }) {
+function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hideControls, hideInputs, hidePresets }) {
   const contRef = useRef(null)
   const { width } = useWindowSizes()
   const [bounds, setBounds] = useState({})
