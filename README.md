@@ -58,7 +58,7 @@ function MyApp() {
 | ---------------- | ---------------------------------------------------------------- |
 | onChange         | A function to update color value                                 |
 
-### Manual Control - Customizing UI
+## Manual Control - Customizing UI
 
 The state of the picker is determined by parsing the value string. You can update props like colorType (solid/gradient), gradientType (linear/radial), gradientDegrees, hex, rgba, opacity and hue simply by updating the value you are passing into the component. Let's say you want to change the colorType from gradient to solid: 
 
