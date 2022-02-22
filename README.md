@@ -16,6 +16,11 @@
 # react-best-gradient-color-picker
 - Customizable, easy to use color and gradient picker for React.js
 
+<div align="center">
+  <img alt="" src="https://github.com/hxf31891/react-gradient-color-picker/blob/main/demo/demo.png" width="200px"/>
+  <img alt="" src="https://github.com/hxf31891/react-gradient-color-picker/blob/main/demo/demo2.png" width="200px"/>
+</div>
+
 ## Install
 `npm install react-best-gradient-color-picker`
 
