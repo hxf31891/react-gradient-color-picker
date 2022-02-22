@@ -52,8 +52,13 @@ export function computePickerPosition(e, offsetLeft, offsetTop) {
   return [getX(), getY()]
 }
 
+export const getDegrees = (value) => {
+  let s1 = value?.split(',')[0]
+  return parseInt(s1?.split('(')[1]?.slice(0,-3))
+}
+
 export const getGradientType = (value) => {
-  return value?.split(',')[0]
+  return value?.split('(')[0]
 }
 
 export const getRGBValues = (color) => {

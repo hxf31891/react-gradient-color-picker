@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { computeBarPosition, computeHue, computeOpacity, computePickerPosition, getGradientType, computeSquareXY } from './utils'
+import { computeBarPosition, computeHue, computeOpacity, computePickerPosition, getGradientType, computeSquareXY, getDegrees } from './utils'
 import { getHue, getHsl, getNewHsl, getRGBValues, getOpacity, getColors } from './utils'
 import { config } from './constants'
 import { cloneDeep } from 'lodash';
@@ -12,10 +12,12 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   const offsetLeft = bounds?.x
   const offsetTop = bounds?.y
 
-  const [isGradient, setIsGradient] = useState(value?.includes('gradient'))
+  const isGradient = value?.includes('gradient')
+  const gradientType = getGradientType(value)
+  const degrees = getDegrees(value)
+  const degreeStr = typeof degrees === 'number' ? `${degrees}deg` : 'circle'
   const colors = getColors(value, isGradient)
   const [selectedColor, setSelectedColor] = useState(0)
-
   const currentColor = colors[selectedColor]?.value
 
   const hue = getHue(currentColor)
@@ -28,14 +30,10 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     let deepCopy = cloneDeep(colors)
     let sorted = deepCopy.sort((a, b) => a.left - b.left)
     let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
-    onChange(`${getGradientType(value)}, ${colorString.join(', ')})`)
+    onChange(`${gradientType}(${degreeStr}, ${colorString.join(', ')})`)
   }
 
-  const handleOpacity = (e) => {
-    const x = computeBarPosition(e, offsetLeft)
-    const o = computeOpacity(x)
-    const oldValue = getRGBValues(currentColor)
-    let newColor = `rgba(${oldValue[0]}, ${oldValue[1]}, ${oldValue[2]}, ${o / 100})`
+  const handleChange = (newColor) => {
     if (isGradient) {
       handleGradient(newColor)
     } else {
@@ -43,16 +41,20 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     }
   }
 
+  const handleOpacity = (e) => {
+    const x = computeBarPosition(e, offsetLeft)
+    const o = computeOpacity(x)
+    const oldValue = getRGBValues(currentColor)
+    let newColor = `rgba(${oldValue[0]}, ${oldValue[1]}, ${oldValue[2]}, ${o / 100})`
+    handleChange(newColor)
+  }
+
   const handleHue = (e) => {
     const x = computeBarPosition(e, offsetLeft)
     let newHue = computeHue(x)
     let oldHsl = getHsl(currentColor)
     let newHsl = getNewHsl(newHue, oldHsl[1], oldHsl[2], opacity)
-    if (isGradient) {
-      handleGradient(newHsl)
-    } else {
-      onChange(newHsl)
-    }
+    handleChange(newHsl)
   }
 
   const handleColor = (e, ctx) => {
@@ -61,11 +63,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     const y1 = Math.min(y + crossSize / 2, squareSize - 1)
     const [r, g, b] = ctx.getImageData(x1, y1, 1, 1).data
     let newColor = `rgba(${r}, ${g}, ${b}, ${opacity})`
-    if (isGradient) {
-      handleGradient(newColor)
-    } else {
-      onChange(newColor)
-    }
+    handleChange(newColor)
   }
 
   const handleGradientLeft = (newLeft) => {
@@ -85,7 +83,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     let deepCopy = cloneDeep(colors)
     let sorted = deepCopy.sort((a, b) => a.left - b.left)
     let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
-    onChange(`${getGradientType(value)}, ${colorString.join(', ')})`)
+    onChange(`${gradientType}(${degreeStr}, ${colorString.join(', ')})`)
     handleSelectedColor(e, newIndex)
   }
 
@@ -102,15 +100,20 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     hue,
     value,
     colors,
+    degrees,
     opacity,
+    onChange,
     addPoint,
     handleHue,
     isGradient,
     offsetLeft,
     handleColor,
     deletePoint,
+    gradientType,
+    handleChange,
     currentColor,
     handleOpacity,
+    handleGradient,
     handleGradientLeft,
     handleSelectedColor
   };

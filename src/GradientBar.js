@@ -12,7 +12,7 @@ const GradientBar = ({}) => {
   }, [value])
 
   return(
-    <div style={{width: '100%', height: 14, marginTop: 14, backgroundImage: tempColor, borderRadius: 10}} className='ps-rl' onMouseDown={(e) => addPoint(e)}>
+    <div style={{width: '100%', height: 14, marginTop: 8, backgroundImage: tempColor, borderRadius: 10}} className='ps-rl' onMouseDown={(e) => addPoint(e)}>
       {colors?.map((c, i) => (<Handle left={c.left} key={`${i}-${c}`} i={i} />))}
     </div>
   )
