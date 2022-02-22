@@ -15,6 +15,9 @@
 
 # react-best-gradient-color-picker
 - Customizable, easy to use color and gradient picker for React.js
+- Simply pass in an rgba or css gradient string as value and an onChange handler 
+- UI will default to solid or gradient based on the value string it receives 
+- You can customize the UI by hiding the various elements and using the API functions to build your own inputs, controls, etc.
 
 <div align="center">
   <img alt="" src="https://github.com/hxf31891/react-gradient-color-picker/blob/main/demo/demo.png" width="200px"/>
