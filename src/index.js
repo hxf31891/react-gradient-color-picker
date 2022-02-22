@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect } from "react"
 import PickerContextWrapper from './context'
-import { useWindowSize } from 'react-use-window-sizes'
+import { useWindowSizes } from 'react-use-window-sizes'
 import Picker from "./Picker"
 import './styles.css'
 
 
 function ColorPicker({ value, onChange }) {
   const contRef = useRef(null)
-  const { width } = useWindowSize()
+  const { width } = useWindowSizes()
   const [bounds, setBounds] = useState({})
 
   useEffect(() => {
