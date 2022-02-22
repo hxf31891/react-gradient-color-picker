@@ -18,7 +18,7 @@
 
 <div align="center">
   <img alt="" src="https://github.com/hxf31891/react-gradient-color-picker/blob/main/demo/demo.png" width="200px"/>
-  <img alt="" src="https://github.com/hxf31891/react-gradient-color-picker/blob/main/demo/demo2.png" width="200px"/>
+  <img alt="" src="https://github.com/hxf31891/react-gradient-color-picker/blob/main/demo/demo2.png" width="201px"/>
 </div>
 
 ## Install
@@ -41,6 +41,9 @@ function MyApp() {
 | Name             | Type         | Default                 | Description                                                      |
 | ---------------- | ------------ | ----------------------- | ---------------------------------------------------------------- |
 | value            | `string`     | 'rgba(175, 51, 242, 1)' | The starting color                                               |
+| hideInputs       | `boolean`    | `false`                 | (optional) hide the hex and rgba inputs                          |
+| hidePresets      | `boolean`    | `false`                 | (optional) hide the preset color options                         |
+| hideControls     | `boolean`    | `false`                 | (optional) hide the solid/gradient and gradient options          |
 
 ### API
 
