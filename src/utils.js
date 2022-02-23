@@ -1,13 +1,7 @@
 import { config } from './constants'
-const { squareSize, barSize, crossSize } = config
+const { squareSize, barSize, crossSize, defaultColor } = config
 var convert = require('color-convert');
 var gradient = require('gradient-parser');
-
-export const hsl2rgb = (h,s,l, alpha) => {
-   let a=s*Math.min(l,1-l);
-   let f= (n,k=(n+h/30)%12) => l - a*Math.max(Math.min(k-3,9-k,1),-1);
-   return `rgba(${f(0) * 255}, ${f(8) * 255}, ${f(4) * 255}, ${alpha})`
-}
 
 export function computeBarPosition(e, offsetLeft) {
   let pos = e.clientX - offsetLeft - barSize / 2 - 1
@@ -27,7 +21,7 @@ export function computeHueX(h) {
   return Math.round((squareSize / 360) * h - barSize / 2)
 }
 
-export function computeSquareXY(color) {
+export function computeSquareXY(color = defaultColor) {
   const hsl = getHsl(color)
   const s = hsl[1]
   const l = hsl [2]
@@ -61,28 +55,25 @@ export const getGradientType = (value) => {
   return value?.split('(')[0]
 }
 
-export const getRGBValues = (color) => {
+export const getRGBValues = (color = defaultColor) => {
   let strs = color?.split('(')[1]?.slice(0,-1)?.split(',')
   return strs?.map(v => parseFloat(v))
 }
 
-export const getHsl = (color) => {
+export const getHsl = (color = defaultColor) => {
   let nums = getRGBValues(color)
-  let safeNums = nums?.length > 0 ? nums : [{}, {}, {}]
-  let hsl = convert.rgb.hsl(safeNums[0], safeNums[1], safeNums[2])
+  let hsl = convert.rgb.hsl(nums[0], nums[1], nums[2])
   return hsl
 }
 
-export const getHue = (color) => {
+export const getHue = (color = defaultColor) => {
   let hsl = getHsl(color)
-  let safeHsl = hsl?.length > 0 ? hsl : [{}]
-  return safeHsl[0]
+  return hsl[0]
 }
 
-export const getHex = (color) => {
+export const getHex = (color = defaultColor) => {
   let nums = getRGBValues(color)
-  let safeNums = nums?.length > 0 ? nums : [{}, {}, {}]
-  return convert.rgb.hex(safeNums[0], safeNums[1], safeNums[2])
+  return convert.rgb.hex(nums[0], nums[1], nums[2])
 }
 
 export const getNewHsl = (newHue, s, l, o) => {
@@ -90,17 +81,17 @@ export const getNewHsl = (newHue, s, l, o) => {
   return `rgba(${hsl[0]}, ${hsl[1]}, ${hsl[2]}, ${o})`
 }
 
-export const getOpacity = (color) => {
+export const getOpacity = (color = defaultColor) => {
   let rgba = getRGBValues(color)
   return rgba[3]
 }
 
-export const getColors = (value, isGradient) => {
+export const getColors = (value) => {
+  let isGradient = value?.includes('gradient')
   if (isGradient) {
     var obj = gradient.parse(value);
     return obj[0]?.colorStops?.map((c) => ({value: `rgba(${c.value[0]}, ${c.value[1]}, ${c.value[2]}, ${c.value[3]})`, left: parseInt(c.length?.value) }))
   } else {
-    let arr = getRGBValues(value)
     return [{ value: value }]
   }
 }

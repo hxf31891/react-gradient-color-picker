@@ -3,10 +3,11 @@ import { usePicker } from './context'
 import GradientBar from './GradientBar'
 
 const Controls = () => {
-  const { isGradient, onChange, gradientType } = usePicker()
+  const { isGradient, onChange, gradientType, setSelectedColor } = usePicker()
   const isLinear = gradientType === 'linear-gradient'
 
   const setSolid = () => {
+    setSelectedColor(0)
     onChange('rgba(175, 51, 242, 1)')
   }
 

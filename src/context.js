@@ -15,8 +15,8 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   const isGradient = value?.includes('gradient')
   const gradientType = getGradientType(value)
   const degrees = getDegrees(value)
-  const degreeStr = typeof degrees === 'number' ? `${degrees}deg` : 'circle'
-  const colors = getColors(value, isGradient)
+  const degreeStr = gradientType === 'linear-gradient' ? `${degrees}deg` : 'circle'
+  const colors = getColors(value)
   const [selectedColor, setSelectedColor] = useState(0)
   const currentColor = colors[selectedColor]?.value
 
@@ -114,6 +114,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     currentColor,
     handleOpacity,
     handleGradient,
+    setSelectedColor,
     handleGradientLeft,
     handleSelectedColor
   };

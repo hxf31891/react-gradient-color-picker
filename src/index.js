@@ -7,13 +7,13 @@ import './styles.css'
 
 function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hideControls, hideInputs, hidePresets, presets }) {
   const contRef = useRef(null)
-  const { width } = useWindowSizes()
+  const { width, height } = useWindowSizes()
   const [bounds, setBounds] = useState({})
 
   useEffect(() => {
     setBounds(contRef?.current?.getBoundingClientRect())
     setTimeout(() => setBounds(contRef?.current?.getBoundingClientRect()), 150)
-  }, [width])
+  }, [width, height])
 
   return (
     <div ref={contRef}>
