@@ -127,6 +127,7 @@
   color: #8c8c8f;
   height: 28px;
   margin-top: 2px;
+  font-size: 14px
 }
 
 .control-btn {
@@ -145,5 +146,8 @@
 
 .delete-point-btn:hover {
   background: rgb(86, 140, 245);
-  color: white
+}
+
+.delete-point-btn:hover .icon {
+  fill: white
 }

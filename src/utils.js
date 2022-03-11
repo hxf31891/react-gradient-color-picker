@@ -24,7 +24,7 @@ export function computeHueX(h) {
 export function computeSquareXY(color = defaultColor) {
   const hsl = getHsl(color)
   const s = hsl[1]
-  const l = hsl [2]
+  const l = hsl[2]
   const t = (s * (l < 50 ? l : 100 - l)) / 100
   const s1 = Math.round((200 * t) / (l + t)) | 0
   const b1 = Math.round(t + l)

@@ -1,6 +1,6 @@
 import React from 'react'
+import TrashIcon from './icon'
 import { usePicker } from './context'
-import GradientBar from './GradientBar'
 
 const Controls = () => {
   const { isGradient, onChange, gradientType, setSelectedColor, colors } = usePicker()
@@ -84,7 +84,7 @@ const DeleteBtn = () => {
 
   return(
     <div onClick={deletePoint} className='delete-point-btn df jc ac'>
-      <i className='bi-trash' style={{fontSize: 15}} />
+      <TrashIcon />
     </div>
   )
 }

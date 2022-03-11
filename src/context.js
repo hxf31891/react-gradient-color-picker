@@ -4,7 +4,7 @@ import { getHue, getHsl, getNewHsl, getRGBValues, getOpacity, getColors } from '
 import { config } from './constants'
 import { cloneDeep } from 'lodash';
 
-const { squareSize, barSize, crossSize } = config
+const { squareSize, crossSize } = config
 
 const PickerContext = createContext();
 

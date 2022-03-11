@@ -1,10 +1,9 @@
 import React from 'react'
-import styled from "styled-components"
-import { usePicker } from './context'
 import { config } from './constants'
+import styled from "styled-components"
 import { useHandleStyle } from './useStyles'
 
-const { squareSize, barSize } = config
+const { squareSize } = config
 
 export const Handle = ({type}) => {
   const { getHandleStyles } = useHandleStyle()
