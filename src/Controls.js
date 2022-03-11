@@ -3,7 +3,7 @@ import { usePicker } from './context'
 import GradientBar from './GradientBar'
 
 const Controls = () => {
-  const { isGradient, onChange, gradientType, setSelectedColor } = usePicker()
+  const { isGradient, onChange, gradientType, setSelectedColor, colors } = usePicker()
   const isLinear = gradientType === 'linear-gradient'
 
   const setSolid = () => {
@@ -16,15 +16,16 @@ const Controls = () => {
   }
 
   return(
-    <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: 12, paddingBottom: 2}}>
+    <div style={{paddingTop: 12, paddingBottom: 2}} className='df jsb'>
       <div style={{width: "25%"}}>
         {isGradient && <GradientType />}
       </div>
-      <div style={{display: 'flex', borderRadius: 6, cursor: 'pointer', fontWeight: 700, color: '#8c8c8f', height: 28, marginTop: 2}}>
-        <div style={{paddingLeft: 12, paddingRight: 12, background: isGradient ? 'white' : '#568CF5', height: '100%', display: 'flex', alignItems: 'center', lineHeight: 1, color: isGradient ? '' : 'white', borderRadius: 6}} onClick={setSolid}>Solid</div>
-        <div style={{paddingLeft: 12, paddingRight: 12, background: isGradient ? '#568CF5' : 'white', height: '100%', display: 'flex', alignItems: 'center', lineHeight: 1, color: isGradient ? 'white' : '', borderRadius: 6}} onClick={setGradient}>Gradient</div>
+      <div className='control-btn-wrap df'>
+        <div style={controlBtnStyles(!isGradient)} className='control-btn df ac' onClick={setSolid}>Solid</div>
+        <div style={controlBtnStyles(isGradient)} className='control-btn df ac' onClick={setGradient}>Gradient</div>
       </div>
-      <div style={{width: "25%"}}>
+      <div style={{width: "25%"}} className='df jfe ac'>
+        {(isGradient && colors.length > 2) && <DeleteBtn />}
         {(isLinear && isGradient) && <DegreePicker />}
       </div>
     </div>
@@ -47,12 +48,12 @@ const GradientType = () => {
   }
 
   return(
-    <div style={{display: 'flex', borderRadius: 4, cursor: 'pointer', fontWeight: 700, color: '#8c8c8f', width: '30%', background: 'blue'}}>
-      <div style={{padding: 2, background: 'white', borderRadius: 6, boxShadow: '0px 0px 2px 1px #8c8c8f', marginRight: 6}}>
-        <div style={{background: 'linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)', width: 28, height: 28, borderRadius: 6}} onClick={handleLinear} />
+    <div className='control-grad-type df'>
+      <div className='control-grad-btn-wrap' style={{boxShadow: gradientType === 'linear-gradient' ? '0px 0px 2px 1px #568CF5' : '0px 0px 1px 1px #8c8c8f'}}>
+        <div className='control-grad-btn control-grad-1' onClick={handleLinear} />
       </div>
-      <div style={{padding: 2, background: 'white', borderRadius: 6, boxShadow: '0px 0px 2px 1px #8c8c8f', marginRight: 6}}>
-        <div style={{background: 'radial-gradient(circle, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)', width: 28, height: 28, borderRadius: 6}} onClick={handleRadial} />
+      <div className='control-grad-btn-wrap' style={{boxShadow: gradientType === 'radial-gradient' ? '0px 0px 2px 1px #568CF5' : '0px 0px 1px 1px #8c8c8f'}}>
+        <div className='control-grad-btn control-grad-2' onClick={handleRadial} />
       </div>
     </div>
   )
@@ -76,4 +77,21 @@ const DegreePicker = () => {
       <div style={{position: 'absolute', right: 4, top: 0, fontWeight: 400}}>°</div>
     </div>
   )
+}
+
+const DeleteBtn = () => {
+  const { deletePoint } = usePicker();
+
+  return(
+    <div onClick={deletePoint} className='delete-point-btn df jc ac'>
+      <i className='bi-trash' style={{fontSize: 15}} />
+    </div>
+  )
+}
+
+const controlBtnStyles = (selected) => {
+  return{
+    background: selected ? '#568CF5' : 'white',
+    color: selected ? 'white' : ''
+  }
 }

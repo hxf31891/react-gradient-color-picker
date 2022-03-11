@@ -1,3 +1,23 @@
+.df {
+  display: flex;
+}
+
+.ac {
+  align-items: center;
+}
+
+.jc {
+  justify-content: center;
+}
+
+.jfe {
+  justify-content: flex-end;
+}
+
+.jsb {
+  justify-content: space-between;
+}
+
 .ps-rl {
   position: relative;
 }
@@ -68,4 +88,62 @@
   line-height: 1.2;
   font-weight: 700;
   color: #b8b8b8
+}
+
+.control-grad-type {
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #8c8c8f;
+  width: 30%;
+  background: blue
+}
+
+.control-grad-btn-wrap {
+  padding: 2px;
+  background: white;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.control-grad-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+.control-grad-1 {
+  background: linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%);
+}
+
+.control-grad-2 {
+  background: radial-gradient(circle, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%);
+}
+
+.control-btn-wrap {
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #8c8c8f;
+  height: 28px;
+  margin-top: 2px;
+}
+
+.control-btn {
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100%;
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.delete-point-btn {
+  width: 24px;
+  height: 28px;
+  border-radius: 3px;
+}
+
+.delete-point-btn:hover {
+  background: rgb(86, 140, 245);
+  color: white
 }

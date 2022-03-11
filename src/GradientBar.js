@@ -4,7 +4,7 @@ import throttle from "lodash.throttle"
 import { computeBarPosition } from './utils'
 
 const GradientBar = ({}) => {
-  const { value, addPoint, colors } = usePicker()
+  const { value, addPoint, colors, selectedColor } = usePicker()
   const [tempColor, setTempColor] = useState(value)
 
   useEffect(() => {
@@ -21,8 +21,9 @@ const GradientBar = ({}) => {
 export default GradientBar
 
 export const Handle = ({ left, i }) => {
-  const { handleSelectedColor, handleGradientLeft, offsetLeft } = usePicker()
+  const { handleSelectedColor, handleGradientLeft, offsetLeft, selectedColor } = usePicker()
   const handleRef = useRef(null)
+  const isSelected = selectedColor === i
 
   useEffect(() => {
     const onMouseMove = throttle(e => {
@@ -51,9 +52,16 @@ export const Handle = ({ left, i }) => {
     }
   }, [offsetLeft, handleGradientLeft])
 
-
-
   return(
-    <div style={{left: left * 2.8, top: -2}} className='handle' onClick={(e) => handleSelectedColor(e, i)} ref={handleRef}/>
+    <div style={handleStyle(left, isSelected)} className='handle' onClick={(e) => handleSelectedColor(e, i)} ref={handleRef} />
   )
+}
+
+const handleStyle = (left, isSelected) => {
+  return {
+    top: -2,
+    left: left * 2.8,
+    boxShadow: isSelected ? '0px 0px 5px 1px rgba(86, 140, 245,.95)' : '',
+    border: isSelected ? '2px solid white' : '2px solid rgba(255,255,255,.75)',
+  }
 }

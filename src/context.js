@@ -16,7 +16,8 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   const gradientType = getGradientType(value)
   const degrees = getDegrees(value)
   const degreeStr = gradientType === 'linear-gradient' ? `${degrees}deg` : 'circle'
-  const colors = getColors(value)
+  const colors = getColors(value);
+
   const [selectedColor, setSelectedColor] = useState(0)
   const currentColor = colors[selectedColor]?.value
 
@@ -67,19 +68,21 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   }
 
   const handleGradientLeft = (newLeft) => {
-    handleGradient(currentColor, newLeft)
+    if (newLeft < 100) {
+      handleGradient(currentColor, newLeft);
+    }
   }
 
-  const handleSelectedColor = (e, index) => {
+  const handleSelectedColor = (e, newI) => {
     e.stopPropagation()
-    setSelectedColor(index);
+    setSelectedColor(newI)
   }
 
   const addPoint = (e) => {
     e.stopPropagation()
     let newIndex = colors.length
     let left = computeBarPosition(e, offsetLeft)
-    colors.push({value: currentColor, left: left / 2.8 })
+    colors.push({value: colors[selectedColor]?.value, left: left / 2.8 })
     let deepCopy = cloneDeep(colors)
     let sorted = deepCopy.sort((a, b) => a.left - b.left)
     let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
@@ -87,10 +90,13 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     handleSelectedColor(e, newIndex)
   }
 
-  const deletePoint = (index) => {
-    if (colors?.length > 1) {
-      let remaining = colors?.filter((rc, i) => i !== index)
-      colors = remaining
+  const deletePoint = (e) => {
+    if (colors?.length > 2) {
+      let remaining = colors?.filter((rc, i) => i !== selectedColor)
+      let sorted = remaining.sort((a, b) => a.left - b.left)
+      let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
+      onChange(`${gradientType}(${degreeStr}, ${colorString.join(', ')})`)
+      setSelectedColor(selectedColor - 1)
     }
   }
 
@@ -112,6 +118,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     gradientType,
     handleChange,
     currentColor,
+    selectedColor,
     handleOpacity,
     handleGradient,
     setSelectedColor,
