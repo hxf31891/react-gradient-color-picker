@@ -9,10 +9,21 @@ function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hid
   const contRef = useRef(null)
   const { width, height } = useWindowSizes()
   const [bounds, setBounds] = useState({})
+  const onScroll = () => {
+    return setBounds(contRef?.current?.getBoundingClientRect())
+  }
 
+  let a = contRef?.current
+  let els = []
+  while (a) {
+    a.addEventListener('scroll', onScroll, {once: true});
+    els.unshift(a);
+    a = a.parentNode;
+  }
+
+  setTimeout(() => setBounds(contRef?.current?.getBoundingClientRect()), 150)
   useEffect(() => {
     setBounds(contRef?.current?.getBoundingClientRect())
-    setTimeout(() => setBounds(contRef?.current?.getBoundingClientRect()), 150)
   }, [width, height])
 
   return (
