@@ -1,50 +1,43 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useState } from 'react'
 import { usePicker } from "./context"
-import throttle from "lodash.throttle"
-import usePaintHue from "./usePaintHue"
-import { Handle, BarCanvas, BarWrapper, CanvasWrapper } from './components'
+import usePaintHue from './usePaintHue'
 
 const Hue = () => {
-  const bar = useRef(null)
-  const canvas = useRef(null)
-  const { handleHue, offsetLeft } = usePicker()
+  const barRef = useRef(null);
+  const { handleHue, hue } = usePicker();
+  const [dragging, setDragging] = useState(false)
+  usePaintHue(barRef);
 
-  usePaintHue(canvas)
+  const stopDragging = () => {
+    setDragging(false)
+  }
 
-  useEffect(() => {
-    const onMouseMove = throttle(e => {
+  const handleDown = () => {
+    setDragging(true)
+  }
+
+  const handleMove = (e) => {
+    if (dragging) {
       handleHue(e)
-    }, 150)
+    }
+  }
 
-    function onMouseUp(e) {
+  const handleClick = (e) => {
+    if (!dragging) {
       handleHue(e)
-      document.body.removeEventListener("mousemove", onMouseMove)
-      document.body.removeEventListener("mouseup", onMouseUp)
     }
-
-    function onMouseDown(e) {
-      document.body.addEventListener("mousemove", onMouseMove)
-      document.body.addEventListener("mouseup", onMouseUp)
-    }
-
-    const barRef = bar.current
-    barRef.addEventListener("mousedown", onMouseDown)
-
-    return () => {
-      barRef.removeEventListener("mousedown", onMouseDown)
-      document.body.removeEventListener("mousemove", onMouseMove)
-      document.body.removeEventListener("mouseup", onMouseUp)
-    }
-  }, [handleHue, offsetLeft])
+  }
 
   return (
-    <BarWrapper reffy={bar}>
-      <Handle type='hue' />
-      <CanvasWrapper height={14}>
-        <BarCanvas ref={canvas} />
-      </CanvasWrapper>
-    </BarWrapper>
+    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging}>
+      <div className='ps-rl bar-wrap-inner' onMouseUp={stopDragging}>
+        <div className='c-resize ps-rl' onMouseMove={(e) => handleMove(e)}>
+          <div style={{left: hue * .766666666666667, top: -.5}} className='handle' onMouseDown={handleDown} />
+          <canvas ref={barRef} width='294px' height='14px' style={{position: 'relative', borderRadius: 14}} onClick={(e) => handleClick(e)} />
+        </div>
+      </div>
+    </div>
   )
 }
 
-export default Hue
+export default Hue;

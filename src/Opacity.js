@@ -1,44 +1,43 @@
-import React, { useRef, useEffect } from "react"
-import throttle from "lodash.throttle"
+import React, { useState } from "react"
 import { usePicker } from './context'
-import { Handle, BarWrapper, GradientBg } from './components'
+import { GradientBg } from './components'
 
 const Opacity = () => {
-  const bar = useRef(null);
-  const { handleOpacity, offsetLeft } = usePicker();
+  const { handleOpacity, opacity, tinyColor } = usePicker();
+  const [dragging, setDragging] = useState(false);
+  const { r, g, b } = tinyColor.toRgb();
+  const bg = `linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(${r},${g},${b},.5) 100%)`;
 
-  useEffect(() => {
-    const onMouseMove = throttle(e => {
+  const stopDragging = () => {
+    setDragging(false)
+  }
+
+  const handleDown = () => {
+    setDragging(true)
+  }
+
+  const handleMove = (e) => {
+    if (dragging) {
       handleOpacity(e)
-    }, 150)
+    }
+  }
 
-    function onMouseUp(e) {
+  const handleClick = (e) => {
+    if (!dragging) {
       handleOpacity(e)
-      document.body.removeEventListener("mousemove", onMouseMove)
-      document.body.removeEventListener("mouseup", onMouseUp)
     }
-
-    function onMouseDown(e) {
-      document.body.addEventListener("mousemove", onMouseMove)
-      document.body.addEventListener("mouseup", onMouseUp)
-    }
-
-    const barRef = bar.current
-    barRef.addEventListener("mousedown", onMouseDown)
-
-    return () => {
-      barRef.removeEventListener("mousedown", onMouseDown)
-      document.body.removeEventListener("mousemove", onMouseMove)
-      document.body.removeEventListener("mouseup", onMouseUp)
-    }
-  }, [offsetLeft, handleOpacity])
+  }
 
   return(
-    <BarWrapper reffy={bar}>
-      <Handle type='opacity' />
-      <GradientBg />
-      <div className='opacity-overlay' />
-    </BarWrapper>
+    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{marginTop: 3}}>
+      <div className='bar-wrap-inner' onMouseUp={stopDragging}>
+        <div className='c-resize ps-rl' onMouseDown={handleDown} onMouseMove={(e) => handleMove(e)}>
+          <div style={{left: 276 * opacity, top: -2}} className='handle' />
+          <div className='opacity-overlay' style={{background: bg}} onClick={(e) => handleClick(e)} />
+          <GradientBg />
+        </div>
+      </div>
+    </div>
   )
 }
 

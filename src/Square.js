@@ -2,14 +2,12 @@ import React, { useRef, useEffect } from "react"
 import throttle from "lodash.throttle"
 import usePaintSquare from "./usePaintSquare"
 import { usePicker } from './context'
-import { Handle, PickerCanvas, CanvasWrapper } from './components'
-import { useColor } from './useColor'
+import { PickerCanvas, CanvasWrapper } from './components'
 
 const Square = () => {
-  const { handleColor, offsetLeft } = usePicker();
+  const { handleColor, offsetLeft, x, y, hue } = usePicker();
   const square = useRef(null);
   const canvas = useRef(null);
-  const { hue } = useColor()
 
   usePaintSquare(canvas, hue);
 
@@ -46,10 +44,10 @@ const Square = () => {
 
   return (
     <div ref={square} className='ps-rl c-cross' style={{height: 294, width: 294 }}>
-      <Handle type='picker' />
-      <CanvasWrapper height={294}>
+      <div style={{left: x, top: y}} className='handle npe' />
+      <div className='canvas-wrapper'>
         <PickerCanvas ref={canvas} />
-      </CanvasWrapper>
+      </div>
     </div>
   )
 }

@@ -1,11 +1,10 @@
-import React, { createContext, useContext, useState } from 'react';
-import { computeBarPosition, computeHue, computeOpacity, computePickerPosition, getGradientType, computeSquareXY, getDegrees } from './utils'
-import { getHue, getHsl, getNewHsl, getRGBValues, getOpacity, getColors } from './utils'
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { computePickerPosition, getGradientType, computeSquareXY, getDegrees, getNewHsl, getColors, getHandleValue } from './utils'
 import { config } from './constants'
 import { cloneDeep } from 'lodash';
 
+var tinycolor = require("tinycolor2");
 const { squareSize, crossSize } = config
-
 const PickerContext = createContext();
 
 export default function PickerContextWrapper({ children, bounds, value, onChange }) {
@@ -19,11 +18,17 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   const colors = getColors(value);
 
   const [selectedColor, setSelectedColor] = useState(0)
-  const currentColor = colors[selectedColor]?.value
+  const currentColor = colors[selectedColor]?.value;
+  const [tinyColor, setTinyColor] = useState(tinycolor(currentColor));
 
-  const hue = getHue(currentColor)
-  const opacity = getOpacity(currentColor)
-  const [x, y] = computeSquareXY(currentColor)
+  useEffect(() => {
+    setTinyColor(tinycolor(currentColor))
+  }, [currentColor])
+
+  const { r, g, b, a: opacity } = tinyColor.toRgb();
+  const { h, s, l } = tinyColor.toHsl();
+  const hue = Math.round(h);
+  const [x, y] = computeSquareXY([hue, s, l]);
 
   const handleGradient = (newColor, left = colors[selectedColor]?.left) => {
     let colorsCopy = colors
@@ -43,18 +48,14 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   }
 
   const handleOpacity = (e) => {
-    const x = computeBarPosition(e, offsetLeft)
-    const o = computeOpacity(x)
-    const oldValue = getRGBValues(currentColor)
-    let newColor = `rgba(${oldValue[0]}, ${oldValue[1]}, ${oldValue[2]}, ${o / 100})`
+    let newO = getHandleValue(e, offsetLeft) / 100;
+    let newColor = `rgba(${r}, ${g}, ${b}, ${newO})`
     handleChange(newColor)
   }
 
   const handleHue = (e) => {
-    const x = computeBarPosition(e, offsetLeft)
-    let newHue = computeHue(x)
-    let oldHsl = getHsl(currentColor)
-    let newHsl = getNewHsl(newHue, oldHsl[1], oldHsl[2], opacity)
+    let newHue = getHandleValue(e, offsetLeft) * 3.6;
+    let newHsl = getNewHsl(newHue, s, l, opacity);
     handleChange(newHsl)
   }
 
@@ -67,36 +68,24 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     handleChange(newColor)
   }
 
-  const handleGradientLeft = (newLeft) => {
-    if (newLeft < 100) {
-      handleGradient(currentColor, newLeft);
-    }
-  }
-
-  const handleSelectedColor = (e, newI) => {
-    e.stopPropagation()
-    setSelectedColor(newI)
-  }
-
   const addPoint = (e) => {
-    e.stopPropagation()
-    let newIndex = colors.length
-    let left = computeBarPosition(e, offsetLeft)
-    colors.push({value: colors[selectedColor]?.value, left: left / 2.8 })
+    let left = getHandleValue(e, offsetLeft)
+    colors.push({value: colors[selectedColor]?.value, left: left })
     let deepCopy = cloneDeep(colors)
     let sorted = deepCopy.sort((a, b) => a.left - b.left)
     let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
     onChange(`${gradientType}(${degreeStr}, ${colorString.join(', ')})`)
-    handleSelectedColor(e, newIndex)
+    let newIndex = cloneDeep(sorted)?.map((s, i) => ({...s, i}))?.find((s) => s.left === left)
+    setSelectedColor(newIndex?.i)
   }
 
-  const deletePoint = (e) => {
+  const deletePoint = () => {
     if (colors?.length > 2) {
       let remaining = colors?.filter((rc, i) => i !== selectedColor)
       let sorted = remaining.sort((a, b) => a.left - b.left)
       let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
       onChange(`${gradientType}(${degreeStr}, ${colorString.join(', ')})`)
-      setSelectedColor(selectedColor - 1)
+      setSelectedColor(selectedColor === 0 ? 1 : selectedColor - 1)
     }
   }
 
@@ -110,6 +99,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     opacity,
     onChange,
     addPoint,
+    tinyColor,
     handleHue,
     isGradient,
     offsetLeft,
@@ -122,8 +112,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     handleOpacity,
     handleGradient,
     setSelectedColor,
-    handleGradientLeft,
-    handleSelectedColor
+    setSelectedColor,
   };
 
   return <PickerContext.Provider value={pickerState}>{children}</PickerContext.Provider>;

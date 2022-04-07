@@ -1,66 +1,68 @@
-import React, { useRef, useEffect, useState } from "react"
-import { usePicker } from "./context"
-import throttle from "lodash.throttle"
-import { computeBarPosition } from './utils'
+import React, { useRef, useEffect, useState } from "react";
+import { getHandleValue } from './utils';
+import { usePicker } from "./context";
 
 const GradientBar = ({}) => {
-  const { value, addPoint, colors, selectedColor } = usePicker()
-  const [tempColor, setTempColor] = useState(value)
+  const { currentColor, addPoint, colors, value, handleGradient, offsetLeft } = usePicker()
+  const [dragging, setDragging] = useState(false)
 
-  useEffect(() => {
-    setTimeout(() => setTempColor(value), 300)
-  }, [value])
+  const stopDragging = () => {
+    setDragging(false)
+  }
+
+  const handleDown = (e) => {
+    if (!dragging) {
+      addPoint(e);
+    }
+  }
+
+  const handleUp = (e) => {
+    if (dragging) {
+      e.stopPropagation();
+      handleGradient(currentColor, getHandleValue(e, offsetLeft))
+      stopDragging()
+    }
+  }
+
+  const handleMove = (e) => {
+    if (dragging) {
+      handleGradient(currentColor, getHandleValue(e, offsetLeft))
+    }
+  }
 
   return(
-    <div style={{width: '100%', height: 14, marginTop: 14, backgroundImage: tempColor, borderRadius: 10}} className='ps-rl' onMouseDown={(e) => addPoint(e)}>
-      {colors?.map((c, i) => (<Handle left={c.left} key={`${i}-${c}`} i={i} />))}
+    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging}>
+      <div className='ps-rl bar-wrap-inner' onMouseUp={(e) => handleUp(e)}>
+        <div onMouseDown={(e) => handleDown(e)} onMouseMove={(e) => handleMove(e)} style={{paddingTop: 6, paddingBottom: 6}}>
+          <div style={{width: 294, height: 14, backgroundImage: value, borderRadius: 10}} />
+        </div>
+        {colors?.map((c, i) => (<Handle left={c.left} key={`${i}-${c}`} i={i} setDragging={setDragging} />))}
+      </div>
     </div>
   )
 }
 
 export default GradientBar
 
-export const Handle = ({ left, i }) => {
-  const { handleSelectedColor, handleGradientLeft, offsetLeft, selectedColor } = usePicker()
-  const handleRef = useRef(null)
-  const isSelected = selectedColor === i
+export const Handle = ({ left, i, setDragging }) => {
+  const { setSelectedColor, offsetLeft, selectedColor } = usePicker();
+  const isSelected = selectedColor === i;
 
-  useEffect(() => {
-    const onMouseMove = throttle(e => {
-      handleGradientLeft((e.clientX - offsetLeft) / 2.8)
-    }, 150)
-
-    function onMouseUp(e) {
-      document.body.removeEventListener("mousemove", onMouseMove)
-      document.body.removeEventListener("mouseup", onMouseUp)
-    }
-
-    function onMouseDown(e) {
-      e.stopPropagation(e)
-      handleSelectedColor(e, i)
-      document.body.addEventListener("mousemove", onMouseMove)
-      document.body.addEventListener("mouseup", onMouseUp)
-    }
-
-    const href = handleRef.current
-    href.addEventListener("mousedown", onMouseDown)
-
-    return () => {
-      href.removeEventListener("mousedown", onMouseDown)
-      document.body.removeEventListener("mousemove", onMouseMove)
-      document.body.removeEventListener("mouseup", onMouseUp)
-    }
-  }, [offsetLeft, handleGradientLeft])
+  const handleDown = (e) => {
+    e.stopPropagation();
+    setSelectedColor(i);
+    setDragging(true)
+  }
 
   return(
-    <div style={handleStyle(left, isSelected)} className='handle' onClick={(e) => handleSelectedColor(e, i)} ref={handleRef} />
+    <div style={{left: left * 2.76 + 13 }} onMouseDown={(e) => handleDown(e)} className='gradient-handle-wrap'>
+      <div style={handleStyle(isSelected)} className='gradient-handle' />
+    </div>
   )
 }
 
-const handleStyle = (left, isSelected) => {
+const handleStyle = (isSelected) => {
   return {
-    top: -2,
-    left: left * 2.8,
     boxShadow: isSelected ? '0px 0px 5px 1px rgba(86, 140, 245,.95)' : '',
     border: isSelected ? '2px solid white' : '2px solid rgba(255,255,255,.75)',
   }

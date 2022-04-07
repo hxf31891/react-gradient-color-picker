@@ -6,7 +6,7 @@ import Picker from "./Picker";
 import './styles.css';
 
 
-function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hideControls, hideInputs, hidePresets, presets }) {
+function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hideControls = false, hideInputs = false, hidePresets = false, presets = [], setDegrees }) {
   const contRef = useRef(null);
   const { width, height } = useWindowSizes();
   const [bounds, setBounds] = useState({});
@@ -19,7 +19,7 @@ function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hid
 
   return (
     <div ref={contRef}>
-      <PickerContextWrapper bounds={bounds} value={value} onChange={onChange}>
+      <PickerContextWrapper bounds={bounds} value={value} onChange={onChange} setDegrees={setDegrees}>
         <Picker hideControls={hideControls} hideInputs={hideInputs} hidePresets={hidePresets} presets={presets} />
       </PickerContextWrapper>
     </div>

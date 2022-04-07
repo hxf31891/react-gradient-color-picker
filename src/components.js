@@ -1,42 +1,13 @@
 import React from 'react'
 import { config } from './constants'
 import styled from "styled-components"
-import { useHandleStyle } from './useStyles'
 
 const { squareSize } = config
-
-export const Handle = ({type}) => {
-  const { getHandleStyles } = useHandleStyle()
-
-  return(
-    <div style={getHandleStyles(type)} className='handle npe' />
-  )
-}
-
-export const CanvasWrapper = ({ children, height }) => {
-  return(
-    <div style={{height: height}} className='canvas-wrapper'>
-      {children}
-    </div>
-  )
-}
-
-export const BarCanvas = styled.canvas.attrs(p => ({
-  width: squareSize,
-}))``
 
 export const PickerCanvas = styled.canvas.attrs(p => ({
   width: squareSize,
   height: squareSize
 }))``
-
-export const BarWrapper = ({children, reffy}) => {
-  return(
-    <div ref={reffy} className='bar-wrapper'>
-      {children}
-    </div>
-  )
-}
 
 export const GradientBg = () => {
   return(
