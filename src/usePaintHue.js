@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { config } from './constants'
 
-const { squareSize, barSize } = config
+const { squareSize } = config
 
 const usePaintHue = canvas => {
   useEffect(() => {

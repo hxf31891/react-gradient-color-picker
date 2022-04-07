@@ -1,13 +1,4 @@
 import React from 'react'
-import { config } from './constants'
-import styled from "styled-components"
-
-const { squareSize } = config
-
-export const PickerCanvas = styled.canvas.attrs(p => ({
-  width: squareSize,
-  height: squareSize
-}))``
 
 export const GradientBg = () => {
   return(

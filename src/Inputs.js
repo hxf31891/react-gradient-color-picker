@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { formatInputValues, rgbInputSwitch } from './utils'
 import { usePicker } from './context'
-var convert = require('color-convert');
+var tc = require("tinycolor2");
 
 const Inputs = () => {
   const [disable, setDisable] = useState('')
@@ -17,10 +17,13 @@ const Inputs = () => {
   }, [tinyColor])
 
   const handleHex = e => {
-    let newRgba = convert.hex.rgb(e.target.value);
+    let tinyHex = tc(e.target.value);
     setNewHex(e.target.value);
-    let newColor = `rgba(${newRgba[0]}, ${newRgba[1]}, ${newRgba[2]}, ${a})`;
-    handleChange(newColor);
+    if (tinyHex.isValid()) {
+      let { r, g, b } =  tinyHex.toRgb()
+      let newColor = `rgba(${r}, ${g}, ${b}, ${a})`;
+      handleChange(newColor);
+    }
   }
 
   const handleRgb = (value, type) => {

@@ -1,8 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getHandleValue } from './utils';
 import { usePicker } from "./context";
 
-const GradientBar = ({}) => {
+const GradientBar = () => {
   const { currentColor, addPoint, colors, value, handleGradient, offsetLeft } = usePicker()
   const [dragging, setDragging] = useState(false)
 
@@ -16,23 +16,15 @@ const GradientBar = ({}) => {
     }
   }
 
-  const handleUp = (e) => {
-    if (dragging) {
-      e.stopPropagation();
-      handleGradient(currentColor, getHandleValue(e, offsetLeft))
-      stopDragging()
-    }
-  }
-
   const handleMove = (e) => {
     if (dragging) {
-      handleGradient(currentColor, getHandleValue(e, offsetLeft))
+      handleGradient(currentColor, getHandleValue(e))
     }
   }
 
   return(
     <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging}>
-      <div className='ps-rl bar-wrap-inner' onMouseUp={(e) => handleUp(e)}>
+      <div className='ps-rl bar-wrap-inner' onMouseUp={stopDragging}>
         <div onMouseDown={(e) => handleDown(e)} onMouseMove={(e) => handleMove(e)} style={{paddingTop: 6, paddingBottom: 6}}>
           <div style={{width: 294, height: 14, backgroundImage: value, borderRadius: 10}} />
         </div>
@@ -45,7 +37,7 @@ const GradientBar = ({}) => {
 export default GradientBar
 
 export const Handle = ({ left, i, setDragging }) => {
-  const { setSelectedColor, offsetLeft, selectedColor } = usePicker();
+  const { setSelectedColor, selectedColor } = usePicker();
   const isSelected = selectedColor === i;
 
   const handleDown = (e) => {

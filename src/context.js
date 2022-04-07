@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { computePickerPosition, getGradientType, computeSquareXY, getDegrees, getNewHsl, getColors, getHandleValue } from './utils'
+import { computePickerPosition, getGradientType, computeSquareXY, getDegrees, getNewHsl, getColors, getHandleValue, safeBounds } from './utils'
 import { config } from './constants'
-import { cloneDeep } from 'lodash';
+import {cloneDeep} from 'lodash';
 
 var tinycolor = require("tinycolor2");
 const { squareSize, crossSize } = config
@@ -48,19 +48,19 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   }
 
   const handleOpacity = (e) => {
-    let newO = getHandleValue(e, offsetLeft) / 100;
+    let newO = getHandleValue(e) / 100;
     let newColor = `rgba(${r}, ${g}, ${b}, ${newO})`
     handleChange(newColor)
   }
 
   const handleHue = (e) => {
-    let newHue = getHandleValue(e, offsetLeft) * 3.6;
+    let newHue = getHandleValue(e) * 3.6;
     let newHsl = getNewHsl(newHue, s, l, opacity);
     handleChange(newHsl)
   }
 
   const handleColor = (e, ctx) => {
-    const [x, y] = computePickerPosition(e, offsetLeft, offsetTop)
+    const [x, y] = computePickerPosition(e)
     const x1 = Math.min(x + crossSize / 2, squareSize - 1)
     const y1 = Math.min(y + crossSize / 2, squareSize - 1)
     const [r, g, b] = ctx.getImageData(x1, y1, 1, 1).data
@@ -111,7 +111,6 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     selectedColor,
     handleOpacity,
     handleGradient,
-    setSelectedColor,
     setSelectedColor,
   };
 

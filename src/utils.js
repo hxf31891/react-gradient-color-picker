@@ -1,10 +1,11 @@
 import { config } from './constants'
+var tc = require("tinycolor2");
 
 const { squareSize, barSize, crossSize } = config
-var convert = require('color-convert');
 var gradient = require('gradient-parser');
 
-export function getHandleValue(e, offsetLeft) {
+export function getHandleValue(e) {
+  const { offsetLeft } = safeBounds(e);
   let pos = e.clientX - offsetLeft - barSize / 2;
   let bounded = formatInputValues(pos, 0, 276)
   return Math.round(bounded / 2.76)
@@ -21,7 +22,8 @@ export function computeSquareXY(hsl) {
   return [x, y]
 }
 
-export function computePickerPosition(e, offsetLeft, offsetTop) {
+export function computePickerPosition(e) {
+  const { offsetLeft, offsetTop } = safeBounds(e)
   const getX = () => {
     let xPos = e.clientX - offsetLeft - crossSize / 2
     return formatInputValues(xPos, -8, 284)
@@ -44,8 +46,9 @@ export const getGradientType = (value) => {
 }
 
 export const getNewHsl = (newHue, s, l, o) => {
-  let hsl = convert.hsl.rgb(newHue, s * 100, l * 100)
-  return `rgba(${hsl[0]}, ${hsl[1]}, ${hsl[2]}, ${o})`
+  let tiny = tc({h: newHue, s: s, l: l})
+  let { r, g, b } = tiny.toRgb();
+  return `rgba(${r}, ${g}, ${b}, ${o})`
 }
 
 export const getColors = (value) => {
@@ -70,4 +73,9 @@ export const rgbInputSwitch = (type, newValue, r, g, b, a) => {
   } else {
     return `rgba(${r}, ${g}, ${newValue}, ${a})`
   }
+}
+
+export const safeBounds = (e) => {
+  let client = e.target.parentNode.getBoundingClientRect();
+  return { offsetLeft: client?.x, offsetTop: client?.y}
 }

@@ -1,52 +1,48 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useState } from "react"
 import throttle from "lodash.throttle"
 import usePaintSquare from "./usePaintSquare"
 import { usePicker } from './context'
-import { PickerCanvas, CanvasWrapper } from './components'
 
 const Square = () => {
-  const { handleColor, offsetLeft, x, y, hue } = usePicker();
-  const square = useRef(null);
+  const { handleColor, x, y, hue, setBounds, bounds } = usePicker();
+  const [dragging, setDragging] = useState(false);
   const canvas = useRef(null);
-
   usePaintSquare(canvas, hue);
 
-  useEffect(() => {
-    const canvasRef = canvas.current
-    const squareRef = square.current
-    const ctx = canvasRef.getContext("2d")
+  const handleChange = (e) => {
+    const ctx = canvas?.current?.getContext("2d");
+    const onMouseMove = throttle(() => handleColor(e, ctx), 250)
+    onMouseMove()
+  }
 
-    const onMouseMove = throttle(e => {
-      handleColor(e, ctx)
-    }, 150)
+  const stopDragging = () => {
+    setDragging(false)
+  }
 
-    function onMouseUp(e) {
-      handleColor(e, ctx)
-      document.body.removeEventListener("mousemove", onMouseMove)
-      document.body.removeEventListener("mouseup", onMouseUp)
+  const stopDraggingTest = () => {
+    setDragging(false)
+  }
+
+  const handleMove = (e) => {
+    if (dragging) {
+      handleChange(e)
     }
+  }
 
-    function onMouseDown(e) {
-      document.body.addEventListener("mousemove", onMouseMove)
-      document.body.addEventListener("mouseup", onMouseUp)
+  const handleClick = (e) => {
+    if (!dragging) {
+      handleChange(e)
     }
-
-    canvasRef.addEventListener("mousedown", onMouseDown)
-    squareRef.addEventListener("mousedown", onMouseDown)
-
-    return () => {
-      canvasRef.removeEventListener("mousedown", onMouseDown)
-      squareRef.removeEventListener("mousedown", onMouseDown)
-      document.body.removeEventListener("mousemove", onMouseMove)
-      document.body.removeEventListener("mouseup", onMouseUp)
-    }
-  }, [handleColor, offsetLeft])
+  }
 
   return (
-    <div ref={square} className='ps-rl c-cross' style={{height: 294, width: 294 }}>
-      <div style={{left: x, top: y}} className='handle npe' />
-      <div className='canvas-wrapper'>
-        <PickerCanvas ref={canvas} />
+    <div className='ps-rl'>
+      <div style={{position: 'absolute', left: -7, top: -7, width: 308, height: 308}} onMouseEnter={stopDraggingTest} />
+      <div className='ps-rl c-cross' onMouseMove={(e) => handleMove(e)} onMouseUp={stopDragging}>
+        <div style={{left: x, top: y}} className='handle' onMouseDown={() => setDragging(true)} />
+        <div className='canvas-wrapper' onClick={(e) => handleClick(e)}>
+          <canvas ref={canvas} width='294px' height='294px' />
+        </div>
       </div>
     </div>
   )
