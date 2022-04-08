@@ -147,7 +147,8 @@
   width: 18px;
   height: 24px;
   border-radius: 4px;
-  margin-right: 9px
+  margin-right: 3px
+  /* margin-right: 9px */
 }
 
 .bar-wrap {

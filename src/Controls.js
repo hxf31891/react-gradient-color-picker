@@ -26,9 +26,6 @@ const Controls = () => {
           {(isLinear && isGradient) && <DegreePicker />}
           {isGradient && <GradientType />}
           {(isGradient && colors.length > 2) && <DeleteBtn />}
-          <div style={{width: 24}} className='df jc'>
-            <MenuIcon />
-          </div>
         </div>
       </div>
     </div>
