@@ -8,9 +8,6 @@
   <a href="https://bundlephobia.com/result?p=react-best-gradient-color-picker">
     <img alt="" src="https://badgen.net/bundlephobia/min/react-best-gradient-color-picker?color=2c139f" />
   </a>
-   <a href="https://github.com/hxf31891/react-gradient-color-picker/blob/main/LICENSE">
-    <img alt="" src="https://badgen.net/github/license/react-gradient-color-picker/react-gradient-color-picker?color=2c139f" />
-  </a>
 </div>
 
 # react-best-gradient-color-picker
@@ -28,7 +25,9 @@
 <br />
 
 ## Install
-`npm install react-best-gradient-color-picker`
+```
+npm install react-best-gradient-color-picker
+```
 
 ## Demo
 See the picker in action [here](https://gradient-package-demo.web.app/)
