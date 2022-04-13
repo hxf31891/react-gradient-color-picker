@@ -3,7 +3,7 @@ import { getHandleValue } from './utils';
 import { usePicker } from "./context";
 
 const GradientBar = () => {
-  const { currentColor, addPoint, colors, value, handleGradient, offsetLeft } = usePicker()
+  const { currentColor, addPoint, colors, value, handleGradient } = usePicker()
   const [dragging, setDragging] = useState(false)
 
   const stopDragging = () => {
@@ -38,7 +38,7 @@ export default GradientBar
 
 export const Handle = ({ left, i, setDragging }) => {
   const { setSelectedColor, selectedColor } = usePicker();
-  const isSelected = selectedColor === i;
+  const isSelected = selectedColor === i
 
   const handleDown = (e) => {
     e.stopPropagation();
@@ -48,7 +48,7 @@ export const Handle = ({ left, i, setDragging }) => {
 
   return(
     <div style={{left: left * 2.76 + 13 }} onMouseDown={(e) => handleDown(e)} className='gradient-handle-wrap'>
-      <div style={handleStyle(isSelected)} className='gradient-handle' />
+      <div style={handleStyle(isSelected)} className='gradient-handle df jc ac'>{isSelected && <div style={{width: 5, height:5, borderRadius: '50%', background: 'white'}} />}</div>
     </div>
   )
 }

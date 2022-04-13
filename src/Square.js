@@ -4,7 +4,7 @@ import usePaintSquare from "./usePaintSquare"
 import { usePicker } from './context'
 
 const Square = () => {
-  const { handleColor, x, y, hue, setBounds, bounds } = usePicker();
+  const { handleColor, x, y, hue } = usePicker();
   const [dragging, setDragging] = useState(false);
   const canvas = useRef(null);
   usePaintSquare(canvas, hue);

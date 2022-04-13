@@ -98,36 +98,22 @@
 .input-wrap {
   height: 32px;
   border-radius: 6px;
-  border: none;
-  box-shadow: 0px 0px 2px #96959c;
-  outline: none;
-  text-align: center;
+  border: 1px solid #bebebe;
   width: 100%;
+  padding: 2px;
+
+  outline: none;
   color: black;
-  font-weight: 400
+  font-weight: 400;
+  text-align: center;
 }
 
 .input-label {
   text-align: center;
-  font-size: 12px;
   line-height: 1.2;
   font-weight: 700;
-  color: #b8b8b8
-}
-
-.control-grad-wrap {
-  border-radius: 4px;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.control-grad-btn {
-  width: 19px;
-  height: 19px;
-  border-radius: 3px;
+  color: rgb(86,86,86);
+  font-size: 11px;
 }
 
 .control-btn {
@@ -141,14 +127,9 @@
   font-size: 12px;
   height: 24px;
   transition: all 160ms ease;
-}
-
-.delete-point-btn {
-  width: 18px;
-  height: 24px;
-  border-radius: 4px;
-  margin-right: 3px
-  /* margin-right: 9px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bar-wrap {
@@ -162,4 +143,41 @@
   width: 324px;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.control-btns-wrap {
+  height: 28px;
+  background: #e9e9f5;
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.input-dropdown {
+  position: absolute;
+  right: -2px;
+  top: 34px;
+  padding: 5px;
+  background: #e9e9f5;
+  z-index: 100000000;
+  border-radius: 6px;
+  box-shadow: 1px 1px 14px 1px rgba(0,0,0,.25)
+}
+
+.input-dropdown::before {
+  position: absolute;
+  content: '';
+  right: 12.5px;
+  top: -3px;
+  width: 9px;
+  height: 9px;
+  background: #e9e9f5;
+  transform: rotate(45deg);
+  z-index: 0;
+  box-shadow: -1px -2px 8px rgba(0,0,0,.15);
+}
+
+input {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
 }

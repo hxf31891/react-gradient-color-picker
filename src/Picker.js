@@ -8,13 +8,13 @@ import Controls from './Controls'
 import GradientBar from './GradientBar'
 import { usePicker } from './context'
 
-const Picker = ({ hideControls, hideInputs, hidePresets, presets }) => {
+const Picker = ({ hideControls, hideInputs, hidePresets, presets, hideEyeDrop, hideAdvancedSliders, hideColorGuide, hideInputType }) => {
   const { isGradient } = usePicker();
 
   return (
     <div style={{ userSelect: 'none' }}>
       <Square />
-      {!hideControls && <Controls />}
+      {!hideControls && <Controls hideEyeDrop={hideEyeDrop} hideAdvancedSliders={hideAdvancedSliders} hideColorGuide={hideColorGuide} hideInputType={hideInputType} />}
       {isGradient && <GradientBar />}
       <Hue />
       <Opacity />

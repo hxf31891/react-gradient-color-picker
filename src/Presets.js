@@ -13,10 +13,10 @@ const Presets = ({ presets = [] }) => {
   }
 
   return(
-    <div style={{display: 'flex', marginTop: 20}}>
+    <div style={{display: 'flex', marginTop: 14}}>
       <div style={{width: 50, height: 50, background: value, borderRadius: 6, flexShrink: 0}}/>
       <div style={{display: 'flex', flexWrap: 'wrap', marginLeft: 16}}>
-      {getPresets().map((p, key) => (<div key={key} style={{height: 23, width: 23, borderRadius: 4, background: p, marginLeft: 2, marginBottom: 2, border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : ''}} onClick={() => handleChange(p)}/>))}
+        {getPresets().map((p, key) => (<div key={key} style={{height: 23, width: 23, borderRadius: 4, background: p, marginLeft: 2, marginBottom: 2, border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : ''}} onClick={() => handleChange(p)}/>))}
       </div>
     </div>
   )
