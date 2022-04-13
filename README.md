@@ -38,6 +38,7 @@ yarn add react-best-gradient-color-picker
 See the picker in action [here](https://gradient-package-demo.web.app/)
 
 <br />
+
 ## Basic Example 
 ```js
 import React from 'react'
@@ -49,6 +50,8 @@ function MyApp() {
   return <ColorPicker value={color} onChange={setColor} />
 }
 ```
+
+<br />
 
 ### Props
 
@@ -71,6 +74,7 @@ function MyApp() {
 | onChange         | A function to update color value                                 |
 
 <br />
+
 # useColorPicker 
 
 - Take complete control of the picker
@@ -253,6 +257,7 @@ function MyApp() {
 ```
 
 <br />
+
 ## LEGACY V1 - Manual Control - Customizing UI
 
 The state of the picker is determined by parsing the value string. You can update props like colorType (solid/gradient), gradientType (linear/radial), gradientDegrees, hex, rgba, opacity and hue simply by updating the value you are passing into the component. Let's say you want to change the colorType from gradient to solid: 
