@@ -13,15 +13,16 @@
 # react-best-gradient-color-picker
 - Customizable, easy to use color and gradient picker for React.js
 - Simply pass in an rgba or css gradient string as value and an onChange handler 
-- UI will default to solid or gradient based on the value string it receives 
-- You can customize the UI by hiding the various elements and updating value (see manual control below)
+- Variety of optional tools like eye dropper, advanced color settings, and color guide
+- use the useColorPicker hook for complete control over of the picker
+- You can completly customize the UI by hiding the included elements and using the hook to build your own
 - You can also customize preset options by passing in an array of rgba colors (see custom presets below)
 
-<br />
-<div align="center">
-  <img alt="" src="https://i.ibb.co/J553FGJ/demo.png" width="200px"/>
-  <img alt="" src="https://i.ibb.co/ZdzKxCw/demo2.png" width="201px"/>
-</div>
+<!-- <br /> -->
+<!-- <div align="center">
+  <img alt="" src="https://i.ibb.co/6grxb9W/Screen-Shot-2022-04-13-at-8-26-54-AM.png" width="200px"/>
+  <img alt="" src="https://i.ibb.co/JmX6GH6/Screen-Shot-2022-04-13-at-8-26-45-AM.png" width="200px"/>
+</div> -->
 <br />
 
 ## Install
@@ -29,10 +30,16 @@
 npm install react-best-gradient-color-picker
 ```
 
+```
+yarn add react-best-gradient-color-picker
+```
+
 ## Demo
 See the picker in action [here](https://gradient-package-demo.web.app/)
 
-## Example 
+<br />
+
+## Basic Example 
 ```js
 import React from 'react'
 import ColorPicker from 'react-best-gradient-color-picker'
@@ -44,6 +51,8 @@ function MyApp() {
 }
 ```
 
+<br />
+
 ### Props
 
 | Name             | Type         | Default                 | Description                                                      |
@@ -52,6 +61,10 @@ function MyApp() {
 | hideInputs       | `boolean`    | `false`                 | (optional) hide the hex and rgba inputs                          |
 | hideControls     | `boolean`    | `false`                 | (optional) hide the solid/gradient and gradient options          |
 | hidePresets      | `boolean`    | `false`                 | (optional) hide the preset color options                         |
+| hideEyeDrop      | `boolean`    | `false`                 | (optional) hide (and disable the eye dropper tool                |
+| hideAdvancedSliders | `boolean` | `false`                 | (optional) hide the additional sliders (saturation, luminence, brightness|
+| hideColorGuide   | `boolean`    | `false`                 | (optional) hide the color guide, a tool that shows color pairings|
+| hideInputType    | `boolean`    | `false`                 | (optional) hide the input type selector, looking the type        |
 | presets          | `array`      | ['rgba(0,0,0,1)', ...]  | (optional) pass in custom preset options ['rgba()', 'rgba()', ..]|
 
 ### API
@@ -60,7 +73,192 @@ function MyApp() {
 | ---------------- | ---------------------------------------------------------------- |
 | onChange         | A function to update color value                                 |
 
-## Manual Control - Customizing UI
+<br />
+
+# useColorPicker 
+
+- Take complete control of the picker
+- Get current state
+- Convert between color types
+
+## Basic Example 
+
+- Initialize the hook by passing in the same color value and onChange handler
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const [color, setColor] = useState('linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)');
+  const { setSolid, setGradient } = useColorPicker(color, setColor);
+
+  return(
+    <div>
+      <button onClick={setSolid}>Solid</button>
+      <button onClick={setGradient}>Gradient</button>
+      <ColorPicker value={color} onChange={setColor} />
+    </div>
+   )
+}
+```
+
+### Included Functions 
+
+| Name             | Arguments        | Description                                                      |
+| ---------------- | ---------------- | ---------------------------------------------------------------- |
+| setLinear        |                  | Change the type of gradient to linear                            |
+| setRadial        |                  | Change the type of gradient to radial                            |
+| setDegrees       | degrees (num, 0 - 360)| Change the degrees of a linear gradient                     |
+| setSolid         | (optional) new solid color (rgba string) | Change the pickers color mode from solid to gradient |
+| setGradient      | (optional) new gradient (CSS gradient) | Change the pickers color mode from gradient to solid |
+| setR             | value (num, 0 - 255) | Update the red value of the color                            |
+| setG             | value (num, 0 - 255) | Update the green value of the color                          |
+| setB             | value (num, 0 - 255) | Update the blue value of the color                           |
+| setA             | value (num, 0 - 100) | Update the opacity (alpha) of a color                        |
+| setHue           | value (num, 0 - 360) | Update the hue of a color                                    |
+| setSaturation    | value (num, 0 - 100) | Update the saturation of a color                             |
+| setLightness     | value (num, 0 - 100) | Update the lightness of a color                              |
+| valueToHSL       |                  | Get the current value in HSL                                     |
+| valueToHSV       |                  | Get the current value in HSV                                     |
+| valueToHex       |                  | Get the current value in HEX                                     |
+| valueToCmyk      |                  | Get the current value in CMYK                                    |
+| setSelectedPoint | index of point (num) | Update which individual color of a gradient is in focus      |
+| deletePoint      | index of point (num) | Delete one of the gradients colors                           |
+| addPoint         | position of point (num, 0 - 100) | Add a new color to the gradient                  |
+| setPointLeft     | value (num, 0 - 100) | Update the position (left) of the currently selected gradient color |
+
+### Available State
+
+| Name             | Description                                                      |
+| ---------------- | ---------------------------------------------------------------- |
+| selectedPoint    | returns index of which color point of a gradient is currently selected |
+| isGradient       | returns which mode the picker is in, solid or gradient           |
+| gradientType     | which gradient type is currently selected, linear or radial      |
+| degrees          | current degrees of a radial gradient                             |
+| currentLeft      | the position of the selected gradient color                      |
+| rgbaArr          | get the current rgba values in an array                          |
+| hslArr           | get the current hsl values in an array                           |
+
+
+## Various Customization Examples
+
+### Custom Gradient Controls
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const [color, setColor] = useState('linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)');
+  const { gradientType, setLinear, setRadial, addPoint, deletePoint, degrees, setDegrees, setPointLeft, currentLeft, selectedPoint } = useColorPicker(color, setColor);
+
+  return(
+    <div>
+      <button onClick={setLinear}>Linear</button>
+      <button onClick={setRadial}>Radial</button>
+      {gradientType === 'linear-gradient' && <input value={degrees} onChange={(e) => setDegrees(e.target.value)} />}
+      <input value={currentLeft} onChange={(e) => setPointLeft(e.target.value)} />
+      <button onClick={() => addPoint(50)}>Add Color</button>
+      <button onClick={() => deletePoint(selectedPoint)}>Delete Color</button>
+      <ColorPicker value={color} onChange={setColor} hideControls={true} />
+    </div>
+   )
+}
+```
+
+### Custom RGBA Inputs
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const [color, setColor] = useState('linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)');
+  const { setR, setG, setB, setA, rgbaArr } = useColorPicker(color, setColor);
+
+  return(
+    <div>
+      <input value={rgbaArr[0]} onChange={(e) => setR(e.target.value)} />
+      <input value={rgbaArr[1]} onChange={(e) => setG(e.target.value)} />
+      <input value={rgbaArr[2]} onChange={(e) => setB(e.target.value)} />
+      <input value={rgbaArr[3]} onChange={(e) => setA(e.target.value)} />
+      <ColorPicker value={color} onChange={setColor} hideInputs={true} />
+    </div>
+   )
+}
+```
+
+
+### Conversions
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const [color, setColor] = useState('linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)');
+  const { valueToHSL, valueToHSV, valueToHex, valueToCmyk, rgbaArr, hslArr } = useColorPicker(color, setColor);
+
+  const hslString = valueToHSL();
+  const hsvString = valueToHSV();
+  const hexString = valueToHex();
+  const cmykString = valueToCmyk();
+  const rgbaArray = rgbaArr;
+  const hslArray = hslArr;
+
+  return(
+    <div>
+      <ColorPicker value={color} onChange={setColor} />
+    </div>
+   )
+}
+```
+<br />
+## Custom Presets Example 
+
+```js
+import React from 'react'
+import ColorPicker from 'react-best-gradient-color-picker'
+
+const customPresets = [
+  'rgba(34, 164, 65, 1)',
+  'rgba(210, 18, 40, .5)',
+  'rgba(90, 110, 232, 1)',
+  'rgba(65, 89, 56, 1)',
+  'rgba(98, 189, 243, 1)',
+  'rgba(255, 210, 198, 1)',
+  'rgba(94, 94, 94, 1)'
+] //max 18 colors, you can pass in more but the array will be sliced to the first 18
+
+function MyApp() {
+  const [color, setColor] = useState('rgba(255,255,255,1');
+
+  return <ColorPicker value={color} onChange={setColor} presets={customPresets} />
+}
+```
+
+You may also want to provide the users recently used colors in lieu of preset options. This can be easily accomplished use the hook. 
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const [color, setColor] = useState('linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)');
+  const { previousColors } = useColorPicker(color, setColor);
+
+  return(
+    <div>
+      <ColorPicker value={color} onChange={setColor} presets={previousColors} />
+    </div>
+   )
+}
+```
+
+<br />
+
+## LEGACY V1 - Manual Control - Customizing UI
 
 The state of the picker is determined by parsing the value string. You can update props like colorType (solid/gradient), gradientType (linear/radial), gradientDegrees, hex, rgba, opacity and hue simply by updating the value you are passing into the component. Let's say you want to change the colorType from gradient to solid: 
 
@@ -128,28 +326,6 @@ function MyApp() {
       <ColorPicker value={color} onChange={setColor} />
     </div>
    )
-}
-```
-
-## Custom Presets Example 
-```js
-import React from 'react'
-import ColorPicker from 'react-best-gradient-color-picker'
-
-const customPresets = [
-  'rgba(34, 164, 65, 1)',
-  'rgba(210, 18, 40, .5)',
-  'rgba(90, 110, 232, 1)',
-  'rgba(65, 89, 56, 1)',
-  'rgba(98, 189, 243, 1)',
-  'rgba(255, 210, 198, 1)',
-  'rgba(94, 94, 94, 1)'
-] //max 18 colors, you can pass in more but the array will be sliced to the first 18
-
-function MyApp() {
-  const [color, setColor] = useState('rgba(255,255,255,1');
-
-  return <ColorPicker value={color} onChange={setColor} presets={customPresets} />
 }
 ```
 
