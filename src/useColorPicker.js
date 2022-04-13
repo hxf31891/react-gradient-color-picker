@@ -1,4 +1,5 @@
-import { getGradientType, getDegrees, isUpperCase, getHandleValue } from './utils'
+import { useState, useEffect } from 'react'
+import { getGradientType, getDegrees, isUpperCase } from './utils'
 import { low, high, getColors, formatInputValues } from './formatters'
 import { rgb2cmyk } from './converters'
 import { config } from './constants'
@@ -7,10 +8,6 @@ const { defaultColor, defaultGradient } = config
 var tc = require("tinycolor2");
 
 export const useColorPicker = (value, onChange) => {
-  const tiny = tc(value);
-  const { r, g, b, a } = tiny.toRgb();
-  const { h, s, l } = tiny.toHsl();
-
   const isGradient = value?.includes('gradient')
   const gradientType = getGradientType(value)
   const degrees = getDegrees(value)
@@ -21,6 +18,17 @@ export const useColorPicker = (value, onChange) => {
   const currentColor = currentColorObj?.value;
   const selectedPoint = currentColorObj?.index;
   const currentLeft = currentColorObj?.left;
+  const [previousColors, setPreviousColors] = useState([])
+
+  const tiny = tc(currentColor);
+  const { r, g, b, a } = tiny.toRgb();
+  const { h, s, l } = tiny.toHsl();
+
+  useEffect(() => {
+    if (tc(currentColor)?.isValid()) {
+      setPreviousColors([currentColor, ...previousColors?.slice(0, 19)])
+    }
+  }, [currentColor])
 
   const setLinear = () => {
     const remaining = value.split(/,(.+)/)[1]
@@ -132,7 +140,7 @@ export const useColorPicker = (value, onChange) => {
     return `cmyk(${c}, ${m}, ${y}, ${k})`
   }
 
-  const setSelectedColor = (index) => {
+  const setSelectedPoint = (index) => {
     if (isGradient) {
       let newGradStr = colors?.map((cc, i) => ({...cc, value: i === index ? high(cc) : low(cc)}))
       createGradientStr(newGradStr)
@@ -162,5 +170,12 @@ export const useColorPicker = (value, onChange) => {
     }
   }
 
-  return {setLinear, setRadial, setDegrees, setSolid, setGradient, setR, setG, setB, setA, setHue, setSaturation, setLightness, valueToHSL, valueToHSV, valueToHex, valueToCmyk, setSelectedColor, addPoint, deletePoint, selectedPoint, isGradient, gradientType, degrees}
+  const setPointLeft = (left) => {
+    handleGradient(currentColor, formatInputValues(left, 0, 100))
+  }
+
+  const rgbaArr = [r,g,b,a]
+  const hslArr = [h, s, l]
+
+  return {setLinear, setRadial, setDegrees, setSolid, setGradient, setR, setG, setB, setA, setHue, setSaturation, setLightness, valueToHSL, valueToHSV, valueToHex, valueToCmyk, setSelectedPoint, addPoint, deletePoint, selectedPoint, isGradient, gradientType, degrees, setPointLeft, currentLeft, rgbaArr, hslArr, previousColors}
 }
