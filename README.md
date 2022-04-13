@@ -36,7 +36,7 @@ yarn add react-best-gradient-color-picker
 
 ## Demo
 See the picker in action [here](https://gradient-package-demo.web.app/)
-
+<br />
 ## Basic Example 
 ```js
 import React from 'react'
@@ -48,7 +48,7 @@ function MyApp() {
   return <ColorPicker value={color} onChange={setColor} />
 }
 ```
-
+<br />
 ### Props
 
 | Name             | Type         | Default                 | Description                                                      |
