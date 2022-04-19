@@ -260,6 +260,8 @@ function MyApp() {
 
 ## LEGACY V1 - Manual Control - Customizing UI
 
+This still works, although most functions are available through the useColorPicker hook, if there is something you need that is not available you could use the below methods to create your desired functionality.
+
 The state of the picker is determined by parsing the value string. You can update props like colorType (solid/gradient), gradientType (linear/radial), gradientDegrees, hex, rgba, opacity and hue simply by updating the value you are passing into the component. Let's say you want to change the colorType from gradient to solid: 
 
 ```js
