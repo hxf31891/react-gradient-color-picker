@@ -18,11 +18,10 @@
 - You can completly customize the UI by hiding the included elements and using the hook to build your own
 - You can also customize preset options by passing in an array of rgba colors (see custom presets below)
 
-<!-- <br /> -->
-<!-- <div align="center">
-  <img alt="" src="https://i.ibb.co/6grxb9W/Screen-Shot-2022-04-13-at-8-26-54-AM.png" width="200px"/>
-  <img alt="" src="https://i.ibb.co/JmX6GH6/Screen-Shot-2022-04-13-at-8-26-45-AM.png" width="200px"/>
-</div> -->
+<br /> 
+
+<img alt="" src="https://i.ibb.co/7yKnzdL/rbgcp2.png" width="100%" />
+
 <br />
 
 ## Install
