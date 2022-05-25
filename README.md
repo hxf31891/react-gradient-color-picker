@@ -44,7 +44,7 @@ import React from 'react'
 import ColorPicker from 'react-best-gradient-color-picker'
 
 function MyApp() {
-  const [color, setColor] = useState('rgba(255,255,255,1');
+  const [color, setColor] = useState('rgba(255,255,255,1)');
 
   return <ColorPicker value={color} onChange={setColor} />
 }
