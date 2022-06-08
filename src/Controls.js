@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { SlidersIcon, InputsIcon, PaletteIcon } from './icon'
 import { usePicker } from './context'
-import EyeDropper from './EyeDropper'
+import EyeDropper from 'react-color-eye-dropper'
 import { config } from './constants'
 import AdvancedControls from './AdvancedControls'
 import ComparibleColors from './ComparibleColors'
@@ -10,7 +10,7 @@ import GradientControls from './GradientControls'
 var { defaultColor, defaultGradient } = config;
 
 const Controls = ({ hideEyeDrop, hideAdvancedSliders, hideColorGuide, hideInputType }) => {
-  const { isGradient, onChange, previousColors, previousGraidents } = usePicker();
+  const { isGradient, onChange, previousColors, previousGraidents, handleChange } = usePicker();
   const [openAdvanced, setOpenAdvanced] = useState(false);
   const [openComparibles, setOpenComparibles] = useState(false);
   const [openInputType, setOpenInputType] = useState(false);
@@ -35,7 +35,7 @@ const Controls = ({ hideEyeDrop, hideAdvancedSliders, hideColorGuide, hideInputT
           <div style={controlBtnStyles(isGradient)} className='control-btn df ac' onClick={setGradient}>Gradient</div>
         </div>
         <div className='df ac jfe' style={{height: 28, background: '#e9e9f5', borderRadius: 6, padding: 2, display: noTools ? 'none' : ''}}>
-          {!hideEyeDrop && <EyeDropper />}
+          {!hideEyeDrop && <EyeDropper onSelect={handleChange} buttonStyle={{width: 30, height: 24, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center'}}/>}
           <div style={{width: 30, ...controlBtnStyles(openAdvanced), height: 24, borderRadius: 4, display: hideAdvancedSliders ? 'none' : 'flex'}} className='jc ac' onClick={() => setOpenAdvanced(!openAdvanced)}>
             <SlidersIcon color={openAdvanced ? '#568CF5' : ''} />
           </div>

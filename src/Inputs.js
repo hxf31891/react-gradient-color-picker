@@ -61,35 +61,47 @@ const RGBInputs = () => {
 }
 
 const HSLInputs = () => {
-  const { handleChange, s, l, hue, opacity } = usePicker();
+  const { handleChange, s, l, internalHue, opacity, setInternalHue } = usePicker();
 
-  const handleHsl = (value) => {
+  const handleH = (h, s, l) => {
+    setInternalHue(h)
+    let {r, g, b} = tc({h: h, s: s, l: l}).toRgb();
+    handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`);
+  }
+
+  const handleSl = (value) => {
     let {r, g, b} = tc(value).toRgb();
     handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`);
   }
 
   return(
     <>
-      <Input value={round(hue)} callback={(newVal) => handleHsl({h: newVal, s: s, l: l})} label='H' max={360} />
-      <Input value={round(s * 100)} callback={(newVal) => handleHsl({h: hue, s: newVal, l: l})} label='S' />
-      <Input value={round(l * 100)} callback={(newVal) => handleHsl({h: hue, s: s, l: newVal})} label='L' />
+      <Input value={round(internalHue)} callback={(newVal) => handleH(newVal, s, l)} label='H' max={360} />
+      <Input value={round(s * 100)} callback={(newVal) => handleSl({h: internalHue, s: newVal, l: l})} label='S' />
+      <Input value={round(l * 100)} callback={(newVal) => handleSl({h: internalHue, s: s, l: newVal})} label='L' />
     </>
   )
 }
 
 const HSVInputs = () => {
-  const { handleChange, hsvS, hsvV, hue, opacity } = usePicker();
+  const { handleChange, hsvS, hsvV, internalHue, setInternalHue, opacity } = usePicker();
 
-  const handleHsv = (value) => {
+  const handleH = (h, s, v) => {
+    setInternalHue(h)
+    let {r, g, b} = tc({h: h, s: s, v: v}).toRgb();
+    handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`);
+  }
+
+  const handleSV = (value) => {
     let {r, g, b} = tc(value).toRgb();
     handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`);
   }
 
   return(
     <>
-      <Input value={round(hue)} callback={(newVal) => handleHsv({h: newVal, s: hsvS, v: hsvV})} label='H' max={360} />
-      <Input value={round(hsvV * 100)} callback={(newVal) => handleHsv({h: hue, s: newVal, v: hsvV})} label='S' />
-      <Input value={round(hsvV * 100)} callback={(newVal) => handleHsv({h: hue, s: hsvS, v: newVal})} label='V' />
+      <Input value={round(internalHue)} callback={(newVal) => handleH(newVal, hsvS, hsvV)} label='H' max={360} />
+      <Input value={round(hsvS * 100)} callback={(newVal) => handleSV({h: internalHue, s: newVal, v: hsvV})} label='S' />
+      <Input value={round(hsvV * 100)} callback={(newVal) => handleSV({h: internalHue, s: hsvS, v: newVal})} label='V' />
     </>
   )
 }

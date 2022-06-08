@@ -4,7 +4,7 @@ import usePaintHue from './usePaintHue'
 
 const Hue = () => {
   const barRef = useRef(null);
-  const { handleHue, hue } = usePicker();
+  const { handleHue, internalHue } = usePicker();
   const [dragging, setDragging] = useState(false)
   usePaintHue(barRef);
 
@@ -32,7 +32,7 @@ const Hue = () => {
     <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging}>
       <div className='ps-rl bar-wrap-inner' onMouseUp={stopDragging}>
         <div className='c-resize ps-rl' onMouseMove={(e) => handleMove(e)}>
-          <div style={{left: hue * .766666666666667, top: -.5}} className='handle' onMouseDown={handleDown} />
+          <div style={{left: internalHue * .766666666666667, top: -.5}} className='handle' onMouseDown={handleDown} />
           <canvas ref={barRef} width='294px' height='14px' style={{position: 'relative', borderRadius: 14}} onClick={(e) => handleClick(e)} />
         </div>
       </div>
