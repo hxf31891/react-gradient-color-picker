@@ -18,11 +18,15 @@
 - You can completly customize the UI by hiding the included elements and using the hook to build your own
 - You can also customize preset options by passing in an array of rgba colors (see custom presets below)
 
+### Version 2.0.6 
+- Fixes several bugs pertaining to hue slider when saturation is 0
+
 <br /> 
 
 <img alt="" src="https://i.ibb.co/7yKnzdL/rbgcp2.png" width="100%" />
 
 <br />
+
 
 ## Install
 ```
