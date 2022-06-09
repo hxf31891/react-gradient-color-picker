@@ -20,7 +20,7 @@
 
 <br /> 
 
-<img alt="" src="https://i.ibb.co/7yKnzdL/rbgcp2.png" width="100%" />
+<img alt="" src="https://gradient-package-demo.web.app/gradientPickerImg.png" width="100%" />
 
 <br />
 
