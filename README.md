@@ -1,7 +1,6 @@
-
-  [![Npm Version][npm-version-image]][npm-version-url]
-  [![Downloads][downloads-image]][downloads-url]
-  [![License][license-image]][license-url]
+[![Npm Version][npm-version-image]][npm-version-url]
+[![Downloads][downloads-image]][downloads-url]
+[![License][license-image]][license-url]
 
 
 # react-best-gradient-color-picker
@@ -337,7 +336,7 @@ function MyApp() {
 Code released under the [MIT](https://github.com/hxf31891/react-best-gradient-color-picker/blob/main/LICENSE) license.
 
 [license-image]: https://img.shields.io/npm/l/react-best-gradient-color-picker.svg
-[license-url]: https://github.com/hxf31891/react-best-gradient-color-picker/blob/main/LICENSE
+[license-url]: LICENSE
 [downloads-image]: http://img.shields.io/npm/dm/react-best-gradient-color-picker.svg
 [downloads-url]: http://npm-stat.com/charts.html?package=react-best-gradient-color-picker
 [npm-version-image]: https://img.shields.io/npm/v/react-best-gradient-color-picker.svg
