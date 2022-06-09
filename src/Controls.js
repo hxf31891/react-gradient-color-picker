@@ -6,6 +6,7 @@ import { config } from './constants'
 import AdvancedControls from './AdvancedControls'
 import ComparibleColors from './ComparibleColors'
 import GradientControls from './GradientControls'
+import PropTypes from 'prop-types'
 
 var { defaultColor, defaultGradient } = config;
 
@@ -87,4 +88,16 @@ export const controlBtnStyles = (selected) => {
     color: selected ? '#568CF5' : '',
     boxShadow: selected ? '0px 0px 8px rgba(0,0,0,.125)' : ''
   }
+}
+
+Controls.propTypes = {
+  hideEyeDrop: PropTypes.bool,
+  hideAdvancedSliders: PropTypes.bool,
+  hideColorGuide: PropTypes.bool,
+  hideInputType: PropTypes.bool,
+}
+
+InputTypeDropdown.propTypes = {
+  openInputType: PropTypes.bool,
+  setOpenInputType: PropTypes.func,
 }

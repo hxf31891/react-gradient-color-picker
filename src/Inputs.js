@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { rgb2cmyk, cmykToRgb } from './converters'
 import { formatInputValues } from './formatters'
 import { usePicker } from './context'
+import PropTypes from 'prop-types'
 
 var tc = require("tinycolor2");
 
@@ -149,4 +150,11 @@ const Input = ({ value, callback, max = 100, label }) => {
 
 const round = (val) => {
   return Math.round(val, 2)
+}
+
+Input.propTypes = {
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  callback: PropTypes.func,
+  max: PropTypes.number,
+  label: PropTypes.string,
 }

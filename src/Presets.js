@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { usePicker } from './context'
 
 const Presets = ({ presets = [] }) => {
@@ -22,7 +23,11 @@ const Presets = ({ presets = [] }) => {
   )
 }
 
-export default Presets
+export default Presets;
+
+Presets.propTypes = {
+  presets: PropTypes.array,
+}
 
 const fakePresets = [
   'rgba(0,0,0,1)',

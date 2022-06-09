@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { usePicker } from './context'
 
 const ComparibleColors = ({ openComparibles }) => {
@@ -32,3 +33,7 @@ const ComparibleColors = ({ openComparibles }) => {
 }
 
 export default ComparibleColors;
+
+ComparibleColors.propTypes = {
+  openComparibles: PropTypes.bool,
+}

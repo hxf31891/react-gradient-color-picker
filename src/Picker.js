@@ -5,6 +5,7 @@ import Square from "./Square"
 import Opacity from './Opacity'
 import Presets from './Presets'
 import Controls from './Controls'
+import PropTypes from 'prop-types'
 import GradientBar from './GradientBar'
 import { usePicker } from './context'
 
@@ -24,4 +25,15 @@ const Picker = ({ hideControls, hideInputs, hidePresets, presets, hideEyeDrop, h
   )
 }
 
-export default Picker
+export default Picker;
+
+Picker.propTypes = {
+  hideControls: PropTypes.bool,
+  hideInputs: PropTypes.bool,
+  hidePresets: PropTypes.bool,
+  presets: PropTypes.array,
+  hideEyeDrop: PropTypes.bool,
+  hideAdvancedSliders: PropTypes.bool,
+  hideColorGuide: PropTypes.bool,
+  hideInputType: PropTypes.bool,
+}

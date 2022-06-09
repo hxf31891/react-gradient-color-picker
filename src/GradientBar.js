@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getHandleValue } from './utils';
 import { usePicker } from "./context";
+import PropTypes from 'prop-types'
 
 const GradientBar = () => {
   const { currentColor, addPoint, colors, value, handleGradient } = usePicker()
@@ -58,4 +59,10 @@ const handleStyle = (isSelected) => {
     boxShadow: isSelected ? '0px 0px 5px 1px rgba(86, 140, 245,.95)' : '',
     border: isSelected ? '2px solid white' : '2px solid rgba(255,255,255,.75)',
   }
+}
+
+Handle.propTypes = {
+  left: PropTypes.number,
+  i: PropTypes.number,
+  setDragging: PropTypes.func,
 }

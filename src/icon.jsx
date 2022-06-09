@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const TrashIcon = () => {
   const styles = { fill: 'none', stroke: 'rgb(50, 49, 54)', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '1.8px' }
@@ -96,4 +97,28 @@ export const StopIcon = () => {
       <path d="M17.77,11.24h-1V13H15.58V7h2.19a1.85,1.85,0,0,1,2.11,2.07,2.21,2.21,0,0,1-.54,1.6A2.07,2.07,0,0,1,17.77,11.24Zm-1-1h1c.6,0,.9-.37.9-1.12a1.18,1.18,0,0,0-.22-.79.88.88,0,0,0-.68-.24h-1Z"/>
     </svg>
   )
+}
+
+LinearIcon.propTypes = {
+  color: PropTypes.string,
+}
+
+RadialIcon.propTypes = {
+  color: PropTypes.string,
+}
+
+SlidersIcon.propTypes = {
+  color: PropTypes.string,
+}
+
+InputsIcon.propTypes = {
+  color: PropTypes.string,
+}
+
+PaletteIcon.propTypes = {
+  color: PropTypes.string,
+}
+
+DegreesIcon.propTypes = {
+  color: PropTypes.string,
 }

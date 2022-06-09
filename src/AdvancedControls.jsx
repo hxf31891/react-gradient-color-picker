@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { usePicker } from './context'
 import { getHandleValue } from './utils'
 import { usePaintSat, usePaintLight, usePaintBright } from './usePaintHue'
@@ -75,4 +76,8 @@ const AdvBar = ({ left, callback, reffy }) => {
       </div>
     </div>
   )
+}
+
+AdvancedControls.propTypes = {
+  openAdvanced: PropTypes.bool,
 }

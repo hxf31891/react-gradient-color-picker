@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react"
 import PickerContextWrapper from './context'
+import PropTypes from 'prop-types'
 import Picker from "./Picker";
 import './styles.css';
 
@@ -23,3 +24,16 @@ function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hid
 }
 
 export default ColorPicker;
+
+ColorPicker.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  hideControls: PropTypes.bool,
+  hideInputs: PropTypes.bool,
+  hidePresets: PropTypes.bool,
+  presets: PropTypes.array,
+  hideEyeDrop: PropTypes.bool,
+  hideAdvancedSliders: PropTypes.bool,
+  hideColorGuide: PropTypes.bool,
+  hideInputType: PropTypes.bool,
+}
