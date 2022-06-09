@@ -21,6 +21,9 @@
 ### Version 2.0.6 
 - Fixes several bugs pertaining to hue slider when saturation is 0
 
+### Version 2.0.8
+- DefinitelyTyped
+
 <br /> 
 
 <img alt="" src="https://i.ibb.co/7yKnzdL/rbgcp2.png" width="100%" />
