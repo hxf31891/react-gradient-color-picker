@@ -1,14 +1,8 @@
-<div align="center">
-  <a href="https://www.npmjs.com/package/react-best-gradient-color-picker">
-    <img alt="npm" src="https://badgen.net/npm/v/react-best-gradient-color-picker?color=2c139f" />
-  </a>
-  <a href="https://www.npmjs.com/package/react-best-gradient-color-picker">
-    <img alt="" src="https://badgen.net/npm/dt/react-best-gradient-color-picker?color=2c139f" />
-  </a>
-  <a href="https://bundlephobia.com/result?p=react-best-gradient-color-picker">
-    <img alt="" src="https://badgen.net/bundlephobia/min/react-best-gradient-color-picker?color=2c139f" />
-  </a>
-</div>
+
+  [![Npm Version][npm-version-image]][npm-version-url]
+  [![Downloads][downloads-image]][downloads-url]
+  [![License][license-image]][license-url]
+
 
 # react-best-gradient-color-picker
 - Customizable, easy to use color and gradient picker for React.js
@@ -341,3 +335,10 @@ function MyApp() {
 ## License
 
 Code released under the [MIT](https://github.com/hxf31891/react-best-gradient-color-picker/blob/main/LICENSE) license.
+
+[license-image]: https://img.shields.io/npm/l/react-best-gradient-color-picker.svg
+[license-url]: https://github.com/hxf31891/react-best-gradient-color-picker/blob/main/LICENSE
+[downloads-image]: http://img.shields.io/npm/dm/react-best-gradient-color-picker.svg
+[downloads-url]: http://npm-stat.com/charts.html?package=react-best-gradient-color-picker
+[npm-version-image]: https://img.shields.io/npm/v/react-best-gradient-color-picker.svg
+[npm-version-url]: https://www.npmjs.com/package/react-best-gradient-color-picker
