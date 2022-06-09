@@ -110,8 +110,8 @@ function MyApp() {
 | setLinear        |                  | Change the type of gradient to linear                            |
 | setRadial        |                  | Change the type of gradient to radial                            |
 | setDegrees       | degrees (num, 0 - 360)| Change the degrees of a linear gradient                     |
-| setSolid         | (optional) new solid color (rgba string) | Change the pickers color mode from solid to gradient |
-| setGradient      | (optional) new gradient (CSS gradient) | Change the pickers color mode from gradient to solid |
+| setSolid         | (optional) new solid color (rgba string) | Change the pickers color mode from gradient to solid |
+| setGradient      | (optional) new gradient (CSS gradient) | Change the pickers color mode from solid to gradient |
 | setR             | value (num, 0 - 255) | Update the red value of the color                            |
 | setG             | value (num, 0 - 255) | Update the green value of the color                          |
 | setB             | value (num, 0 - 255) | Update the blue value of the color                           |
