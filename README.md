@@ -214,8 +214,8 @@ function MyApp() {
    )
 }
 ```
-<br />
-## Custom Presets Example 
+
+### Custom Presets Example 
 
 ```js
 import React from 'react'
@@ -334,7 +334,7 @@ function MyApp() {
 
 ## License
 
-Code released under the [MIT](https://github.com/hxf31891/react-best-gradient-color-picker/blob/main/LICENSE) license.
+Code released under the [MIT](https://github.com/hxf31891/react-gradient-color-picker/blob/main/LICENSE) license.
 
 [build-image]: https://img.shields.io/github/checks-status/hxf31891/react-gradient-color-picker/main?color=%23498af2
 [license-image]: https://img.shields.io/npm/l/react-best-gradient-color-picker.svg?color=%23498af2
