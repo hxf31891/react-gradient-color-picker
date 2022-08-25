@@ -16,8 +16,8 @@ const Presets = ({ presets = [] }) => {
   return(
     <div style={{display: 'flex', marginTop: 14, justifyContent: 'space-between'}}>
       <div style={{width: 50, height: 50, background: value, borderRadius: 6, flexShrink: 0}}/>
-      <div style={{display: 'flex', flexWrap: 'wrap', width: squareSize - 66 }}>
-        {getPresets().map((p, key) => (<div key={key} style={{height: 23, width: '10.5%', borderRadius: 4, background: p, marginLeft: 2, marginBottom: 2, border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : ''}} onClick={() => handleChange(p)}/>))}
+      <div style={{display: 'flex', flexWrap: 'wrap', width: squareSize - 66, justifyContent: 'space-between' }}>
+        {getPresets().map((p, key) => (<div key={key} style={{height: 23, width: '10.2%', borderRadius: 4, background: p, marginBottom: 2, border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : ''}} onClick={() => handleChange(p)}/>))}
       </div>
     </div>
   )

@@ -15,7 +15,7 @@ function ColorPicker({ value = 'rgba(175, 51, 242, 1)', onChange = () => {}, hid
   }, [])
 
   return (
-    <div ref={contRef}>
+    <div ref={contRef} style={{ width: width }}>
       <PickerContextWrapper bounds={bounds} value={value} onChange={onChange} squareSize={width}>
         <Picker hideControls={hideControls} hideInputs={hideInputs} hidePresets={hidePresets} presets={presets} hideEyeDrop={hideEyeDrop} hideAdvancedSliders={hideAdvancedSliders} hideColorGuide={hideColorGuide} hideInputType={hideInputType} />
       </PickerContextWrapper>
