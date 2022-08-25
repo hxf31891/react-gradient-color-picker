@@ -15,8 +15,8 @@
 ### Version 2.0.6 
 - Fixes several bugs pertaining to hue slider when saturation is 0
 
-### Version 2.0.8
-- DefinitelyTyped
+### Version 2.0.11
+- Add width prop
 
 <br /> 
 
@@ -58,6 +58,7 @@ function MyApp() {
 | Name             | Type         | Default                 | Description                                                      |
 | ---------------- | ------------ | ----------------------- | ---------------------------------------------------------------- |
 | value            | `string`     | 'rgba(175, 51, 242, 1)' | The starting color                                               |
+| width            | `int`        | 294                     | The width of the picker                                          |
 | hideInputs       | `boolean`    | `false`                 | (optional) hide the hex and rgba inputs                          |
 | hideControls     | `boolean`    | `false`                 | (optional) hide the solid/gradient and gradient options          |
 | hidePresets      | `boolean`    | `false`                 | (optional) hide the preset color options                         |
