@@ -3,11 +3,12 @@ import { usePicker } from './context'
 import { formatInputValues } from './formatters'
 import { controlBtnStyles } from './Controls'
 import TrashIcon, { LinearIcon, RadialIcon, DegreesIcon, StopIcon } from './icon'
+import { df, jsb, ac, controlBtnsWrap, controlBtn, degreeInput, psRl, jc } from './style';
 
 const GradientControls = () => {
   const { gradientType } = usePicker()
   return(
-    <div className='df jsb' style={{marginTop: 12, marginBottom: -4, background: '#e9e9f5', borderRadius: 6}}>
+    <div style={{ ...df, ...jsb, marginTop: 12, marginBottom: -4, background: '#e9e9f5', borderRadius: 6}}>
       <GradientType />
       <div style={{ width: 53 }}>
         {gradientType === 'linear-gradient' && <DegreePicker />}
@@ -36,11 +37,11 @@ const GradientType = () => {
   }
 
   return(
-    <div className='df ac control-btns-wrap'>
-      <div className='control-btn' onClick={handleLinear} style={{...controlBtnStyles(isLinear)}}>
+    <div style={{ ...df, ...ac, ...controlBtnsWrap}}>
+      <div onClick={handleLinear} style={{...controlBtnStyles(isLinear), ...controlBtn }}>
         <LinearIcon color={isLinear ? '#568CF5' : ''} />
       </div>
-      <div className='control-btn' onClick={handleRadial} style={{...controlBtnStyles(isRadial)}}>
+      <div onClick={handleRadial} style={{...controlBtnStyles(isRadial), ...controlBtn}}>
         <RadialIcon color={isRadial ? '#568CF5' : ''} />
       </div>
     </div>
@@ -55,9 +56,9 @@ const StopPicker = () => {
   }
 
   return(
-    <div className='df ac control-btns-wrap' style={{paddingLeft: 8}}>
+    <div style={{ ...df, ...ac, ...controlBtnsWrap, paddingLeft: 8}}>
       <StopIcon />
-      <input className='degree-input' value={currentLeft} onChange={(e) => handleMove(e.target.value)}/>
+      <input style={degreeInput} value={currentLeft} onChange={(e) => handleMove(e.target.value)}/>
     </div>
   )
 }
@@ -72,9 +73,9 @@ const DegreePicker = () => {
   }
 
   return(
-    <div className='ps-rl control-btns-wrap df ac'>
+    <div style={{ ...psRl, ...controlBtnsWrap, ...df, ...ac }}>
       <DegreesIcon />
-      <input className='degree-input' value={degrees} onChange={(e) => handleDegrees(e)}/>
+      <input style={degreeInput} value={degrees} onChange={(e) => handleDegrees(e)}/>
       <div style={{position: 'absolute', right: degrees > 99 ? 0 : degrees < 10 ? 7 : 3, top: 1, fontWeight: 400, fontSize: 13}}>°</div>
     </div>
   )
@@ -84,7 +85,7 @@ const DeleteBtn = () => {
   const { deletePoint } = usePicker();
 
   return(
-    <div onClick={deletePoint} className='df jc ac control-btns-wrap' style={{width: 30, ...controlBtnStyles(false), marginRight: 1}}>
+    <div onClick={deletePoint} style={{ ...df, ...jc, ...ac, ...controlBtnsWrap, width: 30, ...controlBtnStyles(false), marginRight: 1}}>
       <TrashIcon />
     </div>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { usePicker } from './context'
+import { psRl, cCross, handle, canvasWrapper } from './style';
 
 const Presets = ({ presets = [] }) => {
   const { value, handleChange, squareSize } = usePicker();
@@ -24,10 +24,6 @@ const Presets = ({ presets = [] }) => {
 }
 
 export default Presets;
-
-Presets.propTypes = {
-  presets: PropTypes.array,
-}
 
 const fakePresets = [
   'rgba(0,0,0,1)',

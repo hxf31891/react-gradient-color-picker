@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react"
 import throttle from "lodash.throttle"
 import usePaintSquare from "./usePaintSquare"
 import { usePicker } from './context'
+import { psRl, cCross, handle, canvasWrapper } from './style';
 
 const Square = () => {
   const { handleColor, x, y, internalHue, squareSize } = usePicker();
@@ -32,11 +33,11 @@ const Square = () => {
   }
 
   return (
-    <div className='ps-rl'>
+    <div style={psRl}>
       <div style={{position: 'absolute', left: -7, top: -7, width: squareSize + 14 , height: squareSize + 14 }} onMouseEnter={stopDragging} />
-      <div className='ps-rl c-cross' onMouseMove={(e) => handleMove(e)} onMouseUp={stopDragging}>
-        <div style={{left: x, top: y}} className='handle' onMouseDown={() => setDragging(true)} />
-        <div className='canvas-wrapper' style={{ height: squareSize }} onClick={(e) => handleClick(e)}>
+      <div style={{ ...psRl, ...cCross }} onMouseMove={(e) => handleMove(e)} onMouseUp={stopDragging}>
+        <div style={{ left: x, top: y, ...handle }} onMouseDown={() => setDragging(true)} />
+        <div style={{ ...canvasWrapper, height: squareSize }} onClick={(e) => handleClick(e)}>
           <canvas ref={canvas} width={`${squareSize}px`} height={`${squareSize}px`} id='paintSquare' />
         </div>
       </div>

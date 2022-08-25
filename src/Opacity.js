@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { usePicker } from './context'
+import { barWrap, psRl, barWrapInner, cResize, handle, opacityOverlay, opacityBg } from './style'
 
 const Opacity = () => {
   const { handleOpacity, opacity, tinyColor, squareSize } = usePicker();
@@ -30,11 +31,11 @@ const Opacity = () => {
   let left = squareSize - 18;
 
   return(
-    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{marginTop: 6, width: squareSize + 36}}>
-      <div className='bar-wrap-inner' onMouseUp={stopDragging} style={{ width: squareSize + 30 }}>
-        <div className='c-resize ps-rl' onMouseDown={handleDown} onMouseMove={(e) => handleMove(e)}>
-          <div style={{ left: left * opacity, top: -2 }} className='handle' />
-          <div className='opacity-overlay' style={{background: bg}} onClick={(e) => handleClick(e)} />
+    <div onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{ ...barWrap, marginTop: 6, width: squareSize + 36}}>
+      <div onMouseUp={stopDragging} style={{ ...barWrapInner, width: squareSize + 30 }}>
+        <div style={{ ...cResize, ...psRl }} onMouseDown={handleDown} onMouseMove={(e) => handleMove(e)}>
+          <div style={{ left: left * opacity, top: -2, ...handle }} />
+          <div style={{ background: bg, ...opacityOverlay }} onClick={(e) => handleClick(e)} />
           <OpacityBg />
         </div>
       </div>
@@ -49,7 +50,7 @@ const OpacityBg = () => {
   let hw = squareSize * 0.023809523809524
 
   return(
-    <div className='opacity-bg'>
+    <div style={opacityBg}>
       {sqaures?.map((s, key) => (<div key={key} style={{height: 7, width: hw, background: s === 1 ? 'rgba(0,0,0,.3)' : ''}}/>))}
     </div>
   )

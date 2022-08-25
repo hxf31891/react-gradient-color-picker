@@ -6,7 +6,7 @@ import { config } from './constants'
 import AdvancedControls from './AdvancedControls'
 import ComparibleColors from './ComparibleColors'
 import GradientControls from './GradientControls'
-import PropTypes from 'prop-types'
+import { ac, df, jc, jsb, inputDropdown, psRl, jfe, controlBtn } from './style';
 
 var { defaultColor, defaultGradient } = config;
 
@@ -30,20 +30,20 @@ const Controls = ({ hideEyeDrop, hideAdvancedSliders, hideColorGuide, hideInputT
 
   return(
     <div style={{paddingTop: 12, paddingBottom: 9 }}>
-      <div  className='df jsb ac' style={{width: '100%'}}>
-        <div className='df jc ac' style={{height: 28, background: '#e9e9f5', borderRadius: 6, padding: 2}}>
-          <div style={controlBtnStyles(!isGradient)} className='control-btn df ac' onClick={setSolid}>Solid</div>
-          <div style={controlBtnStyles(isGradient)} className='control-btn df ac' onClick={setGradient}>Gradient</div>
+      <div style={{ width: '100%', ...df, ...jsb, ...ac }}>
+        <div style={{ height: 28, background: '#e9e9f5', borderRadius: 6, padding: 2, ...df, ...jc, ...ac }}>
+          <div style={{ ...controlBtn, ...controlBtnStyles(!isGradient), ...df, ...ac }} onClick={setSolid}>Solid</div>
+          <div style={{ ...controlBtn, ...controlBtnStyles(isGradient), ...df, ...ac }} onClick={setGradient}>Gradient</div>
         </div>
-        <div className='df ac jfe' style={{height: 28, background: '#e9e9f5', borderRadius: 6, padding: 2, display: noTools ? 'none' : ''}}>
+        <div style={{ ...ac, ...jfe, height: 28, background: '#e9e9f5', borderRadius: 6, padding: 2, display: noTools ? 'none' : '', ...df }}>
           {!hideEyeDrop && <EyeDropper onSelect={handleChange} buttonStyle={{width: 30, height: 24, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center'}}/>}
-          <div style={{width: 30, ...controlBtnStyles(openAdvanced), height: 24, borderRadius: 4, display: hideAdvancedSliders ? 'none' : 'flex'}} className='jc ac' onClick={() => setOpenAdvanced(!openAdvanced)}>
+          <div style={{ width: 30, ...controlBtnStyles(openAdvanced), height: 24, borderRadius: 4, display: hideAdvancedSliders ? 'none' : 'flex', ...jc, ...ac}} onClick={() => setOpenAdvanced(!openAdvanced)}>
             <SlidersIcon color={openAdvanced ? '#568CF5' : ''} />
           </div>
-          <div style={{width: 30, ...controlBtnStyles(openComparibles), height: 24, borderRadius: 4, display: hideColorGuide ? 'none' : 'flex'}} className='jc ac' onClick={() => setOpenComparibles(!openComparibles)}>
+          <div style={{ width: 30, ...controlBtnStyles(openComparibles), height: 24, borderRadius: 4, display: hideColorGuide ? 'none' : 'flex', ...jc, ...ac}} onClick={() => setOpenComparibles(!openComparibles)}>
             <PaletteIcon color={openComparibles ? '#568CF5' : ''} />
           </div>
-          <div style={{width: 30, ...controlBtnStyles(openInputType), height: 24, borderRadius: 4, display: hideInputType ? 'none' : 'flex'}} className='jc ac ps-rl' onClick={() => setOpenInputType(!openInputType)}>
+          <div style={{ width: 30, ...controlBtnStyles(openInputType), height: 24, borderRadius: 4, display: hideInputType ? 'none' : 'flex', ...jc, ...ac, ...psRl }} onClick={() => setOpenInputType(!openInputType)}>
             <InputsIcon color={openInputType ? '#568CF5' : ''} />
             <InputTypeDropdown openInputType={openInputType} setOpenInputType={setOpenInputType} />
           </div>
@@ -73,11 +73,11 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
   }
 
   return(
-    <div style={{visibility: openInputType ? 'visible' : 'hidden', zIndex: openInputType ? '' : -100, opacity: openInputType ? 1 : 0, transition: `${oTrans}, ${vTrans}, ${zTrans}`}} className='input-dropdown'>
-      <div style={controlBtnStyles(inputType === 'rgb')} className='control-btn df ac ps-rl' onClick={(e) => handleInputType(e, 'rgb')}>RGB</div>
-      <div style={controlBtnStyles(inputType === 'hsl')} className='control-btn df ac' onClick={(e) => handleInputType(e, 'hsl')}>HSL</div>
-      <div style={controlBtnStyles(inputType === 'hsv')} className='control-btn df ac' onClick={(e) => handleInputType(e, 'hsv')}>HSV</div>
-      <div style={controlBtnStyles(inputType === 'cmyk')} className='control-btn df ac' onClick={(e) => handleInputType(e, 'cmyk')}>CMYK</div>
+    <div style={{visibility: openInputType ? 'visible' : 'hidden', zIndex: openInputType ? '' : -100, opacity: openInputType ? 1 : 0, transition: `${oTrans}, ${vTrans}, ${zTrans}`, ...inputDropdown }}>
+      <div style={{ ...controlBtnStyles(inputType === 'rgb'), ...df, ...ac, ...psRl, ...controlBtn }} onClick={(e) => handleInputType(e, 'rgb')}>RGB</div>
+      <div style={{ ...controlBtnStyles(inputType === 'hsl'), ...df, ...ac, ...controlBtn }} onClick={(e) => handleInputType(e, 'hsl')}>HSL</div>
+      <div style={{ ...controlBtnStyles(inputType === 'hsv'), ...df, ...ac, ...controlBtn }} onClick={(e) => handleInputType(e, 'hsv')}>HSV</div>
+      <div style={{ ...controlBtnStyles(inputType === 'cmyk'), ...df, ...ac, ...controlBtn }} onClick={(e) => handleInputType(e, 'cmyk')}>CMYK</div>
     </div>
   )
 }
@@ -88,16 +88,4 @@ export const controlBtnStyles = (selected) => {
     color: selected ? '#568CF5' : '',
     boxShadow: selected ? '0px 0px 8px rgba(0,0,0,.125)' : ''
   }
-}
-
-Controls.propTypes = {
-  hideEyeDrop: PropTypes.bool,
-  hideAdvancedSliders: PropTypes.bool,
-  hideColorGuide: PropTypes.bool,
-  hideInputType: PropTypes.bool,
-}
-
-InputTypeDropdown.propTypes = {
-  openInputType: PropTypes.bool,
-  setOpenInputType: PropTypes.func,
 }

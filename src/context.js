@@ -77,6 +77,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
 
   const handleHue = (e) => {
     let newHue = getHandleValue(e) * 3.6;
+    console.log(newHue);
     let newHsl = getNewHsl(newHue, s, l, opacity, setInternalHue);
     handleChange(newHsl)
   }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { rgb2cmyk, cmykToRgb } from './converters'
 import { formatInputValues } from './formatters'
 import { usePicker } from './context'
-import PropTypes from 'prop-types'
+import { inputWrap, inputLabel } from './style'
 
 var tc = require("tinycolor2");
 
@@ -31,8 +31,8 @@ const Inputs = () => {
   return(
     <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: 14}}>
       <div style={{width: '23%'}}>
-        <input className='input-wrap' value={newHex} onChange={(e) => handleHex(e)} onFocus={() => setDisable('hex')} onBlur={() => setDisable('')}/>
-        <div className='input-label'>HEX</div>
+        <input style={{ ...inputWrap }} value={newHex} onChange={(e) => handleHex(e)} onFocus={() => setDisable('hex')} onBlur={() => setDisable('')}/>
+        <div style={{ ...inputLabel }}>HEX</div>
       </div>
       {inputType === 'hsl' && <HSLInputs />}
       {inputType === 'rgb' && <RGBInputs />}
@@ -142,19 +142,12 @@ const Input = ({ value, callback, max = 100, label }) => {
 
   return(
     <div style={{width: inputType === 'cmyk' ? '14.9%' : '18%' }}>
-      <input className='input-wrap' value={temp} onChange={(e) => onChange(e)} />
-      <div className='input-label'>{label}</div>
+      <input style={{ ...inputWrap }} value={temp} onChange={(e) => onChange(e)} />
+      <div style={{ ...inputLabel }}>{label}</div>
     </div>
   )
 }
 
 const round = (val) => {
   return Math.round(val, 2)
-}
-
-Input.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  callback: PropTypes.func,
-  max: PropTypes.number,
-  label: PropTypes.string,
 }

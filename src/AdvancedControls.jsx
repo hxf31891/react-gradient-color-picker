@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react'
-import PropTypes from 'prop-types'
 import { usePicker } from './context'
 import { getHandleValue } from './utils'
 import { usePaintSat, usePaintLight, usePaintBright } from './usePaintHue'
-
+import { barWrap, psRl, barWrapInner, cResize, handle} from './style'
 var tinycolor = require("tinycolor2");
 
 const AdvancedControls = ({ openAdvanced }) => {
@@ -68,17 +67,13 @@ const AdvBar = ({ left, callback, reffy }) => {
   }
 
   return(
-    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{ width: squareSize + 36, marginTop: 0 }}>
-      <div className='ps-rl bar-wrap-inner' onMouseUp={stopDragging} style={{ width: squareSize + 30 }}>
-        <div className='c-resize ps-rl' onMouseMove={(e) => handleMove(e)}>
-          <div style={{ left: left, top: 2 }} className='handle' onMouseDown={() => setDragging(true)} />
+    <div onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{ ...barWrap, width: squareSize + 36, marginTop: 0 }}>
+      <div onMouseUp={stopDragging} style={{ ...psRl, ...barWrapInner, width: squareSize + 30 }}>
+        <div className='c-resize ps-rl' onMouseMove={(e) => handleMove(e)} style={{ ...cResize, ... psRl }}>
+          <div style={{ ...handle, left: left, top: 2 }} onMouseDown={() => setDragging(true)} />
           <canvas ref={reffy} width={`${squareSize}px`} height='14px' style={{ position: 'relative', borderRadius: 14 }} onClick={(e) => handleClick(e)} />
         </div>
       </div>
     </div>
   )
-}
-
-AdvancedControls.propTypes = {
-  openAdvanced: PropTypes.bool,
 }
