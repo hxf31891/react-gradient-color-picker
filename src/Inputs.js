@@ -30,7 +30,7 @@ const Inputs = () => {
 
   return(
     <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: 14}}>
-      <div style={{width: 74}}>
+      <div style={{width: '23%'}}>
         <input className='input-wrap' value={newHex} onChange={(e) => handleHex(e)} onFocus={() => setDisable('hex')} onBlur={() => setDisable('')}/>
         <div className='input-label'>HEX</div>
       </div>
@@ -141,7 +141,7 @@ const Input = ({ value, callback, max = 100, label }) => {
   }
 
   return(
-    <div style={{width: inputType === 'cmyk' ? 40 : 44}}>
+    <div style={{width: inputType === 'cmyk' ? '14.9%' : '18%' }}>
       <input className='input-wrap' value={temp} onChange={(e) => onChange(e)} />
       <div className='input-label'>{label}</div>
     </div>

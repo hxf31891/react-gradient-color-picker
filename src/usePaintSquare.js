@@ -1,9 +1,6 @@
 import { useEffect } from "react"
-import { config } from './constants'
 
-const { squareSize } = config
-
-const usePaintSquare = (canvas, hue) => {
+const usePaintSquare = (canvas, hue, squareSize) => {
   useEffect(() => {
     const ctx = canvas.current.getContext("2d")
     ctx.fillStyle = `hsl(${hue}, 100%, 50%)`

@@ -2,12 +2,10 @@ import { useEffect } from "react"
 import { config } from './constants'
 var tinycolor = require("tinycolor2");
 
-const { squareSize } = config
-
-const usePaintHue = canvas => {
+const usePaintHue = (canvas, squareSize) => {
   useEffect(() => {
     const ctx = canvas?.current?.getContext("2d")
-    ctx.rect(0, 0, 294, 14)
+    ctx.rect(0, 0, squareSize, 14)
 
     const gradient = ctx.createLinearGradient(0, 0, squareSize, 0)
     for (let i = 0; i <= 360; i += 30) {
@@ -20,11 +18,11 @@ const usePaintHue = canvas => {
 
 export default usePaintHue;
 
-export const usePaintSat = (canvas, h, l) => {
+export const usePaintSat = (canvas, h, l, squareSize) => {
   useEffect(() => {
     const ctx = canvas?.current?.getContext("2d")
     if (ctx) {
-      ctx.rect(0, 0, 294, 14)
+      ctx.rect(0, 0, squareSize, 14)
 
       const gradient = ctx.createLinearGradient(0, 0, squareSize, 0)
       for (let i = 0; i <= 100; i += 10) {
@@ -36,11 +34,11 @@ export const usePaintSat = (canvas, h, l) => {
   }, [canvas, h, l])
 }
 
-export const usePaintLight = (canvas, h, s) => {
+export const usePaintLight = (canvas, h, s, squareSize) => {
   useEffect(() => {
     const ctx = canvas?.current?.getContext("2d")
     if (ctx) {
-      ctx.rect(0, 0, 294, 14)
+      ctx.rect(0, 0, squareSize, 14)
 
       const gradient = ctx.createLinearGradient(0, 0, squareSize, 0)
       for (let i = 0; i <= 100; i += 10) {
@@ -52,11 +50,11 @@ export const usePaintLight = (canvas, h, s) => {
   }, [canvas, h, s])
 }
 
-export const usePaintBright = (canvas, h, s) => {
+export const usePaintBright = (canvas, h, s, squareSize) => {
   useEffect(() => {
     const ctx = canvas?.current?.getContext("2d")
     if (ctx) {
-      ctx.rect(0, 0, 294, 14)
+      ctx.rect(0, 0, squareSize, 14)
 
       const gradient = ctx.createLinearGradient(0, 0, squareSize, 0)
       for (let i = 0; i <= 100; i += 10) {

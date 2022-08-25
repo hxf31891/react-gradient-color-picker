@@ -7,14 +7,14 @@ import { usePaintSat, usePaintLight, usePaintBright } from './usePaintHue'
 var tinycolor = require("tinycolor2");
 
 const AdvancedControls = ({ openAdvanced }) => {
-  const { tinyColor, hue, l, handleChange, s, opacity } = usePicker();
+  const { tinyColor, hue, l, handleChange, s, opacity, squareSize } = usePicker();
   const {v, s: vs} = tinyColor.toHsv();
   const satRef = useRef(null);
   const lightRef = useRef(null);
   const brightRef = useRef(null);
-  usePaintSat(satRef, hue, l * 100)
-  usePaintLight(lightRef, hue, s * 100)
-  usePaintBright(brightRef, hue, s * 100)
+  usePaintSat(satRef, hue, l * 100, squareSize)
+  usePaintLight(lightRef, hue, s * 100, squareSize)
+  usePaintBright(brightRef, hue, s * 100, squareSize)
 
   const satDesat = (value) => {
     const {r,g,b} = tinycolor({h: hue, s: value / 100, l: l}).toRgb()
@@ -32,14 +32,14 @@ const AdvancedControls = ({ openAdvanced }) => {
   }
 
   return(
-    <div style={{height: openAdvanced ? 154 : 0, width: '100%', transition: 'all 120ms linear'}}>
+    <div style={{height: openAdvanced ? 136 : 0, width: '100%', transition: 'all 120ms linear'}}>
       <div style={{paddingTop: 11, display: openAdvanced ? '' : 'none'}}>
-        <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, marginTop: 3, marginBottom: -2}}>Saturation</div>
-        <AdvBar left={s * 276} reffy={satRef} callback={satDesat} />
-        <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, marginTop: 8, marginBottom: -2}}>Lightness</div>
-        <AdvBar left={l * 276} reffy={lightRef} callback={setLight} />
-        <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, marginTop: 8, marginBottom: -2}}>Brightness</div>
-        <AdvBar left={v * 276} reffy={brightRef} callback={setBright} />
+        <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, lineHeight: 1}}>Saturation</div>
+        <AdvBar left={s * squareSize - 18} reffy={satRef} callback={satDesat} />
+        <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, lineHeight: 1}}>Lightness</div>
+        <AdvBar left={l * squareSize - 18} reffy={lightRef} callback={setLight} />
+        <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, lineHeight: 1}}>Brightness</div>
+        <AdvBar left={v * squareSize - 18} reffy={brightRef} callback={setBright} />
       </div>
     </div>
   )
@@ -48,6 +48,7 @@ const AdvancedControls = ({ openAdvanced }) => {
 export default AdvancedControls;
 
 const AdvBar = ({ left, callback, reffy }) => {
+  const { squareSize } = usePicker()
   const [dragging, setDragging] = useState(false);
 
   const stopDragging = () => {
@@ -67,11 +68,11 @@ const AdvBar = ({ left, callback, reffy }) => {
   }
 
   return(
-    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging}>
-      <div className='ps-rl bar-wrap-inner' onMouseUp={stopDragging}>
-        <div className='c-resize ps-rl' onMouseMove={(e) => handleMove(e)} style={{width: 294, height: 14, borderRadius: 10}}>
-          <div style={{left: left, top: -0.5}} className='handle' onMouseDown={() => setDragging(true)} />
-          <canvas ref={reffy} width='294px' height='14px' style={{position: 'relative', borderRadius: 14}} onClick={(e) => handleClick(e)} />
+    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{ width: squareSize + 36, marginTop: 0 }}>
+      <div className='ps-rl bar-wrap-inner' onMouseUp={stopDragging} style={{ width: squareSize + 30 }}>
+        <div className='c-resize ps-rl' onMouseMove={(e) => handleMove(e)}>
+          <div style={{ left: left, top: 2 }} className='handle' onMouseDown={() => setDragging(true)} />
+          <canvas ref={reffy} width={`${squareSize}px`} height='14px' style={{ position: 'relative', borderRadius: 14 }} onClick={(e) => handleClick(e)} />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { usePicker } from "./context";
 import PropTypes from 'prop-types'
 
 const GradientBar = () => {
-  const { currentColor, addPoint, colors, value, handleGradient } = usePicker()
+  const { currentColor, addPoint, colors, value, handleGradient, squareSize } = usePicker()
   const [dragging, setDragging] = useState(false)
 
   const stopDragging = () => {
@@ -24,10 +24,10 @@ const GradientBar = () => {
   }
 
   return(
-    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging}>
+    <div className='bar-wrap' onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{ width: squareSize + 36 }}>
       <div className='ps-rl bar-wrap-inner' onMouseUp={stopDragging}>
         <div onMouseDown={(e) => handleDown(e)} onMouseMove={(e) => handleMove(e)} style={{paddingTop: 6, paddingBottom: 6}}>
-          <div style={{width: 294, height: 14, backgroundImage: value, borderRadius: 10}} />
+          <div style={{width: squareSize, height: 14, backgroundImage: value, borderRadius: 10}} />
         </div>
         {colors?.map((c, i) => (<Handle left={c.left} key={`${i}-${c}`} i={i} setDragging={setDragging} />))}
       </div>
@@ -38,8 +38,9 @@ const GradientBar = () => {
 export default GradientBar
 
 export const Handle = ({ left, i, setDragging }) => {
-  const { setSelectedColor, selectedColor } = usePicker();
-  const isSelected = selectedColor === i
+  const { setSelectedColor, selectedColor, squareSize } = usePicker();
+  const isSelected = selectedColor === i;
+  const leftMultiplyer = (squareSize - 18) / 100
 
   const handleDown = (e) => {
     e.stopPropagation();
@@ -48,7 +49,7 @@ export const Handle = ({ left, i, setDragging }) => {
   }
 
   return(
-    <div style={{left: left * 2.76 + 13 }} onMouseDown={(e) => handleDown(e)} className='gradient-handle-wrap'>
+    <div style={{ left: left * leftMultiplyer + 13 }} onMouseDown={(e) => handleDown(e)} className='gradient-handle-wrap'>
       <div style={handleStyle(isSelected)} className='gradient-handle df jc ac'>{isSelected && <div style={{width: 5, height:5, borderRadius: '50%', background: 'white'}} />}</div>
     </div>
   )

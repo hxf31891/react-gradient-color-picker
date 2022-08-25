@@ -29,7 +29,6 @@
 .canvas-wrapper {
   border-radius: 6px;
   overflow: hidden;
-  height: 294px;
 }
 
 .c-resize {
@@ -133,14 +132,12 @@
 }
 
 .bar-wrap {
-  width: 330px;
   margin-left: -18px;
   padding: 3px;
   margin-top: 2px
 }
 
 .bar-wrap-inner {
-  width: 324px;
   padding-left: 15px;
   padding-right: 15px;
 }

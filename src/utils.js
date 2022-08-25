@@ -2,16 +2,17 @@ import { formatInputValues } from './formatters'
 import { config } from './constants'
 var tc = require("tinycolor2");
 
-const { squareSize, barSize, crossSize } = config
+const { barSize, crossSize } = config
 
 export function getHandleValue(e) {
-  const { offsetLeft } = safeBounds(e);
+  const { offsetLeft, clientWidth } = safeBounds(e);
   let pos = e.clientX - offsetLeft - barSize / 2;
-  let bounded = formatInputValues(pos, 0, 276)
-  return Math.round(bounded / 2.76)
+  let adjuster = clientWidth - 18;
+  let bounded = formatInputValues(pos, 0, adjuster)
+  return Math.round(bounded / (adjuster / 100))
 }
 
-export function computeSquareXY(hsl) {
+export function computeSquareXY(hsl, squareSize) {
   const s = hsl[1] * 100
   const l = hsl[2] * 100
   const t = (s * (l < 50 ? l : 100 - l)) / 100
@@ -23,14 +24,14 @@ export function computeSquareXY(hsl) {
 }
 
 export function computePickerPosition(e) {
-  const { offsetLeft, offsetTop } = safeBounds(e)
+  const { offsetLeft, offsetTop, clientWidth } = safeBounds(e)
   const getX = () => {
     let xPos = e.clientX - offsetLeft - crossSize / 2
-    return formatInputValues(xPos, -8, 284)
+    return formatInputValues(xPos, -8, clientWidth - 10)
   }
   const getY = () => {
     let yPos = e.clientY - offsetTop - crossSize / 2
-    return formatInputValues(yPos, -8, 284)
+    return formatInputValues(yPos, -8, clientWidth - 10)
   }
 
   return [getX(), getY()]
@@ -56,7 +57,7 @@ export const safeBounds = (e) => {
   let client = e.target.parentNode.getBoundingClientRect();
   let className = e.target.className;
   let adjuster = className === 'c-resize ps-rl' ? 15 : 0;
-  return { offsetLeft: client?.x + adjuster, offsetTop: client?.y}
+  return { offsetLeft: client?.x + adjuster, offsetTop: client?.y, clientWidth: client?.width }
 }
 
 export const isUpperCase = (str) => {

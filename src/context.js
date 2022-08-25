@@ -5,10 +5,10 @@ import { config } from './constants'
 import PropTypes from 'prop-types'
 
 var tinycolor = require("tinycolor2");
-const { squareSize, crossSize } = config
+const { crossSize } = config
 const PickerContext = createContext();
 
-export default function PickerContextWrapper({ children, bounds, value, onChange }) {
+export default function PickerContextWrapper({ children, bounds, value, onChange, squareSize }) {
   const offsetLeft = bounds?.x
 
   const isGradient = value?.includes('gradient')
@@ -29,7 +29,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   const { s: hsvS, v: hsvV } = tinyColor.toHsv();
   const [internalHue, setInternalHue] = useState(Math.round(h))
   const hue = Math.round(h);
-  const [x, y] = computeSquareXY([hue, s, l]);
+  const [x, y] = computeSquareXY([hue, s, l], squareSize);
   const [previousColors, setPreviousColors] = useState([]);
   const [previousGraidents, setPreviousGradients] = useState([]);
 
@@ -97,7 +97,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
 
   const addPoint = (e) => {
     let left = getHandleValue(e, offsetLeft)
-    let newColors = [...colors.map(c => ({...c, value: low(c)})), {value: currentColor, left: left }]
+    let newColors = [...colors.map(c => ({...c, value: low(c)})), { value: currentColor, left: left }]
     createGradientStr(newColors)
   }
 
@@ -130,6 +130,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     handleHue,
     isGradient,
     offsetLeft,
+    squareSize,
     handleColor,
     currentLeft,
     deletePoint,

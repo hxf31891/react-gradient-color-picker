@@ -9,7 +9,7 @@ const GradientControls = () => {
   return(
     <div className='df jsb' style={{marginTop: 12, marginBottom: -4, background: '#e9e9f5', borderRadius: 6}}>
       <GradientType />
-      <div style={{width: 53}}>
+      <div style={{ width: 53 }}>
         {gradientType === 'linear-gradient' && <DegreePicker />}
       </div>
       <StopPicker />
