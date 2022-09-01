@@ -22,7 +22,6 @@ export const gradientParser = (input = '') => {
     hexColor: /^\#([0-9a-fA-F]+)/,
     literalColor: /^([a-zA-Z]+)/,
     rgbColor: /^rgb/i,
-    spacedRgbColor: /^(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})\s+\/\s+([0-1](\.\d+)?)/,
     rgbaColor: /^rgba/i,
     hslColor: /^hsl/i,
     hsvColor: /^hsv/i,
@@ -312,10 +311,9 @@ export const gradientParser = (input = '') => {
 
   const convertRgb = (val) => {
     let capIt = isUpperCase(val?.[0]);
-    const captures = scan(tokens.spacedRgbColor);
-    const [, r, g, b, a = 1] = captures || [null, ...matchListing(matchNumber)];
+    let rgb = matchListing(matchNumber)
     return  {
-      value: `${capIt ? 'RGBA' : 'rgba'}(${r}, ${g}, ${b}, ${a})`
+      value: `${capIt ? 'RGBA' : 'rgba'}(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 1)`
     }
   }
 

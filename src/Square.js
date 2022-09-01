@@ -5,10 +5,10 @@ import { usePicker } from './context'
 import { psRl, cCross, handle, canvasWrapper } from './style';
 
 const Square = () => {
-  const { handleColor, x, y, internalHue, squareSize } = usePicker();
+  const { handleColor, x, y, internalHue, squareSize, squareHeight } = usePicker();
   const [dragging, setDragging] = useState(false);
   const canvas = useRef(null);
-  usePaintSquare(canvas, internalHue, squareSize);
+  usePaintSquare(canvas, internalHue, squareSize, squareHeight);
 
   const handleChange = (e) => {
     const ctx = canvas?.current?.getContext("2d");
@@ -34,11 +34,11 @@ const Square = () => {
 
   return (
     <div style={psRl}>
-      <div style={{position: 'absolute', left: -7, top: -7, width: squareSize + 14 , height: squareSize + 14 }} onMouseEnter={stopDragging} />
+      <div style={{position: 'absolute', left: -7, top: -7, width: squareSize + 14 , height: squareHeight + 14 }} onMouseEnter={stopDragging} />
       <div style={{ ...psRl, ...cCross }} onMouseMove={(e) => handleMove(e)} onMouseUp={stopDragging}>
         <div style={{ left: x, top: y, ...handle }} onMouseDown={() => setDragging(true)} />
-        <div style={{ ...canvasWrapper, height: squareSize }} onClick={(e) => handleClick(e)}>
-          <canvas ref={canvas} width={`${squareSize}px`} height={`${squareSize}px`} id='paintSquare' />
+        <div style={{ ...canvasWrapper, height: squareHeight }} onClick={(e) => handleClick(e)}>
+          <canvas ref={canvas} width={`${squareSize}px`} height={`${squareHeight}px`} id='paintSquare' />
         </div>
       </div>
     </div>

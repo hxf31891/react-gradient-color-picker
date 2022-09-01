@@ -12,26 +12,27 @@ export function getHandleValue(e) {
   return Math.round(bounded / (adjuster / 100))
 }
 
-export function computeSquareXY(hsl, squareSize) {
+export function computeSquareXY(hsl, squareSize, squareHeight) {
   const s = hsl[1] * 100
   const l = hsl[2] * 100
   const t = (s * (l < 50 ? l : 100 - l)) / 100
   const s1 = Math.round((200 * t) / (l + t)) | 0
   const b1 = Math.round(t + l)
   const x = (squareSize / 100) * s1 - crossSize / 2
-  const y = squareSize - (squareSize / 100) * b1 - crossSize / 2
+  const y = squareHeight - (squareHeight / 100) * b1 - crossSize / 2
   return [x, y]
 }
 
 export function computePickerPosition(e) {
-  const { offsetLeft, offsetTop, clientWidth } = safeBounds(e)
+  const { offsetLeft, offsetTop, clientWidth, clientHeight } = safeBounds(e)
   const getX = () => {
     let xPos = e.clientX - offsetLeft - crossSize / 2
     return formatInputValues(xPos, -8, clientWidth - 10)
   }
   const getY = () => {
     let yPos = e.clientY - offsetTop - crossSize / 2
-    return formatInputValues(yPos, -8, clientWidth - 10)
+    console.log(formatInputValues(yPos, -8, clientHeight - 10));
+    return formatInputValues(yPos, -8, clientHeight - 10)
   }
 
   return [getX(), getY()]
@@ -57,7 +58,7 @@ export const safeBounds = (e) => {
   let client = e.target.parentNode.getBoundingClientRect();
   let className = e.target.className;
   let adjuster = className === 'c-resize ps-rl' ? 15 : 0;
-  return { offsetLeft: client?.x + adjuster, offsetTop: client?.y, clientWidth: client?.width }
+  return { offsetLeft: client?.x + adjuster, offsetTop: client?.y, clientWidth: client?.width, clientHeight: client?.height }
 }
 
 export const isUpperCase = (str) => {

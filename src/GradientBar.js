@@ -5,7 +5,14 @@ import { barWrap, psRl, barWrapInner, df, jc, ac, gradientHandleWrap, gradientHa
 
 const GradientBar = () => {
   const { currentColor, addPoint, colors, value, handleGradient, squareSize } = usePicker()
-  const [dragging, setDragging] = useState(false)
+  const [dragging, setDragging] = useState(false);
+
+  function force90degLinear(string) {
+    return color.replace(
+      /(radial|linear)-gradient\([^,]+,/,
+      'linear-gradient(90deg,'
+    );
+  }
 
   const stopDragging = () => {
     setDragging(false)
@@ -27,7 +34,7 @@ const GradientBar = () => {
     <div onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{ ...barWrap, width: squareSize + 36 }}>
       <div onMouseUp={stopDragging} style={{ ...psRl, ...barWrapInner }}>
         <div onMouseDown={(e) => handleDown(e)} onMouseMove={(e) => handleMove(e)} style={{ paddingTop: 6, paddingBottom: 6 }}>
-          <div style={{width: squareSize, height: 14, backgroundImage: value, borderRadius: 10}} />
+          <div style={{width: squareSize, height: 14, backgroundImage: force90degLinear(value), borderRadius: 10}} />
         </div>
         {colors?.map((c, i) => (<Handle left={c.left} key={`${i}-${c}`} i={i} setDragging={setDragging} />))}
       </div>

@@ -8,7 +8,7 @@ var tinycolor = require("tinycolor2");
 const { crossSize } = config
 const PickerContext = createContext();
 
-export default function PickerContextWrapper({ children, bounds, value, onChange, squareSize }) {
+export default function PickerContextWrapper({ children, bounds, value, onChange, squareSize, squareHeight }) {
   const offsetLeft = bounds?.x
 
   const isGradient = value?.includes('gradient')
@@ -29,7 +29,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   const { s: hsvS, v: hsvV } = tinyColor.toHsv();
   const [internalHue, setInternalHue] = useState(Math.round(h))
   const hue = Math.round(h);
-  const [x, y] = computeSquareXY([hue, s, l], squareSize);
+  const [x, y] = computeSquareXY([hue, s, l], squareSize, squareHeight);
   const [previousColors, setPreviousColors] = useState([]);
   const [previousGraidents, setPreviousGradients] = useState([]);
 
@@ -77,15 +77,14 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
 
   const handleHue = (e) => {
     let newHue = getHandleValue(e) * 3.6;
-    console.log(newHue);
     let newHsl = getNewHsl(newHue, s, l, opacity, setInternalHue);
     handleChange(newHsl)
   }
 
   const handleColor = (e, ctx) => {
-    const [x, y] = computePickerPosition(e);
+    const [x, y] = computePickerPosition(e, squareHeight);
     const x1 = Math.min(x + crossSize / 2, squareSize - 1)
-    const y1 = Math.min(y + crossSize / 2, squareSize - 1)
+    const y1 = Math.min(y + crossSize / 2, squareHeight - 1)
     const [r, g, b] = ctx.getImageData(x1, y1, 1, 1).data
     let newColor = `rgba(${r}, ${g}, ${b}, ${opacity})`
     handleChange(newColor)
@@ -136,6 +135,7 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     currentLeft,
     deletePoint,
     internalHue,
+    squareHeight,
     setInputType,
     gradientType,
     handleChange,
