@@ -8,7 +8,10 @@ const GradientBar = () => {
   const [dragging, setDragging] = useState(false);
 
   function force90degLinear(color) {
-    return color.replace(/.+-gradient\([^,]+,/, 'linear-gradient(90deg,');
+    return color.replace(
+      /(radial|linear)-gradient\([^,]+,/,
+      'linear-gradient(90deg,'
+    );
   }
 
   const stopDragging = () => {
