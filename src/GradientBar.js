@@ -7,7 +7,7 @@ const GradientBar = () => {
   const { currentColor, addPoint, colors, value, handleGradient, squareSize } = usePicker()
   const [dragging, setDragging] = useState(false);
 
-  function force90degLinear(string) {
+  function force90degLinear(color) {
     return color.replace(
       /(radial|linear)-gradient\([^,]+,/,
       'linear-gradient(90deg,'
