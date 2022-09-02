@@ -1,5 +1,4 @@
 import { useEffect } from "react"
-import { config } from './constants'
 var tinycolor = require("tinycolor2");
 
 const usePaintHue = (canvas, squareSize) => {
@@ -13,7 +12,7 @@ const usePaintHue = (canvas, squareSize) => {
     }
     ctx.fillStyle = gradient
     ctx.fill()
-  }, [canvas])
+  }, [canvas, squareSize])
 }
 
 export default usePaintHue;
@@ -31,7 +30,7 @@ export const usePaintSat = (canvas, h, l, squareSize) => {
       ctx.fillStyle = gradient
       ctx.fill()
     }
-  }, [canvas, h, l])
+  }, [canvas, h, l, squareSize])
 }
 
 export const usePaintLight = (canvas, h, s, squareSize) => {
@@ -47,7 +46,7 @@ export const usePaintLight = (canvas, h, s, squareSize) => {
       ctx.fillStyle = gradient
       ctx.fill()
     }
-  }, [canvas, h, s])
+  }, [canvas, h, s, squareSize])
 }
 
 export const usePaintBright = (canvas, h, s, squareSize) => {
@@ -64,5 +63,5 @@ export const usePaintBright = (canvas, h, s, squareSize) => {
       ctx.fillStyle = gradient
       ctx.fill()
     }
-  }, [canvas, h, s])
+  }, [canvas, h, s, squareSize])
 }

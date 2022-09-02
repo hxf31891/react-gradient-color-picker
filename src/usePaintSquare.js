@@ -15,7 +15,7 @@ const usePaintSquare = (canvas, hue, squareSize, squareHeight) => {
     gradientBlack.addColorStop(1, `rgba(0, 0, 0, 1)`)
     ctx.fillStyle = gradientBlack
     ctx.fillRect(0, 0, squareSize, squareHeight)
-  }, [canvas, hue])
+  }, [canvas, hue, squareSize, squareHeight])
 }
 
 export default usePaintSquare

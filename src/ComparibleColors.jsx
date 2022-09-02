@@ -21,7 +21,7 @@ const ComparibleColors = ({ openComparibles }) => {
       <div style={{paddingTop: 11, display: openComparibles ? '' : 'none', ...psRl }}>
         <div style={{textAlign: 'center', color: '#323136', fontSize: 13, fontWeight: 600, position: 'absolute', top: 6.5, left: 2}}>Color Guide</div>
         <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, marginTop: 3}}>Analogous</div>
-        <div style={df} style={{borderRadius: 5, overflow: 'hidden', ...df }}>{analogous?.map((c, key) => (<div key={key} style={{width: '20%', height: 30, background: c.toHexString()}} onClick={() => handleClick(c)} />))}</div>
+        <div style={{borderRadius: 5, overflow: 'hidden', ...df }}>{analogous?.map((c, key) => (<div key={key} style={{width: '20%', height: 30, background: c.toHexString()}} onClick={() => handleClick(c)} />))}</div>
         <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, marginTop: 3}}>Monochromatic</div>
         <div style={{borderRadius: 5, overflow: 'hidden', ...df, ...jfe }}>{monochromatic?.map((c, key) => (<div key={key} style={{width: '20%', height: 30, background: c.toHexString()}} onClick={() => handleClick(c)} />))}</div>
         <div style={{textAlign: 'center', color: '#323136', fontSize: 12, fontWeight: 500, marginTop: 3}}>Triad</div>

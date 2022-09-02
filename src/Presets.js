@@ -1,6 +1,5 @@
 import React from 'react'
 import { usePicker } from './context'
-import { psRl, cCross, handle, canvasWrapper } from './style';
 
 const Presets = ({ presets = [] }) => {
   const { value, handleChange, squareSize } = usePicker();

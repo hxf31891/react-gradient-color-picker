@@ -28,7 +28,7 @@ export const useColorPicker = (value, onChange) => {
     if (tc(currentColor)?.isValid()) {
       setPreviousColors([currentColor, ...previousColors?.slice(0, 19)])
     }
-  }, [currentColor])
+  }, [currentColor, previousColors])
 
   const setLinear = () => {
     const remaining = value.split(/,(.+)/)[1]

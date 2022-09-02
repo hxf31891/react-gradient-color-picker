@@ -119,7 +119,6 @@ export const inputLabel = {
 export const controlBtn = {
   paddingLeft: 8,
   paddingRight: 8,
-  height: '100%',
   lineHeight: 1,
   borderRadius: 4,
   fontWeight: 700,
