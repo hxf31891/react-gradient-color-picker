@@ -11,11 +11,14 @@
 - You can completly customize the UI by hiding the included elements and using the hook to build your own
 - You can also customize preset options by passing in an array of rgba colors (see custom presets below)
 
-### Version 2.0.6 
-- Fixes several bugs pertaining to hue slider when saturation is 0
-
 ### Version 2.0.11
 - Add width prop
+
+### Version 2.0.14
+- Add height prop
+
+### Dev Plan
+- v3 in TS
 
 <br /> 
 
@@ -58,6 +61,7 @@ function MyApp() {
 | ---------------- | ------------ | ----------------------- | ---------------------------------------------------------------- |
 | value            | `string`     | 'rgba(175, 51, 242, 1)' | The starting color                                               |
 | width            | `int`        | 294                     | (optional) The width of the picker                               |
+| height           | `int`        | 294                     | (optional) The height of the picker                              |
 | hideInputs       | `boolean`    | `false`                 | (optional) hide the hex and rgba inputs                          |
 | hideControls     | `boolean`    | `false`                 | (optional) hide the solid/gradient and gradient options          |
 | hidePresets      | `boolean`    | `false`                 | (optional) hide the preset color options                         |
