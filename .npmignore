@@ -1,0 +1,9 @@
+/*.log
+/*.DS_Store
+/.idea
+/.gitignore
+/node_modules/
+/.github/
+/src/
+/babel.config.js
+**/*.spec.js
