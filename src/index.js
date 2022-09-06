@@ -17,7 +17,8 @@ function ColorPicker({
   hideInputType = false,
   width = 294,
   height = 294,
-  className = undefined,
+  style = {},
+  className,
 }) {
   const contRef = useRef(null);
   const [bounds, setBounds] = useState({});
@@ -27,7 +28,7 @@ function ColorPicker({
   }, [])
 
   return (
-    <div ref={contRef} style={{ width: width }} className={className}>
+    <div ref={contRef} style={{ ...style, width: width }} className={className}>
       <PickerContextWrapper
         bounds={bounds}
         value={value}
