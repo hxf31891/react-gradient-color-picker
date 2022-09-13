@@ -1,9 +1,9 @@
-import { useEffect } from "react"
-var tinycolor = require("tinycolor2");
+import { useEffect } from 'react'
+var tinycolor = require('tinycolor2')
 
 const usePaintHue = (canvas, squareSize) => {
   useEffect(() => {
-    const ctx = canvas?.current?.getContext("2d")
+    const ctx = canvas?.current?.getContext('2d')
     ctx.rect(0, 0, squareSize, 14)
 
     const gradient = ctx.createLinearGradient(0, 0, squareSize, 0)
@@ -15,11 +15,11 @@ const usePaintHue = (canvas, squareSize) => {
   }, [canvas, squareSize])
 }
 
-export default usePaintHue;
+export default usePaintHue
 
 export const usePaintSat = (canvas, h, l, squareSize) => {
   useEffect(() => {
-    const ctx = canvas?.current?.getContext("2d")
+    const ctx = canvas?.current?.getContext('2d')
     if (ctx) {
       ctx.rect(0, 0, squareSize, 14)
 
@@ -35,7 +35,7 @@ export const usePaintSat = (canvas, h, l, squareSize) => {
 
 export const usePaintLight = (canvas, h, s, squareSize) => {
   useEffect(() => {
-    const ctx = canvas?.current?.getContext("2d")
+    const ctx = canvas?.current?.getContext('2d')
     if (ctx) {
       ctx.rect(0, 0, squareSize, 14)
 
@@ -51,13 +51,13 @@ export const usePaintLight = (canvas, h, s, squareSize) => {
 
 export const usePaintBright = (canvas, h, s, squareSize) => {
   useEffect(() => {
-    const ctx = canvas?.current?.getContext("2d")
+    const ctx = canvas?.current?.getContext('2d')
     if (ctx) {
       ctx.rect(0, 0, squareSize, 14)
 
       const gradient = ctx.createLinearGradient(0, 0, squareSize, 0)
       for (let i = 0; i <= 100; i += 10) {
-        let hsl = tinycolor({ h: h, s: s, v: i})
+        let hsl = tinycolor({ h: h, s: s, v: i })
         gradient.addColorStop(i / 100, hsl.toHslString())
       }
       ctx.fillStyle = gradient
