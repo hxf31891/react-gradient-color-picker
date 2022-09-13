@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { SlidersIcon, InputsIcon, PaletteIcon } from './icon'
 import { usePicker } from './context'
-import EyeDropper from 'react-color-eye-dropper'
+import EyeDropper from './EyeDropper'
 import { config } from './constants'
 import AdvancedControls from './AdvancedControls'
 import ComparibleColors from './ComparibleColors'
