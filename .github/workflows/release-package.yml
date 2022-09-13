@@ -25,7 +25,7 @@ jobs:
           node-version: 12
       - run: npm i -g npm@latest
       - run: npm ci
-      - run: npm test
+      - run: npm run eslint
 
   publish-gpr:
     needs:
