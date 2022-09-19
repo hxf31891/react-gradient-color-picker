@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState, useEffect } from 'react'
 import PickerContextWrapper from './context'
-import Picker from "./Picker";
+import Picker from './Picker'
 
 export * from './useColorPicker'
 
@@ -20,11 +20,11 @@ function ColorPicker({
   style = {},
   className,
 }) {
-  const contRef = useRef(null);
-  const [bounds, setBounds] = useState({});
+  const contRef = useRef(null)
+  const [bounds, setBounds] = useState({})
 
   useEffect(() => {
-    setBounds(contRef?.current?.getBoundingClientRect());
+    setBounds(contRef?.current?.getBoundingClientRect())
   }, [])
 
   return (
@@ -34,7 +34,8 @@ function ColorPicker({
         value={value}
         onChange={onChange}
         squareSize={width}
-        squareHeight={height}>
+        squareHeight={height}
+      >
         <Picker
           hideControls={hideControls}
           hideInputs={hideInputs}
@@ -50,4 +51,4 @@ function ColorPicker({
   )
 }
 
-export default ColorPicker;
+export default ColorPicker

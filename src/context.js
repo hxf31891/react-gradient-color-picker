@@ -1,37 +1,54 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { computePickerPosition, getGradientType, computeSquareXY, getDegrees, getNewHsl, getHandleValue, isUpperCase } from './utils'
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import {
+  computePickerPosition,
+  getGradientType,
+  computeSquareXY,
+  getDegrees,
+  getNewHsl,
+  getHandleValue,
+  isUpperCase,
+} from './utils'
 import { low, high, getColors } from './formatters'
 import { config } from './constants'
 import PropTypes from 'prop-types'
 
-var tinycolor = require("tinycolor2");
+var tinycolor = require('tinycolor2')
 const { crossSize } = config
-const PickerContext = createContext();
+const PickerContext = createContext()
 
-export default function PickerContextWrapper({ children, bounds, value, onChange, squareSize, squareHeight }) {
+export default function PickerContextWrapper({
+  children,
+  bounds,
+  value,
+  onChange,
+  squareSize,
+  squareHeight,
+}) {
   const offsetLeft = bounds?.x
 
   const isGradient = value?.includes('gradient')
   const gradientType = getGradientType(value)
   const degrees = getDegrees(value)
-  const degreeStr = gradientType === 'linear-gradient' ? `${degrees}deg` : 'circle'
-  const colors = getColors(value);
-  const indexedColors = colors?.map((c, i) => ({...c, index: i}))
-  const currentColorObj = indexedColors?.filter(c => isUpperCase(c.value))[0] || indexedColors[0]
-  const currentColor = currentColorObj?.value;
-  const selectedColor = currentColorObj?.index;
+  const degreeStr =
+    gradientType === 'linear-gradient' ? `${degrees}deg` : 'circle'
+  const colors = getColors(value)
+  const indexedColors = colors?.map((c, i) => ({ ...c, index: i }))
+  const currentColorObj =
+    indexedColors?.filter((c) => isUpperCase(c.value))[0] || indexedColors[0]
+  const currentColor = currentColorObj?.value
+  const selectedColor = currentColorObj?.index
   const currentLeft = currentColorObj?.left
-  const [tinyColor, setTinyColor] = useState(tinycolor(currentColor));
-  const [inputType, setInputType] = useState('rgb');
+  const [tinyColor, setTinyColor] = useState(tinycolor(currentColor))
+  const [inputType, setInputType] = useState('rgb')
 
-  const { r, g, b, a: opacity } = tinyColor.toRgb();
-  const { h, s, l } = tinyColor.toHsl();
-  const { s: hsvS, v: hsvV } = tinyColor.toHsv();
+  const { r, g, b, a: opacity } = tinyColor.toRgb()
+  const { h, s, l } = tinyColor.toHsl()
+  const { s: hsvS, v: hsvV } = tinyColor.toHsv()
   const [internalHue, setInternalHue] = useState(Math.round(h))
-  const hue = Math.round(h);
-  const [x, y] = computeSquareXY([hue, s, l], squareSize, squareHeight);
-  const [previousColors, setPreviousColors] = useState([]);
-  const [previousGraidents, setPreviousGradients] = useState([]);
+  const hue = Math.round(h)
+  const [x, y] = computeSquareXY([hue, s, l], squareSize, squareHeight)
+  const [previousColors, setPreviousColors] = useState([])
+  const [previousGraidents, setPreviousGradients] = useState([])
 
   useEffect(() => {
     setTinyColor(tinycolor(currentColor))
@@ -40,13 +57,13 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
 
   useEffect(() => {
     if (isGradient) {
-      setPreviousGradients([value, ...previousGraidents?.slice(0, 4) ]);
+      setPreviousGradients([value, ...previousGraidents?.slice(0, 4)])
     } else {
       if (tinycolor(value).isValid()) {
-        setPreviousColors([value, ...previousColors?.slice(0, 4) ])
+        setPreviousColors([value, ...previousColors?.slice(0, 4)])
       }
     }
-  //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [value])
 
   const createGradientStr = (newColors) => {
@@ -56,8 +73,11 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   }
 
   const handleGradient = (newColor, left = currentLeft) => {
-    let remaining = colors?.filter(c => !isUpperCase(c.value));
-    let newColors = [{value: newColor.toUpperCase(), left: left}, ...remaining]
+    let remaining = colors?.filter((c) => !isUpperCase(c.value))
+    let newColors = [
+      { value: newColor.toUpperCase(), left: left },
+      ...remaining,
+    ]
     createGradientStr(newColors)
   }
 
@@ -70,19 +90,19 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   }
 
   const handleOpacity = (e) => {
-    let newO = getHandleValue(e) / 100;
+    let newO = getHandleValue(e) / 100
     let newColor = `rgba(${r}, ${g}, ${b}, ${newO})`
     handleChange(newColor)
   }
 
   const handleHue = (e) => {
-    let newHue = getHandleValue(e) * 3.6;
-    let newHsl = getNewHsl(newHue, s, l, opacity, setInternalHue);
+    let newHue = getHandleValue(e) * 3.6
+    let newHsl = getNewHsl(newHue, s, l, opacity, setInternalHue)
     handleChange(newHsl)
   }
 
   const handleColor = (e, ctx) => {
-    const [x, y] = computePickerPosition(e, squareHeight);
+    const [x, y] = computePickerPosition(e, squareHeight)
     const x1 = Math.min(x + crossSize / 2, squareSize - 1)
     const y1 = Math.min(y + crossSize / 2, squareHeight - 1)
     const [r, g, b] = ctx.getImageData(x1, y1, 1, 1).data
@@ -91,13 +111,19 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
   }
 
   const setSelectedColor = (index) => {
-    let newGradStr = colors?.map((cc, i) => ({...cc, value: i === index ? high(cc) : low(cc)}))
+    let newGradStr = colors?.map((cc, i) => ({
+      ...cc,
+      value: i === index ? high(cc) : low(cc),
+    }))
     createGradientStr(newGradStr)
   }
 
   const addPoint = (e) => {
     let left = getHandleValue(e, offsetLeft)
-    let newColors = [...colors.map(c => ({...c, value: low(c)})), { value: currentColor, left: left }]
+    let newColors = [
+      ...colors.map((c) => ({ ...c, value: low(c) })),
+      { value: currentColor, left: left },
+    ]
     createGradientStr(newColors)
   }
 
@@ -147,13 +173,17 @@ export default function PickerContextWrapper({ children, bounds, value, onChange
     handleGradient,
     setSelectedColor,
     previousGraidents,
-  };
+  }
 
-  return <PickerContext.Provider value={pickerState}>{children}</PickerContext.Provider>;
+  return (
+    <PickerContext.Provider value={pickerState}>
+      {children}
+    </PickerContext.Provider>
+  )
 }
 
 export function usePicker() {
-  return useContext(PickerContext);
+  return useContext(PickerContext)
 }
 
 PickerContextWrapper.propTypes = {

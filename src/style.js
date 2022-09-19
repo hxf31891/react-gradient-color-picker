@@ -42,14 +42,14 @@ export const opacityOverlay = {
   top: 0,
   width: '100%',
   height: '100%',
-  borderRadius: 10
+  borderRadius: 10,
 }
 
 export const opacityBg = {
   display: 'flex',
   flexWrap: 'wrap',
   borderRadius: 10,
-  overflow: 'hidden'
+  overflow: 'hidden',
 }
 
 export const handle = {
@@ -68,7 +68,7 @@ export const gradientHandleWrap = {
   zIndex: 10000,
   paddingLeft: 2,
   paddingRight: 2,
-  top: 4
+  top: 4,
 }
 
 export const gradientHandle = {
@@ -135,7 +135,7 @@ export const barWrap = {
   width: 330,
   marginLeft: -18,
   padding: 3,
-  marginTop: 2
+  marginTop: 2,
 }
 
 export const barWrapInner = {
@@ -159,7 +159,7 @@ export const inputDropdown = {
   background: '#e9e9f5',
   zIndex: 100000000,
   borderRadius: 6,
-  boxShadow: '1px 1px 14px 1px rgba(0,0,0,.25)'
+  boxShadow: '1px 1px 14px 1px rgba(0,0,0,.25)',
 }
 
 // .input-dropdown::before {
@@ -176,5 +176,6 @@ export const inputDropdown = {
 // }
 
 export const input = {
-  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
 }
