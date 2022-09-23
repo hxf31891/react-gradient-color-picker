@@ -49,7 +49,7 @@ const Opacity = () => {
         style={{ ...barWrapInner, width: squareSize + 30 }}
       >
         <div
-          style={{ ...cResize, ...psRl }}
+          style={{ ...cResize, ...psRl, width: squareSize }}
           onMouseDown={handleDown}
           onMouseMove={(e) => handleMove(e)}
         >
