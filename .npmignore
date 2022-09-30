@@ -7,3 +7,6 @@
 /src/
 /babel.config.js
 **/*.spec.js
+/.eslintignore
+/.prettierrc
+/.eslintrc.js
