@@ -61,6 +61,7 @@ export const handle = {
   height: 18,
   zIndex: 1000,
   transition: 'all 10ms linear',
+  boxSizing: 'border-box',
 }
 
 export const gradientHandleWrap = {
@@ -77,6 +78,7 @@ export const gradientHandle = {
   boxShadow: '0px 0px 3px rgba(0,0,0,.5)',
   width: 18,
   height: 18,
+  boxSizing: 'border-box',
 }
 
 export const npe = {
@@ -106,6 +108,7 @@ export const inputWrap = {
   color: 'black',
   fontWeight: 400,
   textAlign: 'center',
+  boxSizing: 'border-box',
 }
 
 export const inputLabel = {
@@ -135,13 +138,15 @@ export const barWrap = {
   width: 330,
   marginLeft: -18,
   padding: 3,
-  marginTop: 2
+  marginTop: 2,
+  boxSizing: 'border-box',
 }
 
 export const barWrapInner = {
   width: 324,
   paddingLeft: 15,
   paddingRight: 15,
+  boxSizing: 'border-box',
 }
 
 export const controlBtnsWrap = {

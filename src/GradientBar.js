@@ -32,7 +32,7 @@ const GradientBar = () => {
 
   return(
     <div onMouseEnter={stopDragging} onMouseLeave={stopDragging} style={{ ...barWrap, width: squareSize + 36 }}>
-      <div onMouseUp={stopDragging} style={{ ...psRl, ...barWrapInner }}>
+      <div onMouseUp={stopDragging} style={{ ...psRl, ...barWrapInner, width: squareSize + 30 }}>
         <div onMouseDown={(e) => handleDown(e)} onMouseMove={(e) => handleMove(e)} style={{ paddingTop: 6, paddingBottom: 6 }}>
           <div style={{width: squareSize, height: 14, backgroundImage: force90degLinear(value), borderRadius: 10}} />
         </div>
