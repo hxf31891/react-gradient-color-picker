@@ -128,7 +128,7 @@ const AdvBar = ({ left, callback, reffy }) => {
           style={{ ...cResize, ...psRl }}
         >
           <div
-            style={{ ...handle, left, top: 2 }}
+            style={{ ...handle, left, top: -2 }}
             onMouseDown={() => setDragging(true)}
           />
           <canvas

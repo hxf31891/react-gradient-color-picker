@@ -48,7 +48,7 @@ const Hue = () => {
             style={{
               ...handle,
               left: internalHue * ((squareSize - 18) / 360),
-              top: 2,
+              top: -2,
             }}
             onMouseDown={handleDown}
           />
