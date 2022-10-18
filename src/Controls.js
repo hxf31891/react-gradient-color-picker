@@ -6,7 +6,17 @@ import { config } from './constants'
 import AdvancedControls from './AdvancedControls'
 import ComparibleColors from './ComparibleColors'
 import GradientControls from './GradientControls'
-import { ac, df, jc, jsb, inputDropdown, psRl, jfe, controlBtn } from './style'
+import {
+  ac,
+  df,
+  jc,
+  jsb,
+  inputDropdown,
+  psRl,
+  jfe,
+  controlBtn,
+  borderBox,
+} from './style'
 
 var { defaultColor, defaultGradient } = config
 
@@ -52,6 +62,7 @@ const Controls = ({
             ...df,
             ...jc,
             ...ac,
+            ...borderBox,
           }}
         >
           <div
@@ -87,6 +98,7 @@ const Controls = ({
             padding: 2,
             display: noTools ? 'none' : '',
             ...df,
+            ...borderBox,
           }}
         >
           {!hideEyeDrop && (
@@ -194,46 +206,46 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
     >
       <div
         style={{
-          ...controlBtnStyles(inputType === 'rgb'),
           ...df,
           ...ac,
           ...psRl,
           ...controlBtn,
+          ...controlBtnStyles(inputType === 'rgb'),
         }}
-        onClick={(e) => handleInputType(e, 'rgb')}
+        onClick={e => handleInputType(e, 'rgb')}
       >
         RGB
       </div>
       <div
         style={{
-          ...controlBtnStyles(inputType === 'hsl'),
           ...df,
           ...ac,
           ...controlBtn,
+          ...controlBtnStyles(inputType === 'hsl'),
         }}
-        onClick={(e) => handleInputType(e, 'hsl')}
+        onClick={e => handleInputType(e, 'hsl')}
       >
         HSL
       </div>
       <div
         style={{
-          ...controlBtnStyles(inputType === 'hsv'),
           ...df,
           ...ac,
           ...controlBtn,
+          ...controlBtnStyles(inputType === 'hsv'),
         }}
-        onClick={(e) => handleInputType(e, 'hsv')}
+        onClick={e => handleInputType(e, 'hsv')}
       >
         HSV
       </div>
       <div
         style={{
-          ...controlBtnStyles(inputType === 'cmyk'),
           ...df,
           ...ac,
           ...controlBtn,
+          ...controlBtnStyles(inputType === 'cmyk'),
         }}
-        onClick={(e) => handleInputType(e, 'cmyk')}
+        onClick={e => handleInputType(e, 'cmyk')}
       >
         CMYK
       </div>
@@ -241,10 +253,12 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
   )
 }
 
-export const controlBtnStyles = (selected) => {
+export const controlBtnStyles = selected => {
   return {
-    background: selected ? 'white' : '',
-    color: selected ? '#568CF5' : '',
-    boxShadow: selected ? '0px 0px 8px rgba(0,0,0,.125)' : '',
+    background: selected ? 'white' : 'rgba(255,255,255,0)',
+    color: selected ? '#568CF5' : 'rgb(86,86,86)',
+    boxShadow: selected
+      ? '1px 1px 3px rgba(0,0,0,.2)'
+      : '1px 1px 3px rgba(0,0,0,0)',
   }
 }

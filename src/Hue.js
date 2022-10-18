@@ -1,13 +1,25 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { usePicker } from './context'
 import usePaintHue from './usePaintHue'
-import { barWrap, psRl, barWrapInner, cResize, handle } from './style'
+import {
+  barWrap,
+  psRl,
+  barWrapInner,
+  cResize,
+  handle,
+  borderBox,
+} from './style'
 
 const Hue = () => {
   const barRef = useRef(null)
   const { handleHue, internalHue, squareSize } = usePicker()
   const [dragging, setDragging] = useState(false)
   usePaintHue(barRef, squareSize)
+  const [handleTop, setHandleTop] = useState(2)
+
+  useEffect(() => {
+    setHandleTop(barRef?.current?.offsetTop - 2)
+  }, [barRef])
 
   const stopDragging = () => {
     setDragging(false)
@@ -17,13 +29,13 @@ const Hue = () => {
     setDragging(true)
   }
 
-  const handleMove = (e) => {
+  const handleMove = e => {
     if (dragging) {
       handleHue(e)
     }
   }
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     if (!dragging) {
       handleHue(e)
     }
@@ -40,15 +52,15 @@ const Hue = () => {
         style={{ ...psRl, ...barWrapInner, width: squareSize + 30 }}
       >
         <div
-          style={{ ...psRl, ...cResize }}
-          onMouseMove={(e) => handleMove(e)}
+          style={{ ...psRl, ...cResize, ...borderBox }}
+          onMouseMove={e => handleMove(e)}
           className="c-resize ps-rl"
         >
           <div
             style={{
               ...handle,
               left: internalHue * ((squareSize - 18) / 360),
-              top: 2,
+              top: handleTop,
             }}
             onMouseDown={handleDown}
           />
@@ -57,7 +69,7 @@ const Hue = () => {
             width={`${squareSize}px`}
             height="14px"
             style={{ position: 'relative', borderRadius: 14 }}
-            onClick={(e) => handleClick(e)}
+            onClick={e => handleClick(e)}
           />
         </div>
       </div>

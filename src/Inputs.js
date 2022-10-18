@@ -7,10 +7,39 @@ import { inputWrap, inputLabel } from './style'
 var tc = require('tinycolor2')
 
 const Inputs = () => {
-  const [disable, setDisable] = useState('')
-  const { handleChange, tinyColor, r, g, b, opacity, inputType } = usePicker()
-  const hex = tinyColor.toHex()
-  const [newHex, setNewHex] = useState(hex)
+  const { handleChange, r, g, b, opacity, inputType } = usePicker()
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        paddingTop: 14,
+      }}
+    >
+      {inputType !== 'cmyk' && <HexInput />}
+      {inputType === 'hsl' && <HSLInputs />}
+      {inputType === 'rgb' && <RGBInputs />}
+      {inputType === 'hsv' && <HSVInputs />}
+      {inputType === 'cmyk' && <CMKYInputs />}
+      <Input
+        value={opacity * 100}
+        callback={(newVal) =>
+          handleChange(`rgba(${r}, ${g}, ${b}, ${newVal / 100})`)
+        }
+        label="A"
+      />
+    </div>
+  )
+}
+
+export default Inputs;
+
+const HexInput = () => {
+  const { handleChange, tinyColor, opacity } = usePicker();
+  const [disable, setDisable] = useState('');
+  const hex = tinyColor.toHex();
+  const [newHex, setNewHex] = useState(hex);
 
   useEffect(() => {
     if (disable !== 'hex') {
@@ -28,40 +57,19 @@ const Inputs = () => {
     }
   }
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        paddingTop: 14,
-      }}
-    >
-      <div style={{ width: '23%' }}>
-        <input
-          style={{ ...inputWrap }}
-          value={newHex}
-          onChange={(e) => handleHex(e)}
-          onFocus={() => setDisable('hex')}
-          onBlur={() => setDisable('')}
-        />
-        <div style={{ ...inputLabel }}>HEX</div>
-      </div>
-      {inputType === 'hsl' && <HSLInputs />}
-      {inputType === 'rgb' && <RGBInputs />}
-      {inputType === 'hsv' && <HSVInputs />}
-      {inputType === 'cmyk' && <CMKYInputs />}
-      <Input
-        value={opacity * 100}
-        callback={(newVal) =>
-          handleChange(`rgba(${r}, ${g}, ${b}, ${newVal / 100})`)
-        }
-        label="A"
+  return(
+    <div style={{ width: '23%' }}>
+      <input
+        style={{ ...inputWrap }}
+        value={newHex}
+        onChange={(e) => handleHex(e)}
+        onFocus={() => setDisable('hex')}
+        onBlur={() => setDisable('')}
       />
+      <div style={{ ...inputLabel }}>HEX</div>
     </div>
   )
 }
-
-export default Inputs
 
 const RGBInputs = () => {
   const { handleChange, r, g, b, opacity } = usePicker()
@@ -204,8 +212,7 @@ const CMKYInputs = () => {
 }
 
 const Input = ({ value, callback, max = 100, label }) => {
-  const [temp, setTemp] = useState(value)
-  const { inputType } = usePicker()
+  const [temp, setTemp] = useState(value);
 
   useEffect(() => {
     setTemp(value)
@@ -218,7 +225,7 @@ const Input = ({ value, callback, max = 100, label }) => {
   }
 
   return (
-    <div style={{ width: inputType === 'cmyk' ? '14.9%' : '18%' }}>
+    <div style={{ width: '18%' }}>
       <input
         style={{ ...inputWrap }}
         value={temp}

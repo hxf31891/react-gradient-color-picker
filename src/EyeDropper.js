@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Portal from './Portal'
 import html2canvas from 'html2canvas'
+import { controlBtnStyles } from './Controls'
 
 const DropperIcon = ({ color }) => {
   const col = color || '#323136'
@@ -48,7 +49,7 @@ const EyeDropper = ({ onSelect, buttonStyle }) => {
   const [coverUp, setCoverUp] = useState(false)
 
   const takePick = () =>
-    html2canvas(document.body).then((canvas) => {
+    html2canvas(document.body).then(canvas => {
       const croppedCanvas = document.createElement('canvas')
       const croppedCanvasContext = croppedCanvas.getContext('2d')
 
@@ -65,7 +66,7 @@ const EyeDropper = ({ onSelect, buttonStyle }) => {
       setCoverUp(true)
     })
 
-  const getEyeDrop = (e) => {
+  const getEyeDrop = e => {
     e.stopPropagation()
     const x1 = e.clientX * 2
     const y1 = e.clientY * 2
@@ -76,14 +77,17 @@ const EyeDropper = ({ onSelect, buttonStyle }) => {
 
   return (
     <div>
-      <div style={buttonStyle} onClick={takePick}>
-        <DropperIcon />
+      <div
+        style={{ ...buttonStyle, ...controlBtnStyles(coverUp) }}
+        onClick={takePick}
+      >
+        <DropperIcon color={coverUp ? 'rgb(86, 140, 245)' : ''} />
       </div>
       {coverUp && (
         <Portal id="eyeDropCover">
           <div
             style={{
-              position: 'absolute',
+              position: 'fixed',
               left: 0,
               top: 0,
               zIndex: 100000000,
@@ -91,7 +95,7 @@ const EyeDropper = ({ onSelect, buttonStyle }) => {
               height: window.innerHeight,
               cursor: 'copy',
             }}
-            onClick={(e) => getEyeDrop(e)}
+            onClick={e => getEyeDrop(e)}
           />
         </Portal>
       )}

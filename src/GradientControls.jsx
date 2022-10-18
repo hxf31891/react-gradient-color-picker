@@ -17,6 +17,7 @@ import {
   degreeInput,
   psRl,
   jc,
+  borderBox,
 } from './style'
 
 const GradientControls = () => {
@@ -30,6 +31,7 @@ const GradientControls = () => {
         marginBottom: -4,
         background: '#e9e9f5',
         borderRadius: 6,
+        ...borderBox,
       }}
     >
       <GradientType />
@@ -60,16 +62,16 @@ const GradientType = () => {
   }
 
   return (
-    <div style={{ ...df, ...ac, ...controlBtnsWrap }}>
+    <div style={{ ...df, ...ac, ...controlBtnsWrap, ...borderBox }}>
       <div
         onClick={handleLinear}
-        style={{ ...controlBtnStyles(isLinear), ...controlBtn }}
+        style={{ ...controlBtn, ...controlBtnStyles(isLinear) }}
       >
         <LinearIcon color={isLinear ? '#568CF5' : ''} />
       </div>
       <div
         onClick={handleRadial}
-        style={{ ...controlBtnStyles(isRadial), ...controlBtn }}
+        style={{ ...controlBtn, ...controlBtnStyles(isRadial) }}
       >
         <RadialIcon color={isRadial ? '#568CF5' : ''} />
       </div>
@@ -80,7 +82,7 @@ const GradientType = () => {
 const StopPicker = () => {
   const { currentLeft, handleGradient, currentColor } = usePicker()
 
-  const handleMove = (newVal) => {
+  const handleMove = newVal => {
     handleGradient(currentColor, formatInputValues(newVal, 0, 100))
   }
 
@@ -90,7 +92,7 @@ const StopPicker = () => {
       <input
         style={degreeInput}
         value={currentLeft}
-        onChange={(e) => handleMove(e.target.value)}
+        onChange={e => handleMove(e.target.value)}
       />
     </div>
   )
@@ -99,7 +101,7 @@ const StopPicker = () => {
 const DegreePicker = () => {
   const { degrees, onChange, value } = usePicker()
 
-  const handleDegrees = (e) => {
+  const handleDegrees = e => {
     let newValue = formatInputValues(e.target.value, 0, 360)
     const remaining = value.split(/,(.+)/)[1]
     onChange(`linear-gradient(${newValue || 0}deg, ${remaining}`)
@@ -111,7 +113,7 @@ const DegreePicker = () => {
       <input
         style={degreeInput}
         value={degrees}
-        onChange={(e) => handleDegrees(e)}
+        onChange={e => handleDegrees(e)}
       />
       <div
         style={{
