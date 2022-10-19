@@ -11,15 +11,6 @@
 - You can completly customize the UI by hiding the included elements and using the hook to build your own
 - You can also customize preset options by passing in an array of rgba colors (see custom presets below)
 
-### Version 2.0.11
-- Add width prop
-
-### Version 2.0.14
-- Add height prop
-
-### Dev Plan
-- v3 in TS
-
 <br /> 
 
 <img alt="" src="https://gradient-package-demo.web.app/gradientPickerImg.png" width="100%" />
