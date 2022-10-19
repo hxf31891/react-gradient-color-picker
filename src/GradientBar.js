@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { getHandleValue } from "./utils";
-import { usePicker } from "./context";
+import React, { useState } from 'react'
+import { getHandleValue } from './utils'
+import { usePicker } from './context'
 import {
   barWrap,
   psRl,
@@ -9,8 +9,8 @@ import {
   jc,
   ac,
   gradientHandleWrap,
-  gradientHandle
-} from "./style";
+  gradientHandle,
+} from './style'
 
 const GradientBar = () => {
   const {
@@ -19,32 +19,33 @@ const GradientBar = () => {
     colors,
     value,
     handleGradient,
-    squareSize
-  } = usePicker();
-  const [dragging, setDragging] = useState(false);
+    squareSize,
+  } = usePicker()
+  const [dragging, setDragging] = useState(false)
 
   function force90degLinear(color) {
     return color.replace(
       /(radial|linear)-gradient\([^,]+,/,
-      "linear-gradient(90deg,"
-    );
+      'linear-gradient(90deg,'
+    )
   }
 
   const stopDragging = () => {
-    setDragging(false);
-  };
+    setDragging(false)
+  }
 
   const handleDown = e => {
     if (!dragging) {
-      addPoint(e);
+      addPoint(e)
+      setDragging(true)
     }
-  };
+  }
 
   const handleMove = e => {
     if (dragging) {
-      handleGradient(currentColor, getHandleValue(e));
+      handleGradient(currentColor, getHandleValue(e))
     }
-  };
+  }
 
   return (
     <div
@@ -66,7 +67,7 @@ const GradientBar = () => {
               width: squareSize,
               height: 14,
               backgroundImage: force90degLinear(value),
-              borderRadius: 10
+              borderRadius: 10,
             }}
           />
         </div>
@@ -80,21 +81,21 @@ const GradientBar = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GradientBar;
+export default GradientBar
 
 export const Handle = ({ left, i, setDragging }) => {
-  const { setSelectedColor, selectedColor, squareSize } = usePicker();
-  const isSelected = selectedColor === i;
-  const leftMultiplyer = (squareSize - 18) / 100;
+  const { setSelectedColor, selectedColor, squareSize } = usePicker()
+  const isSelected = selectedColor === i
+  const leftMultiplyer = (squareSize - 18) / 100
 
   const handleDown = e => {
-    e.stopPropagation();
-    setSelectedColor(i);
-    setDragging(true);
-  };
+    e.stopPropagation()
+    setSelectedColor(i)
+    setDragging(true)
+  }
 
   return (
     <div
@@ -107,7 +108,7 @@ export const Handle = ({ left, i, setDragging }) => {
           ...gradientHandle,
           ...df,
           ...jc,
-          ...ac
+          ...ac,
         }}
       >
         {isSelected && (
@@ -115,19 +116,19 @@ export const Handle = ({ left, i, setDragging }) => {
             style={{
               width: 5,
               height: 5,
-              borderRadius: "50%",
-              background: "white"
+              borderRadius: '50%',
+              background: 'white',
             }}
           />
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const handleStyle = isSelected => {
   return {
-    boxShadow: isSelected ? "0px 0px 5px 1px rgba(86, 140, 245,.95)" : "",
-    border: isSelected ? "2px solid white" : "2px solid rgba(255,255,255,.75)"
-  };
-};
+    boxShadow: isSelected ? '0px 0px 5px 1px rgba(86, 140, 245,.95)' : '',
+    border: isSelected ? '2px solid white' : '2px solid rgba(255,255,255,.75)',
+  }
+}
