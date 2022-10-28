@@ -92,7 +92,7 @@ const StopPicker = () => {
       <input
         style={degreeInput}
         value={currentLeft}
-        onChange={e => handleMove(e.target.value)}
+        onChange={e => handleMove(e.target.value || 0)}
       />
     </div>
   )
