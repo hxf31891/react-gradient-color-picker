@@ -131,7 +131,7 @@ const DegreePicker = () => {
 }
 
 const DeleteBtn = () => {
-  const { deletePoint } = usePicker()
+  const { deletePoint } = usePicker();
 
   return (
     <div

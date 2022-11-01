@@ -24,7 +24,6 @@ export default function PickerContextWrapper({
   squareHeight
 }) {
   const offsetLeft = bounds?.x;
-
   const isGradient = value?.includes("gradient");
   const gradientType = getGradientType(value);
   const degrees = getDegrees(value);
@@ -48,6 +47,7 @@ export default function PickerContextWrapper({
   const [x, y] = computeSquareXY([hue, s, l], squareSize, squareHeight);
   const [previousColors, setPreviousColors] = useState([]);
   const [previousGraidents, setPreviousGradients] = useState([]);
+  const [inFocus, setInFocus] = useState([]);
 
   useEffect(() => {
     setTinyColor(tinycolor(currentColor));
@@ -133,6 +133,14 @@ export default function PickerContextWrapper({
     }
   };
 
+  const nextPoint = () => {
+    if (selectedColor === colors?.length - 1) {
+      setSelectedColor(0)
+    } else {
+      setSelectedColor(selectedColor + 1)
+    }
+  }
+
   const pickerState = {
     x,
     y,
@@ -147,12 +155,15 @@ export default function PickerContextWrapper({
     value,
     colors,
     degrees,
+    inFocus,
     opacity,
     onChange,
     addPoint,
     inputType,
+    nextPoint,
     tinyColor,
     handleHue,
+    setInFocus,
     isGradient,
     offsetLeft,
     squareSize,

@@ -36,7 +36,7 @@ const Inputs = () => {
 export default Inputs;
 
 const HexInput = () => {
-  const { handleChange, tinyColor, opacity } = usePicker();
+  const { handleChange, tinyColor, opacity, setInFocus } = usePicker();
   const [disable, setDisable] = useState('');
   const hex = tinyColor.toHex();
   const [newHex, setNewHex] = useState(hex);
@@ -46,6 +46,16 @@ const HexInput = () => {
       setNewHex(hex)
     }
   }, [tinyColor, disable, hex])
+
+  const hexFocus = () => {
+    setInFocus('input');
+    setDisable('hex')
+  }
+
+  const hexBlur = () => {
+    setInFocus('');
+    setDisable('')
+  }
 
   const handleHex = (e) => {
     let tinyHex = tc(e.target.value)
@@ -63,8 +73,8 @@ const HexInput = () => {
         style={{ ...inputWrap }}
         value={newHex}
         onChange={(e) => handleHex(e)}
-        onFocus={() => setDisable('hex')}
-        onBlur={() => setDisable('')}
+        onFocus={hexFocus}
+        onBlur={hexBlur}
       />
       <div style={{ ...inputLabel }}>HEX</div>
     </div>
@@ -212,6 +222,7 @@ const CMKYInputs = () => {
 }
 
 const Input = ({ value, callback, max = 100, label }) => {
+  const { setInFocus } = usePicker();
   const [temp, setTemp] = useState(value);
 
   useEffect(() => {
@@ -227,6 +238,8 @@ const Input = ({ value, callback, max = 100, label }) => {
   return (
     <div style={{ width: '18%' }}>
       <input
+        onFocus={() => setInFocus('input')}
+        onBlur={() => setInFocus('')}
         style={{ ...inputWrap }}
         value={temp}
         onChange={(e) => onChange(e)}

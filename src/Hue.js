@@ -12,7 +12,7 @@ import {
 
 const Hue = () => {
   const barRef = useRef(null)
-  const { handleHue, internalHue, squareSize } = usePicker()
+  const { handleHue, internalHue, squareSize, setInFocus, inFocus, value } = usePicker()
   const [dragging, setDragging] = useState(false)
   usePaintHue(barRef, squareSize)
   const [handleTop, setHandleTop] = useState(2)
@@ -26,6 +26,7 @@ const Hue = () => {
   }
 
   const handleDown = () => {
+    setInFocus('hueHandle')
     setDragging(true)
   }
 
@@ -40,6 +41,28 @@ const Hue = () => {
       handleHue(e)
     }
   }
+
+  // const handleKeyboard = (e) => {
+  //   if (inFocus === 'hueHandle') {
+  //       if (e.keyCode === 37) {
+  //         let _newValue = Math.round(internalHue / 3.6) - 1;
+  //         let newValue = Math.max(_newValue, 0)
+  //         handleHue({ type: 'picker-keyboard', value: newValue })
+  //       } else if (e.keyCode === 39) {
+  //         let _newValue = Math.round(internalHue / 3.6) + 1;
+  //         let newValue = Math.min(_newValue, 100)
+  //         handleHue({ type: 'picker-keyboard', value: newValue })
+  //       }
+  //   }
+  // }
+  //
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleKeyboard);
+  //
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyboard);
+  //   };
+  // }, [internalHue, inFocus, value]);
 
   return (
     <div

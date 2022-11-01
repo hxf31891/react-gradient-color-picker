@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getHandleValue } from './utils'
 import { usePicker } from './context'
 import {
@@ -20,6 +20,11 @@ const GradientBar = () => {
     value,
     handleGradient,
     squareSize,
+    deletePoint,
+    isGradient,
+    selectedColor,
+    nextPoint,
+    inFocus
   } = usePicker()
   const [dragging, setDragging] = useState(false)
 
@@ -46,6 +51,42 @@ const GradientBar = () => {
       handleGradient(currentColor, getHandleValue(e))
     }
   }
+
+  const handleKeyboard = (e) => {
+    if (isGradient) {
+      if (e.keyCode === 8) {
+        if (inFocus !== 'input') {
+          e.preventDefault();
+          deletePoint();
+        }
+      } else if (e.keyCode === 9) {
+        if (inFocus !== 'input') {
+          e.preventDefault();
+          nextPoint();
+        }
+      } else if (inFocus === 'point') {
+        // if (e.keyCode === 37) {
+        //   let _newValue = colors[selectedColor]?.left - 1;
+        //   let newValue = Math.max(_newValue, 0);
+        //   let fakeE = { type: 'picker-keyboard', value: newValue };
+        //   handleGradient(currentColor, getHandleValue(fakeE))
+        // } else if (e.keyCode === 39) {
+        //   let _newValue = colors[selectedColor]?.left + 1;
+        //   let newValue = Math.max(_newValue, 0);
+        //   let fakeE = { type: 'picker-keyboard', value: newValue };
+        //   handleGradient(currentColor, getHandleValue(fakeE))
+        // }
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyboard);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyboard);
+    };
+  } , [value, selectedColor, inFocus]);
 
   return (
     <div
@@ -87,11 +128,12 @@ const GradientBar = () => {
 export default GradientBar
 
 export const Handle = ({ left, i, setDragging }) => {
-  const { setSelectedColor, selectedColor, squareSize } = usePicker()
+  const { setSelectedColor, selectedColor, squareSize, setInFocus } = usePicker()
   const isSelected = selectedColor === i
   const leftMultiplyer = (squareSize - 18) / 100
 
   const handleDown = e => {
+    setInFocus('point')
     e.stopPropagation()
     setSelectedColor(i)
     setDragging(true)

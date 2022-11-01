@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Portal from './Portal'
 import html2canvas from 'html2canvas'
 import { controlBtnStyles } from './Controls'
@@ -49,28 +49,29 @@ const DropperIcon = ({ color }) => {
 const Dropper = ({ onSelect, buttonStyle }) => {
   const [pickerCanvas, setPickerCanvas] = useState('')
   const [coverUp, setCoverUp] = useState(false)
+  const [tester, setTester] = useState('');
 
   const takePick = () => {
-    let root = document.getElementById('root')
-    setCoverUp(true)
+    let root = document.getElementById('root');
+    setCoverUp(true);
 
     html2canvas(root).then(canvas => {
       const blankCanvas = document.createElement('canvas')
       const ctx = blankCanvas.getContext('2d', { willReadFrequently: true })
-      blankCanvas.width = root.offsetWidth * 2
-      blankCanvas.height = root.offsetHeight * 2
-      ctx.drawImage(canvas, 0, 0)
+      blankCanvas.width = root.offsetWidth * 2;
+      blankCanvas.height = root.offsetHeight * 2;
+      ctx.drawImage(canvas, 0, 0);
 
       setPickerCanvas(ctx)
     })
   }
 
   const getColorLegacy = e => {
-    e.stopPropagation()
-    let { pageX, pageY } = e
+    e.stopPropagation();
+    let { pageX, pageY } = e;
     const x1 = pageX * 2
     const y1 = pageY * 2
-    let [r, g, b] = pickerCanvas.getImageData(x1, y1, 1, 1).data
+    let [r, g, b] = pickerCanvas.getImageData(x1, y1, 1, 1).data;
     onSelect(`rgba(${r}, ${g}, ${b}, 1)`)
     setCoverUp(false)
   }
@@ -79,19 +80,16 @@ const Dropper = ({ onSelect, buttonStyle }) => {
     if (!window.EyeDropper) {
       takePick()
     } else {
-      const eyeDropper = new window.EyeDropper()
-      const abortController = new window.AbortController()
+      const eyeDropper = new window.EyeDropper();
+      const abortController = new window.AbortController();
 
-      eyeDropper
-        .open({ signal: abortController.signal })
-        .then(result => {
-          let tinyHex = tc(result.sRGBHex)
-          let { r, g, b } = tinyHex.toRgb()
-          onSelect(`rgba(${r}, ${g}, ${b}, 1)`)
-        })
-        .catch(e => {
-          console.log(e)
-        })
+      eyeDropper.open({ signal: abortController.signal }).then((result) => {
+        let tinyHex = tc(result.sRGBHex);
+        let { r, g, b } = tinyHex.toRgb()
+        onSelect(`rgba(${r}, ${g}, ${b}, 1)`)
+      }).catch((e) => {
+        console.log(e);
+      });
     }
   }
 
@@ -124,4 +122,4 @@ const Dropper = ({ onSelect, buttonStyle }) => {
   )
 }
 
-export default Dropper
+export default Dropper;

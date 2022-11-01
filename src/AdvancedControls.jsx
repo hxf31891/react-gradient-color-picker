@@ -23,7 +23,6 @@ const AdvancedControls = ({ openAdvanced }) => {
   usePaintSat(satRef, hue, l * 100, squareSize)
   usePaintLight(lightRef, hue, s * 100, squareSize)
   usePaintBright(brightRef, hue, s * 100, squareSize)
-  let left = squareSize - 18
 
   const satDesat = value => {
     const { r, g, b } = tinycolor({ h: hue, s: value / 100, l }).toRgb()
@@ -50,21 +49,21 @@ const AdvancedControls = ({ openAdvanced }) => {
     >
       <div style={{ paddingTop: 11, display: openAdvanced ? '' : 'none' }}>
         <AdvBar
-          left={s * left}
+          value={s}
           reffy={satRef}
           callback={satDesat}
           openAdvanced={openAdvanced}
           label="Saturation"
         />
         <AdvBar
-          left={l * left}
+          value={l}
           reffy={lightRef}
           label="Lightness"
           callback={setLight}
           openAdvanced={openAdvanced}
         />
         <AdvBar
-          left={v * left}
+          value={v}
           reffy={brightRef}
           label="Brightness"
           callback={setBright}
@@ -77,10 +76,12 @@ const AdvancedControls = ({ openAdvanced }) => {
 
 export default AdvancedControls
 
-const AdvBar = ({ left, callback, reffy, openAdvanced, label }) => {
-  const { squareSize } = usePicker()
+const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
+  const { squareSize, setInFocus, inFocus } = usePicker()
   const [dragging, setDragging] = useState(false)
-  const [handleTop, setHandleTop] = useState(2)
+  const [handleTop, setHandleTop] = useState(2);
+  const sliderId = `${label?.toLowerCase()}Handle`
+  let left = value * (squareSize - 18)
 
   useEffect(() => {
     setHandleTop(reffy?.current?.offsetTop - 2)
@@ -102,6 +103,31 @@ const AdvBar = ({ left, callback, reffy, openAdvanced, label }) => {
     }
   }
 
+  const handleDown = () => {
+    setDragging(true)
+    setInFocus(sliderId);
+  }
+
+  // const handleKeyboard = (e) => {
+  //   if (inFocus === sliderId && openAdvanced) {
+  //       if (e.keyCode === 37) {
+  //         const newValue = value * 100 - 1;
+  //         callback(Math.max(newValue, 0));
+  //       } else if (e.keyCode === 39) {
+  //         const newValue = value * 100 + 1;
+  //         callback(Math.min(newValue, 100));
+  //       }
+  //   }
+  // }
+  //
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleKeyboard);
+  //
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyboard);
+  //   };
+  // }, [value, inFocus, openAdvanced]);
+
   return (
     <div
       onMouseEnter={stopDragging}
@@ -119,7 +145,7 @@ const AdvBar = ({ left, callback, reffy, openAdvanced, label }) => {
         >
           <div
             style={{ ...handle, left, top: handleTop }}
-            onMouseDown={() => setDragging(true)}
+            onMouseDown={handleDown}
           />
           <div
             style={{
