@@ -24,7 +24,7 @@ const GradientBar = () => {
     isGradient,
     selectedColor,
     nextPoint,
-    inFocus
+    inFocus,
   } = usePicker()
   const [dragging, setDragging] = useState(false)
 
@@ -52,17 +52,17 @@ const GradientBar = () => {
     }
   }
 
-  const handleKeyboard = (e) => {
+  const handleKeyboard = e => {
     if (isGradient) {
       if (e.keyCode === 8) {
         if (inFocus !== 'input') {
-          e.preventDefault();
-          deletePoint();
+          // e.preventDefault();
+          deletePoint()
         }
       } else if (e.keyCode === 9) {
         if (inFocus !== 'input') {
-          e.preventDefault();
-          nextPoint();
+          // e.preventDefault();
+          nextPoint()
         }
       } else if (inFocus === 'point') {
         // if (e.keyCode === 37) {
@@ -81,12 +81,12 @@ const GradientBar = () => {
   }
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyboard);
+    window.addEventListener('keydown', handleKeyboard)
 
     return () => {
-      window.removeEventListener('keydown', handleKeyboard);
-    };
-  } , [value, selectedColor, inFocus]);
+      window.removeEventListener('keydown', handleKeyboard)
+    }
+  }, [value, selectedColor, inFocus])
 
   return (
     <div
@@ -128,7 +128,12 @@ const GradientBar = () => {
 export default GradientBar
 
 export const Handle = ({ left, i, setDragging }) => {
-  const { setSelectedColor, selectedColor, squareSize, setInFocus } = usePicker()
+  const {
+    setSelectedColor,
+    selectedColor,
+    squareSize,
+    setInFocus,
+  } = usePicker()
   const isSelected = selectedColor === i
   const leftMultiplyer = (squareSize - 18) / 100
 
