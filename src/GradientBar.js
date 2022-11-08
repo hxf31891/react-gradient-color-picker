@@ -23,10 +23,11 @@ const GradientBar = () => {
     deletePoint,
     isGradient,
     selectedColor,
-    nextPoint,
+    setSelectedColor,
     inFocus,
+    setInFocus
   } = usePicker()
-  const [dragging, setDragging] = useState(false)
+  const [dragging, setDragging] = useState(false);
 
   function force90degLinear(color) {
     return color.replace(
@@ -35,14 +36,19 @@ const GradientBar = () => {
     )
   }
 
+  useEffect(() => {
+    let selectedEl = window?.document?.getElementById(`gradient-handle-${selectedColor}`);
+    selectedEl.focus();
+  }, [selectedColor])
+
   const stopDragging = () => {
     setDragging(false)
   }
 
   const handleDown = e => {
     if (!dragging) {
-      addPoint(e)
-      setDragging(true)
+      addPoint(e);
+      setDragging(true);
     }
   }
 
@@ -55,38 +61,20 @@ const GradientBar = () => {
   const handleKeyboard = e => {
     if (isGradient) {
       if (e.keyCode === 8) {
-        if (inFocus !== 'input') {
-          // e.preventDefault();
-          deletePoint()
+        if (inFocus === 'gpoint') {
+          deletePoint();
         }
-      } else if (e.keyCode === 9) {
-        if (inFocus !== 'input') {
-          // e.preventDefault();
-          nextPoint()
-        }
-      } else if (inFocus === 'point') {
-        // if (e.keyCode === 37) {
-        //   let _newValue = colors[selectedColor]?.left - 1;
-        //   let newValue = Math.max(_newValue, 0);
-        //   let fakeE = { type: 'picker-keyboard', value: newValue };
-        //   handleGradient(currentColor, getHandleValue(fakeE))
-        // } else if (e.keyCode === 39) {
-        //   let _newValue = colors[selectedColor]?.left + 1;
-        //   let newValue = Math.max(_newValue, 0);
-        //   let fakeE = { type: 'picker-keyboard', value: newValue };
-        //   handleGradient(currentColor, getHandleValue(fakeE))
-        // }
       }
     }
   }
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyboard)
+    window?.addEventListener('keydown', handleKeyboard)
 
     return () => {
-      window.removeEventListener('keydown', handleKeyboard)
+      window?.removeEventListener('keydown', handleKeyboard)
     }
-  }, [value, selectedColor, inFocus])
+  })
 
   return (
     <div
@@ -95,6 +83,7 @@ const GradientBar = () => {
       style={{ ...barWrap, width: squareSize + 36 }}
     >
       <div
+        id='gradient-bar'
         onMouseUp={stopDragging}
         style={{ ...psRl, ...barWrapInner, width: squareSize + 30 }}
       >
@@ -114,9 +103,10 @@ const GradientBar = () => {
         </div>
         {colors?.map((c, i) => (
           <Handle
+            i={i}
             left={c.left}
             key={`${i}-${c}`}
-            i={i}
+            setInFocus={setInFocus}
             setDragging={setDragging}
           />
         ))}
@@ -127,27 +117,34 @@ const GradientBar = () => {
 
 export default GradientBar
 
-export const Handle = ({ left, i, setDragging }) => {
-  const {
-    setSelectedColor,
-    selectedColor,
-    squareSize,
-    setInFocus,
-  } = usePicker()
+export const Handle = ({ left, i, setDragging, setInFocus }) => {
+  const { setSelectedColor, selectedColor, squareSize } = usePicker()
   const isSelected = selectedColor === i
-  const leftMultiplyer = (squareSize - 18) / 100
+  const leftMultiplyer = (squareSize - 18) / 100;
 
   const handleDown = e => {
-    setInFocus('point')
-    e.stopPropagation()
+    e.stopPropagation();
     setSelectedColor(i)
     setDragging(true)
   }
 
+  const handleFocus = () => {
+    setInFocus('gpoint')
+    setSelectedColor(i)
+  }
+
+  const handleBlur = () => {
+    setInFocus(null)
+  }
+
   return (
     <div
-      style={{ left: left * leftMultiplyer + 13, ...gradientHandleWrap }}
+      tabIndex={0}
+      onBlur={handleBlur}
+      onFocus={handleFocus}
+      id={`gradient-handle-${i}`}
       onMouseDown={e => handleDown(e)}
+      style={{ left: left * leftMultiplyer + 13, ...gradientHandleWrap }}
     >
       <div
         style={{

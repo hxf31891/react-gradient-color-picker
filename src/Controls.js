@@ -28,7 +28,7 @@ const Controls = ({
 }) => {
   const {
     isGradient,
-    onChange,
+    internalOnChange,
     previousColors,
     previousGraidents,
     handleChange,
@@ -43,11 +43,11 @@ const Controls = ({
   const gradientColor = previousGraidents?.[0] || defaultGradient
 
   const setSolid = () => {
-    onChange(solidColor)
+    internalOnChange(solidColor)
   }
 
   const setGradient = () => {
-    onChange(gradientColor)
+    internalOnChange(gradientColor)
   }
 
   return (

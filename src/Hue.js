@@ -12,7 +12,7 @@ import {
 
 const Hue = () => {
   const barRef = useRef(null)
-  const { handleHue, internalHue, squareSize, setInFocus, inFocus, value } = usePicker()
+  const { handleHue, internalHue, squareSize, inFocus, value } = usePicker()
   const [dragging, setDragging] = useState(false)
   usePaintHue(barRef, squareSize)
   const [handleTop, setHandleTop] = useState(2)
@@ -26,7 +26,6 @@ const Hue = () => {
   }
 
   const handleDown = () => {
-    setInFocus('hueHandle')
     setDragging(true)
   }
 

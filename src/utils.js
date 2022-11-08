@@ -5,22 +5,10 @@ var tc = require('tinycolor2')
 const { barSize, crossSize } = config
 
 export function getHandleValue(e) {
-  // if (e.type === 'picker-keyboard') {
-  //   return e.value
-  // } else {
-  //   const { offsetLeft, clientWidth } = safeBounds(e)
-  //   let pos = e.clientX - offsetLeft - barSize / 2
-  //   let adjuster = clientWidth - 18
-  //   let bounded = formatInputValues(pos, 0, adjuster)
-  //   console.log(Math.round(bounded / (adjuster / 100)) );
-  //   return Math.round(bounded / (adjuster / 100))
-  // }
-
   const { offsetLeft, clientWidth } = safeBounds(e)
   let pos = e.clientX - offsetLeft - barSize / 2
   let adjuster = clientWidth - 18
   let bounded = formatInputValues(pos, 0, adjuster)
-  console.log(Math.round(bounded / (adjuster / 100)) );
   return Math.round(bounded / (adjuster / 100))
 }
 
@@ -36,22 +24,6 @@ export function computeSquareXY(hsl, squareSize, squareHeight) {
 }
 
 export function computePickerPosition(e) {
-  // if (e.type === 'picker-keyboard') {
-  //   return [e.x, e.y]
-  // } else {
-  //   const { offsetLeft, offsetTop, clientWidth, clientHeight } = safeBounds(e)
-  //   const getX = () => {
-  //     let xPos = e.clientX - offsetLeft - crossSize / 2
-  //     return formatInputValues(xPos, -8, clientWidth - 10)
-  //   }
-  //   const getY = () => {
-  //     let yPos = e.clientY - offsetTop - crossSize / 2
-  //     return formatInputValues(yPos, -8, clientHeight - 10)
-  //   }
-  //
-  //   return [getX(), getY()]
-  // }
-
   const { offsetLeft, offsetTop, clientWidth, clientHeight } = safeBounds(e)
   const getX = () => {
     let xPos = e.clientX - offsetLeft - crossSize / 2
@@ -97,26 +69,13 @@ export const isUpperCase = (str) => {
   return str?.[0] === str?.[0]?.toUpperCase()
 }
 
-// export const imageToCanvas = (target) => {
-//
-//
-//   return new Promise((resolve) => {
-//     const canvasElement = document.createElement('canvas');
-//     canvasElement.width = target.width;
-//     canvasElement.height = target.height;
-//     const context = canvasElement.getContext('2d')!;
-//
-//     // Allows for cross origin images
-//     const handleLoad = () => {
-//       context.drawImage(downloadedImg, 0, 0, target.width, target.height);
-//       resolve(canvasElement);
-//     };
-//     const imageURL = target.src;
-//     const downloadedImg = new Image();
-//     downloadedImg.width = target.width;
-//     downloadedImg.height = target.height;
-//     downloadedImg.crossOrigin = 'Anonymous';
-//     downloadedImg.addEventListener('load', handleLoad);
-//     downloadedImg.src = imageURL;
-//   });
-// };
+export const compareGradients = (g1, g2) => {
+  let ng1 = g1?.toLowerCase()?.replaceAll(' ', '');
+  let ng2 = g2?.toLowerCase()?.replaceAll(' ', '');
+
+  if (ng1 === ng2) {
+    return true
+  } else {
+    return false
+  }
+}

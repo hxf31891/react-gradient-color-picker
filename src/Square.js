@@ -11,7 +11,6 @@ const Square = () => {
     value,
     inFocus,
     handleColor,
-    setInFocus,
     internalHue,
     squareSize,
     squareHeight,
@@ -43,7 +42,6 @@ const Square = () => {
   }
 
   const handleMouseDown = () => {
-    setInFocus('squareHandle')
     setDragging(true)
   }
 

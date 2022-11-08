@@ -77,7 +77,7 @@ const AdvancedControls = ({ openAdvanced }) => {
 export default AdvancedControls
 
 const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
-  const { squareSize, setInFocus, inFocus } = usePicker()
+  const { squareSize, inFocus } = usePicker()
   const [dragging, setDragging] = useState(false)
   const [handleTop, setHandleTop] = useState(2);
   const sliderId = `${label?.toLowerCase()}Handle`
@@ -105,7 +105,6 @@ const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
 
   const handleDown = () => {
     setDragging(true)
-    setInFocus(sliderId);
   }
 
   // const handleKeyboard = (e) => {

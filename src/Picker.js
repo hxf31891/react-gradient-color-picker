@@ -18,10 +18,10 @@ const Picker = ({
   hideColorGuide,
   hideInputType,
 }) => {
-  const { isGradient } = usePicker()
+  const { isGradient } = usePicker();
 
   return (
-    <div style={{ userSelect: 'none' }}>
+    <div style={{ userSelect: 'none' }} id='rbgcp-wrapper'>
       <Square />
       {!hideControls && (
         <Controls

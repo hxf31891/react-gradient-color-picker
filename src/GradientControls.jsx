@@ -47,18 +47,18 @@ const GradientControls = () => {
 export default GradientControls
 
 const GradientType = () => {
-  const { gradientType, onChange, value } = usePicker()
+  const { gradientType, internalOnChange, value } = usePicker()
   let isLinear = gradientType === 'linear-gradient'
   let isRadial = gradientType === 'radial-gradient'
 
   const handleLinear = () => {
     const remaining = value.split(/,(.+)/)[1]
-    onChange(`linear-gradient(90deg, ${remaining}`)
+    internalOnChange(`linear-gradient(90deg, ${remaining}`)
   }
 
   const handleRadial = () => {
     const remaining = value.split(/,(.+)/)[1]
-    onChange(`radial-gradient(circle, ${remaining}`)
+    internalOnChange(`radial-gradient(circle, ${remaining}`)
   }
 
   return (
@@ -90,6 +90,7 @@ const StopPicker = () => {
     <div style={{ ...df, ...ac, ...controlBtnsWrap, paddingLeft: 8 }}>
       <StopIcon />
       <input
+        id='rbgcp-input'
         style={degreeInput}
         value={currentLeft}
         onChange={e => handleMove(e.target.value || 0)}
@@ -99,18 +100,19 @@ const StopPicker = () => {
 }
 
 const DegreePicker = () => {
-  const { degrees, onChange, value } = usePicker()
+  const { degrees, internalOnChange, value } = usePicker()
 
   const handleDegrees = e => {
     let newValue = formatInputValues(e.target.value, 0, 360)
     const remaining = value.split(/,(.+)/)[1]
-    onChange(`linear-gradient(${newValue || 0}deg, ${remaining}`)
+    internalOnChange(`linear-gradient(${newValue || 0}deg, ${remaining}`)
   }
 
   return (
     <div style={{ ...psRl, ...controlBtnsWrap, ...df, ...ac }}>
       <DegreesIcon />
       <input
+        id='rbgcp-input'
         style={degreeInput}
         value={degrees}
         onChange={e => handleDegrees(e)}

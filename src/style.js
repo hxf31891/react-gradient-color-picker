@@ -74,6 +74,7 @@ export const gradientHandleWrap = {
   paddingLeft: 2,
   paddingRight: 2,
   top: 4,
+  outline: 'none'
 }
 
 export const gradientHandle = {
