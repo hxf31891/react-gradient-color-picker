@@ -8,6 +8,11 @@ const { defaultColor, defaultGradient } = config;
 var tc = require("tinycolor2");
 
 export const useColorPicker = (value, onChange) => {
+
+  if (!value || !onChange) {
+    console.log('RBGCP ERROR - YOU MUST PASS A VALUE AND CALLBACK TO THE useColorPicker HOOK')
+  }
+
   const isGradient = value?.includes("gradient");
   const gradientType = getGradientType(value);
   const degrees = getDegrees(value);
@@ -21,6 +26,28 @@ export const useColorPicker = (value, onChange) => {
   const selectedPoint = currentColorObj?.index;
   const currentLeft = currentColorObj?.left;
   const [previousColors, setPreviousColors] = useState([]);
+
+  const getGradientObject = () => {
+    if (value) {
+      if (isGradient) {
+        return {
+          isGradient: true,
+          gradientType: gradientType,
+          degrees: degreeStr,
+          colors: colors?.map((c) => ({ ...c, value: c.value?.toLowerCase() }))
+        }
+      } else {
+        return {
+          isGradient: false,
+          gradientType: null,
+          degrees: null,
+          colors: colors?.map((c) => ({ ...c, value: c.value?.toLowerCase() }))
+        }
+      }
+    } else {
+      console.log('RBGCP ERROR - YOU MUST PASS A VALUE AND CALLBACK TO THE useColorPicker HOOK')
+    }
+  }
 
   const tiny = tc(currentColor);
   const { r, g, b, a } = tiny.toRgb();
@@ -234,6 +261,7 @@ export const useColorPicker = (value, onChange) => {
     currentLeft,
     rgbaArr,
     hslArr,
-    previousColors
+    previousColors,
+    getGradientObject
   };
 };
