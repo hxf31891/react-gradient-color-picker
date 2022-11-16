@@ -122,6 +122,7 @@ function MyApp() {
 | deletePoint      | index of point (num) | Delete one of the gradients colors                           |
 | addPoint         | position of point (num, 0 - 100) | Add a new color to the gradient                  |
 | setPointLeft     | value (num, 0 - 100) | Update the position (left) of the currently selected gradient color |
+| getGradientObject|                      | get the gradients value parsed into a key/value object (see example below)|
 
 ### Available State
 
@@ -242,6 +243,43 @@ import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
 function MyApp() {
   const [color, setColor] = useState('linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)');
   const { previousColors } = useColorPicker(color, setColor);
+
+  return(
+    <div>
+      <ColorPicker value={color} onChange={setColor} presets={previousColors} />
+    </div>
+   )
+}
+```
+
+### Getting Value in Object Form
+The picker returns the new value as a css gradient string but you may need it parsed as an object. This can easily be accomplised by using the getGradientObject function returned by the useColorPicker hook like so:
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const [color, setColor] = useState('linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)');
+  const { getGradientObject } = useColorPicker(color, setColor);
+  const gradientObject = getGradientObject();
+  
+  // example value
+  // {
+  //   "isGradient": true,
+  //   "gradientType": "linear-gradient",
+  //   "degrees": "40deg",
+  //   "colors": [
+  //       {
+  //           "value": "rgba(27,107,235,1)",
+  //           "left": 0
+  //       },
+  //       {
+  //           "value": "rgba(25,245,157,1)",
+  //           "left": 100
+  //       }
+  //     ]
+  // }
 
   return(
     <div>
