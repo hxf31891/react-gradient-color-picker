@@ -13,6 +13,7 @@ const Picker = ({
   hideControls,
   hideInputs,
   hidePresets,
+                  hideOpacity,
   presets,
   hideEyeDrop,
   hideAdvancedSliders,
@@ -34,7 +35,7 @@ const Picker = ({
       )}
       {isGradient && <GradientBar />}
       <Hue />
-      <Opacity />
+      {!hideOpacity && <Opacity />}
       {!hideInputs && <Inputs />}
       {!hidePresets && <Presets presets={presets} />}
     </div>
