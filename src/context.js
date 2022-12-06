@@ -7,10 +7,10 @@ import {
   getNewHsl,
   getHandleValue,
   isUpperCase,
+  compareGradients,
 } from './utils'
 import { low, high, getColors } from './formatters'
 import { config } from './constants'
-import PropTypes from 'prop-types'
 
 var tinycolor = require('tinycolor2')
 const { crossSize } = config
@@ -25,7 +25,6 @@ export default function PickerContextWrapper({
   squareHeight,
 }) {
   const offsetLeft = bounds?.x
-
   const isGradient = value?.includes('gradient')
   const gradientType = getGradientType(value)
   const degrees = getDegrees(value)
@@ -34,7 +33,7 @@ export default function PickerContextWrapper({
   const colors = getColors(value)
   const indexedColors = colors?.map((c, i) => ({ ...c, index: i }))
   const currentColorObj =
-    indexedColors?.filter((c) => isUpperCase(c.value))[0] || indexedColors[0]
+    indexedColors?.filter(c => isUpperCase(c.value))[0] || indexedColors[0]
   const currentColor = currentColorObj?.value
   const selectedColor = currentColorObj?.index
   const currentLeft = currentColorObj?.left
@@ -49,31 +48,36 @@ export default function PickerContextWrapper({
   const [x, y] = computeSquareXY([hue, s, l], squareSize, squareHeight)
   const [previousColors, setPreviousColors] = useState([])
   const [previousGraidents, setPreviousGradients] = useState([])
+  const [inFocus, setInFocus] = useState(null);
+  const [undoLog, setUndoLog] = useState(0);
+
+  const internalOnChange = (newValue) => {
+    if (newValue !== value) {
+      if (isGradient) {
+        if (!compareGradients(previousGraidents[0], value)) {
+          setPreviousGradients([value, ...previousGraidents?.slice(0, 8)])
+        }
+      } else {
+        setPreviousColors([value, ...previousColors?.slice(0, 8)])
+      }
+
+      onChange(newValue);
+    }
+  }
 
   useEffect(() => {
     setTinyColor(tinycolor(currentColor))
     setInternalHue(hue)
   }, [currentColor, hue])
 
-  useEffect(() => {
-    if (isGradient) {
-      setPreviousGradients([value, ...previousGraidents?.slice(0, 4)])
-    } else {
-      if (tinycolor(value).isValid()) {
-        setPreviousColors([value, ...previousColors?.slice(0, 4)])
-      }
-    }
-    //eslint-disable-next-line
-  }, [value])
-
-  const createGradientStr = (newColors) => {
+  const createGradientStr = newColors => {
     let sorted = newColors.sort((a, b) => a.left - b.left)
-    let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
-    onChange(`${gradientType}(${degreeStr}, ${colorString.join(', ')})`)
+    let colorString = sorted?.map(cc => `${cc?.value} ${cc.left}%`)
+    internalOnChange(`${gradientType}(${degreeStr}, ${colorString.join(', ')})`)
   }
 
   const handleGradient = (newColor, left = currentLeft) => {
-    let remaining = colors?.filter((c) => !isUpperCase(c.value))
+    let remaining = colors?.filter(c => !isUpperCase(c.value))
     let newColors = [
       { value: newColor.toUpperCase(), left: left },
       ...remaining,
@@ -81,21 +85,21 @@ export default function PickerContextWrapper({
     createGradientStr(newColors)
   }
 
-  const handleChange = (newColor) => {
+  const handleChange = newColor => {
     if (isGradient) {
       handleGradient(newColor)
     } else {
-      onChange(newColor)
+      internalOnChange(newColor)
     }
   }
 
-  const handleOpacity = (e) => {
+  const handleOpacity = e => {
     let newO = getHandleValue(e) / 100
     let newColor = `rgba(${r}, ${g}, ${b}, ${newO})`
     handleChange(newColor)
   }
 
-  const handleHue = (e) => {
+  const handleHue = e => {
     let newHue = getHandleValue(e) * 3.6
     let newHsl = getNewHsl(newHue, s, l, opacity, setInternalHue)
     handleChange(newHsl)
@@ -110,7 +114,7 @@ export default function PickerContextWrapper({
     handleChange(newColor)
   }
 
-  const setSelectedColor = (index) => {
+  const setSelectedColor = index => {
     let newGradStr = colors?.map((cc, i) => ({
       ...cc,
       value: i === index ? high(cc) : low(cc),
@@ -121,16 +125,58 @@ export default function PickerContextWrapper({
   const addPoint = (e) => {
     let left = getHandleValue(e, offsetLeft)
     let newColors = [
-      ...colors.map((c) => ({ ...c, value: low(c) })),
+      ...colors.map(c => ({ ...c, value: low(c) })),
       { value: currentColor, left: left },
-    ]
-    createGradientStr(newColors)
+    ]?.sort((a, b) => a.left - b.left)
+    createGradientStr(newColors);
   }
 
   const deletePoint = () => {
     if (colors?.length > 2) {
-      let remaining = colors?.filter((rc, i) => i !== selectedColor)
-      createGradientStr(remaining)
+      let formatted = colors?.map((fc, i) => ({ ...fc, value: i === selectedColor - 1 ? high(fc) : low(fc) }));
+      let remaining = formatted?.filter((rc, i) => i !== selectedColor);
+      createGradientStr(remaining);
+    }
+  }
+
+  const nextPoint = () => {
+    if (selectedColor !== colors?.length - 1) {
+      setSelectedColor(selectedColor + 1)
+    }
+  }
+
+  // const handleKeyboard = (e) => {
+  //   if (inFocus !== null && inFocus !== 'input') {
+  //     if (e.keyCode === 90 && (e.ctrlKey || e.metaKey)) {
+  //       if (isGradient && previousGraidents?.length > undoLog) {
+  //         onChange(previousGraidents[undoLog]);
+  //         setUndoLog(undoLog + 1);
+  //       }
+  //     }
+  //   }
+  // }
+
+  useEffect(() => {
+    window.addEventListener("click", handleClickFocus);
+    // window.addEventListener('keydown', handleKeyboard)
+
+    return () => {
+      window.removeEventListener("click", handleClickFocus);
+      // window.removeEventListener('keydown', handleKeyboard)
+    }
+  }, [inFocus, value, undoLog])
+
+  const handleClickFocus = (e) => {
+    let formattedPath = e?.path?.map((el) => el.id);
+
+    if (formattedPath?.includes('gradient-bar')) {
+      setInFocus('gpoint')
+    } else if (formattedPath?.includes('rbgcp-input')) {
+      setInFocus('input')
+    } else if (formattedPath?.includes('rbgcp-wrapper')) {
+      setInFocus('picker')
+    } else {
+      setInFocus(null)
     }
   }
 
@@ -148,12 +194,15 @@ export default function PickerContextWrapper({
     value,
     colors,
     degrees,
+    inFocus,
     opacity,
     onChange,
     addPoint,
     inputType,
+    nextPoint,
     tinyColor,
     handleHue,
+    setInFocus,
     isGradient,
     offsetLeft,
     squareSize,
@@ -172,6 +221,7 @@ export default function PickerContextWrapper({
     previousColors,
     handleGradient,
     setSelectedColor,
+    internalOnChange,
     previousGraidents,
   }
 
@@ -184,11 +234,4 @@ export default function PickerContextWrapper({
 
 export function usePicker() {
   return useContext(PickerContext)
-}
-
-PickerContextWrapper.propTypes = {
-  children: PropTypes.node,
-  bounds: PropTypes.object,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
 }

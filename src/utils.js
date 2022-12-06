@@ -68,3 +68,14 @@ export const safeBounds = (e) => {
 export const isUpperCase = (str) => {
   return str?.[0] === str?.[0]?.toUpperCase()
 }
+
+export const compareGradients = (g1, g2) => {
+  let ng1 = g1?.toLowerCase()?.replaceAll(' ', '');
+  let ng2 = g2?.toLowerCase()?.replaceAll(' ', '');
+
+  if (ng1 === ng2) {
+    return true
+  } else {
+    return false
+  }
+}

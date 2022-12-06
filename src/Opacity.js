@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { usePicker } from './context'
 import {
   barWrap,
@@ -11,7 +11,7 @@ import {
 } from './style'
 
 const Opacity = () => {
-  const { handleOpacity, opacity, tinyColor, squareSize } = usePicker()
+  const { handleOpacity, opacity, tinyColor, squareSize, inFocus, value } = usePicker()
   const [dragging, setDragging] = useState(false)
   const { r, g, b } = tinyColor.toRgb()
   const bg = `linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(${r},${g},${b},.5) 100%)`
@@ -36,7 +36,27 @@ const Opacity = () => {
     }
   }
 
-  let left = squareSize - 18
+  let left = squareSize - 18;
+
+  // const handleKeyboard = (e) => {
+  //   if (inFocus === 'opacityHandle') {
+  //       if (e.keyCode === 37) {
+  //         let newValue = Math.max(opacity * 100 - 1, 0);
+  //         handleOpacity({ type: 'picker-keyboard', value: newValue })
+  //       } else if (e.keyCode === 39) {
+  //         let newValue = Math.min(opacity * 100 + 1, 100);
+  //         handleOpacity({ type: 'picker-keyboard', value: newValue })
+  //       }
+  //   }
+  // }
+  //
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleKeyboard);
+  //
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyboard);
+  //   };
+  // }, [opacity, inFocus, value]);
 
   return (
     <div

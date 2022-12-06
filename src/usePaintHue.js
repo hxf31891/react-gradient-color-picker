@@ -3,7 +3,7 @@ var tinycolor = require('tinycolor2')
 
 const usePaintHue = (canvas, squareSize) => {
   useEffect(() => {
-    const ctx = canvas?.current?.getContext('2d')
+    const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
     ctx.rect(0, 0, squareSize, 14)
 
     const gradient = ctx.createLinearGradient(0, 0, squareSize, 0)
@@ -19,7 +19,7 @@ export default usePaintHue
 
 export const usePaintSat = (canvas, h, l, squareSize) => {
   useEffect(() => {
-    const ctx = canvas?.current?.getContext('2d')
+    const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
     if (ctx) {
       ctx.rect(0, 0, squareSize, 14)
 
@@ -35,7 +35,7 @@ export const usePaintSat = (canvas, h, l, squareSize) => {
 
 export const usePaintLight = (canvas, h, s, squareSize) => {
   useEffect(() => {
-    const ctx = canvas?.current?.getContext('2d')
+    const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
     if (ctx) {
       ctx.rect(0, 0, squareSize, 14)
 
@@ -51,7 +51,7 @@ export const usePaintLight = (canvas, h, s, squareSize) => {
 
 export const usePaintBright = (canvas, h, s, squareSize) => {
   useEffect(() => {
-    const ctx = canvas?.current?.getContext('2d')
+    const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
     if (ctx) {
       ctx.rect(0, 0, squareSize, 14)
 

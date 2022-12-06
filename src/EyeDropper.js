@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Portal from './Portal'
 import html2canvas from 'html2canvas'
+import { controlBtnStyles } from './Controls'
+
+var tc = require('tinycolor2')
 
 const DropperIcon = ({ color }) => {
   const col = color || '#323136'
@@ -43,47 +46,67 @@ const DropperIcon = ({ color }) => {
   )
 }
 
-const EyeDropper = ({ onSelect, buttonStyle }) => {
+const Dropper = ({ onSelect, buttonStyle }) => {
   const [pickerCanvas, setPickerCanvas] = useState('')
   const [coverUp, setCoverUp] = useState(false)
+  const [tester, setTester] = useState('');
 
-  const takePick = () =>
-    html2canvas(document.body).then((canvas) => {
-      const croppedCanvas = document.createElement('canvas')
-      const croppedCanvasContext = croppedCanvas.getContext('2d')
+  const takePick = () => {
+    let root = document.getElementById('root');
+    setCoverUp(true);
 
-      const cropPositionTop = 0
-      const cropPositionLeft = 0
-      const cropWidth = window.innerWidth * 2
-      const cropHeight = window.innerHeight * 2
-      croppedCanvas.width = cropWidth
-      croppedCanvas.height = cropHeight
+    html2canvas(root).then(canvas => {
+      const blankCanvas = document.createElement('canvas')
+      const ctx = blankCanvas.getContext('2d', { willReadFrequently: true })
+      blankCanvas.width = root.offsetWidth * 2;
+      blankCanvas.height = root.offsetHeight * 2;
+      ctx.drawImage(canvas, 0, 0);
 
-      croppedCanvasContext.drawImage(canvas, cropPositionLeft, cropPositionTop)
-
-      setPickerCanvas(croppedCanvasContext)
-      setCoverUp(true)
+      setPickerCanvas(ctx)
     })
+  }
 
-  const getEyeDrop = (e) => {
-    e.stopPropagation()
-    const x1 = e.clientX * 2
-    const y1 = e.clientY * 2
-    const [r, g, b] = pickerCanvas.getImageData(x1, y1, 1, 1).data
+  const getColorLegacy = e => {
+    e.stopPropagation();
+    let { pageX, pageY } = e;
+    const x1 = pageX * 2
+    const y1 = pageY * 2
+    let [r, g, b] = pickerCanvas.getImageData(x1, y1, 1, 1).data;
     onSelect(`rgba(${r}, ${g}, ${b}, 1)`)
     setCoverUp(false)
   }
 
+  const getEyeDrop = () => {
+    if (!window.EyeDropper) {
+      takePick()
+    } else {
+      const eyeDropper = new window.EyeDropper();
+      const abortController = new window.AbortController();
+
+      eyeDropper.open({ signal: abortController.signal }).then((result) => {
+        let tinyHex = tc(result.sRGBHex);
+        let { r, g, b } = tinyHex.toRgb()
+        onSelect(`rgba(${r}, ${g}, ${b}, 1)`)
+      }).catch((e) => {
+        console.log(e);
+      });
+    }
+  }
+
   return (
     <div>
-      <div style={buttonStyle} onClick={takePick}>
-        <DropperIcon />
+      <div
+        style={{ ...buttonStyle, ...controlBtnStyles(coverUp) }}
+        onClick={getEyeDrop}
+      >
+        <DropperIcon color={coverUp ? 'rgb(86, 140, 245)' : ''} />
       </div>
+
       {coverUp && (
         <Portal id="eyeDropCover">
           <div
             style={{
-              position: 'absolute',
+              position: 'fixed',
               left: 0,
               top: 0,
               zIndex: 100000000,
@@ -91,7 +114,7 @@ const EyeDropper = ({ onSelect, buttonStyle }) => {
               height: window.innerHeight,
               cursor: 'copy',
             }}
-            onClick={(e) => getEyeDrop(e)}
+            onClick={e => getColorLegacy(e)}
           />
         </Portal>
       )}
@@ -99,4 +122,4 @@ const EyeDropper = ({ onSelect, buttonStyle }) => {
   )
 }
 
-export default EyeDropper
+export default Dropper;

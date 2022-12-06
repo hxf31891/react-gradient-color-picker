@@ -52,6 +52,10 @@ export const opacityBg = {
   overflow: 'hidden',
 }
 
+export const borderBox = {
+  boxSizing: 'border-box',
+}
+
 export const handle = {
   position: 'absolute',
   border: '2px solid white',
@@ -61,6 +65,7 @@ export const handle = {
   height: 18,
   zIndex: 1000,
   transition: 'all 10ms linear',
+  boxSizing: 'border-box',
 }
 
 export const gradientHandleWrap = {
@@ -69,6 +74,7 @@ export const gradientHandleWrap = {
   paddingLeft: 2,
   paddingRight: 2,
   top: 4,
+  outline: 'none'
 }
 
 export const gradientHandle = {
@@ -77,6 +83,7 @@ export const gradientHandle = {
   boxShadow: '0px 0px 3px rgba(0,0,0,.5)',
   width: 18,
   height: 18,
+  boxSizing: 'border-box',
 }
 
 export const npe = {
@@ -106,6 +113,7 @@ export const inputWrap = {
   color: 'black',
   fontWeight: 400,
   textAlign: 'center',
+  boxSizing: 'border-box',
 }
 
 export const inputLabel = {
@@ -122,13 +130,15 @@ export const controlBtn = {
   lineHeight: 1,
   borderRadius: 4,
   fontWeight: 700,
-  color: 'rgb(86,86,86)',
+  color: '',
   fontSize: 12,
   height: 24,
   transition: 'all 160ms ease',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  background: 'rgba(255,255,255,0)',
+  boxShadow: '1px 1px 3px rgba(0,0,0,0)',
 }
 
 export const barWrap = {
@@ -136,12 +146,14 @@ export const barWrap = {
   marginLeft: -18,
   padding: 3,
   marginTop: 2,
+  boxSizing: 'border-box',
 }
 
 export const barWrapInner = {
   width: 324,
   paddingLeft: 15,
   paddingRight: 15,
+  boxSizing: 'border-box',
 }
 
 export const controlBtnsWrap = {

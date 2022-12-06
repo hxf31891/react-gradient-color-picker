@@ -28,16 +28,17 @@ export const getColors = (value) => {
 }
 
 let validate = (c) => {
-  let img = document.createElement('img')
-  img.style = 'background: rgb(0, 0, 0)'
-  img.style = 'background: ' + c
-  if (img.style.background !== 'rgb(0, 0, 0)' && img.style.background !== '')
-    return true
-  img.style = 'background: rgb(255, 255, 255)'
-  img.style = 'background: ' + c
-  return (
-    img.style.background !== 'rgb(255, 255, 255)' && img.style.background !== ''
-  )
+  // let img = window?.document?.createElement('img')
+  // img.style = 'background: rgb(0, 0, 0)'
+  // img.style = 'background: ' + c
+  // if (img.style.background !== 'rgb(0, 0, 0)' && img.style.background !== '')
+  //   return true
+  // img.style = 'background: rgb(255, 255, 255)'
+  // img.style = 'background: ' + c
+  // return (
+  //   img.style.background !== 'rgb(255, 255, 255)' && img.style.background !== ''
+  // )
+  return true
 }
 
 export const formatInputValues = (value, min, max) => {

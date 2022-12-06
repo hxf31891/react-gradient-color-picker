@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 const usePaintSquare = (canvas, hue, squareSize, squareHeight) => {
   useEffect(() => {
-    const ctx = canvas.current.getContext('2d')
+    const ctx = canvas.current.getContext('2d', { willReadFrequently: true })
     ctx.fillStyle = `hsl(${hue}, 100%, 50%)`
     ctx.fillRect(0, 0, squareSize, squareHeight)
     const gradientWhite = ctx.createLinearGradient(0, 0, squareSize, 0)

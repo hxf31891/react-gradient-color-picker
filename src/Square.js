@@ -1,18 +1,26 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import throttle from 'lodash.throttle'
 import usePaintSquare from './usePaintSquare'
 import { usePicker } from './context'
 import { psRl, cCross, handle, canvasWrapper } from './style'
 
 const Square = () => {
-  const { handleColor, x, y, internalHue, squareSize, squareHeight } =
-    usePicker()
+  const {
+    x,
+    y,
+    value,
+    inFocus,
+    handleColor,
+    internalHue,
+    squareSize,
+    squareHeight,
+  } = usePicker()
   const [dragging, setDragging] = useState(false)
   const canvas = useRef(null)
   usePaintSquare(canvas, internalHue, squareSize, squareHeight)
 
-  const handleChange = (e) => {
-    const ctx = canvas?.current?.getContext('2d')
+  const handleChange = e => {
+    const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
     const onMouseMove = throttle(() => handleColor(e, ctx), 250)
     onMouseMove()
   }
@@ -21,17 +29,40 @@ const Square = () => {
     setDragging(false)
   }
 
-  const handleMove = (e) => {
+  const handleMove = e => {
     if (dragging) {
       handleChange(e)
     }
   }
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     if (!dragging) {
       handleChange(e)
     }
   }
+
+  const handleMouseDown = () => {
+    setDragging(true)
+  }
+
+  // const handleKeyboard = (e) => {
+  //   if (inFocus === 'squareHandle') {
+  //     const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
+  //       if (e.keyCode === 37) {
+  //         handleColor({ type: 'picker-keyboard', x: Math.max(x - 1, 0), y: y }, ctx);
+  //       } else if (e.keyCode === 39) {
+  //         handleColor({ type: 'picker-keyboard', x: Math.min(x + 1, 100), y: y }, ctx);
+  //       }
+  //   }
+  // }
+  //
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleKeyboard);
+  //
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyboard);
+  //   };
+  // }, [value, inFocus, x, y]);
 
   return (
     <div style={psRl}>
@@ -47,16 +78,16 @@ const Square = () => {
       />
       <div
         style={{ ...psRl, ...cCross }}
-        onMouseMove={(e) => handleMove(e)}
+        onMouseMove={e => handleMove(e)}
         onMouseUp={stopDragging}
       >
         <div
           style={{ left: x, top: y, ...handle }}
-          onMouseDown={() => setDragging(true)}
+          onMouseDown={handleMouseDown}
         />
         <div
           style={{ ...canvasWrapper, height: squareHeight }}
-          onClick={(e) => handleClick(e)}
+          onClick={e => handleClick(e)}
         >
           <canvas
             ref={canvas}
