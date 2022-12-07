@@ -49,16 +49,17 @@ function MyApp() {
 ### Props
 
 | Name                | Type         | Default                 | Description                                                               |
-|---------------------| ------------ | ----------------------- |---------------------------------------------------------------------------|
+|---------------------|--------------| ----------------------- |---------------------------------------------------------------------------|
 | value               | `string`     | 'rgba(175, 51, 242, 1)' | The starting color                                                        |
 | width               | `int`        | 294                     | (optional) The width of the picker                                        |
 | height              | `int`        | 294                     | (optional) The height of the picker                                       |
 | hideInputs          | `boolean`    | `false`                 | (optional) hide the hex and rgba inputs                                   |
-| hideOpacity         | `boolean`    | `false`                 | (optional) hide the opacity bar                                             |
+| hideOpacity         | `boolean`    | `false`                 | (optional) hide the opacity bar                                           |
+| hideHue             | `boolean`    | `false`                 | (optional) hide the hue bar                                               |
 | hideControls        | `boolean`    | `false`                 | (optional) hide the solid/gradient and gradient options                   |
 | hidePresets         | `boolean`    | `false`                 | (optional) hide the preset color options                                  |
 | hideEyeDrop         | `boolean`    | `false`                 | (optional) hide (and disable the eye dropper tool                         |
-| hideAdvancedSliders | `boolean` | `false`                 | (optional) hide the additional sliders (saturation, luminence, brightness |
+| hideAdvancedSliders | `boolean`    | `false`                 | (optional) hide the additional sliders (saturation, luminence, brightness |
 | hideColorGuide      | `boolean`    | `false`                 | (optional) hide the color guide, a tool that shows color pairings         |
 | hideInputType       | `boolean`    | `false`                 | (optional) hide the input type selector, looking the type                 |
 | presets             | `array`      | ['rgba(0,0,0,1)', ...]  | (optional) pass in custom preset options ['rgba()', 'rgba()', ..]         |
