@@ -12,7 +12,7 @@ import {
 
 const Hue = () => {
   const barRef = useRef(null)
-  const { handleHue, internalHue, squareSize, inFocus, value } = usePicker()
+  const { handleHue, internalHue, squareSize } = usePicker()
   const [dragging, setDragging] = useState(false)
   usePaintHue(barRef, squareSize)
   const [handleTop, setHandleTop] = useState(2)
@@ -29,13 +29,13 @@ const Hue = () => {
     setDragging(true)
   }
 
-  const handleMove = e => {
+  const handleMove = (e) => {
     if (dragging) {
       handleHue(e)
     }
   }
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     if (!dragging) {
       handleHue(e)
     }
@@ -75,7 +75,7 @@ const Hue = () => {
       >
         <div
           style={{ ...psRl, ...cResize, ...borderBox }}
-          onMouseMove={e => handleMove(e)}
+          onMouseMove={(e) => handleMove(e)}
           className="c-resize ps-rl"
         >
           <div
@@ -91,7 +91,7 @@ const Hue = () => {
             width={`${squareSize}px`}
             height="14px"
             style={{ position: 'relative', borderRadius: 14 }}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />
         </div>
       </div>

@@ -11,6 +11,7 @@ function ColorPicker({
   hideInputs = false,
   hideOpacity = false,
   hidePresets = false,
+  hideHue = false,
   presets = [],
   hideEyeDrop = false,
   hideAdvancedSliders = false,
@@ -42,6 +43,7 @@ function ColorPicker({
           hideInputs={hideInputs}
           hidePresets={hidePresets}
           hideOpacity={hideOpacity}
+          hideHue={hideHue}
           presets={presets}
           hideEyeDrop={hideEyeDrop}
           hideAdvancedSliders={hideAdvancedSliders}

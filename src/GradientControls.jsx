@@ -82,7 +82,7 @@ const GradientType = () => {
 const StopPicker = () => {
   const { currentLeft, handleGradient, currentColor } = usePicker()
 
-  const handleMove = newVal => {
+  const handleMove = (newVal) => {
     handleGradient(currentColor, formatInputValues(newVal, 0, 100))
   }
 
@@ -90,10 +90,10 @@ const StopPicker = () => {
     <div style={{ ...df, ...ac, ...controlBtnsWrap, paddingLeft: 8 }}>
       <StopIcon />
       <input
-        id='rbgcp-input'
+        id="rbgcp-input"
         style={degreeInput}
         value={currentLeft}
-        onChange={e => handleMove(e.target.value || 0)}
+        onChange={(e) => handleMove(e.target.value || 0)}
       />
     </div>
   )
@@ -102,7 +102,7 @@ const StopPicker = () => {
 const DegreePicker = () => {
   const { degrees, internalOnChange, value } = usePicker()
 
-  const handleDegrees = e => {
+  const handleDegrees = (e) => {
     let newValue = formatInputValues(e.target.value, 0, 360)
     const remaining = value.split(/,(.+)/)[1]
     internalOnChange(`linear-gradient(${newValue || 0}deg, ${remaining}`)
@@ -112,10 +112,10 @@ const DegreePicker = () => {
     <div style={{ ...psRl, ...controlBtnsWrap, ...df, ...ac }}>
       <DegreesIcon />
       <input
-        id='rbgcp-input'
+        id="rbgcp-input"
         style={degreeInput}
         value={degrees}
-        onChange={e => handleDegrees(e)}
+        onChange={(e) => handleDegrees(e)}
       />
       <div
         style={{
@@ -133,7 +133,7 @@ const DegreePicker = () => {
 }
 
 const DeleteBtn = () => {
-  const { deletePoint } = usePicker();
+  const { deletePoint } = usePicker()
 
   return (
     <div

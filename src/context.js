@@ -33,7 +33,7 @@ export default function PickerContextWrapper({
   const colors = getColors(value)
   const indexedColors = colors?.map((c, i) => ({ ...c, index: i }))
   const currentColorObj =
-    indexedColors?.filter(c => isUpperCase(c.value))[0] || indexedColors[0]
+    indexedColors?.filter((c) => isUpperCase(c.value))[0] || indexedColors[0]
   const currentColor = currentColorObj?.value
   const selectedColor = currentColorObj?.index
   const currentLeft = currentColorObj?.left
@@ -48,8 +48,8 @@ export default function PickerContextWrapper({
   const [x, y] = computeSquareXY([hue, s, l], squareSize, squareHeight)
   const [previousColors, setPreviousColors] = useState([])
   const [previousGraidents, setPreviousGradients] = useState([])
-  const [inFocus, setInFocus] = useState(null);
-  const [undoLog, setUndoLog] = useState(0);
+  const [inFocus, setInFocus] = useState(null)
+  const [undoLog, setUndoLog] = useState(0)
 
   const internalOnChange = (newValue) => {
     if (newValue !== value) {
@@ -61,7 +61,7 @@ export default function PickerContextWrapper({
         setPreviousColors([value, ...previousColors?.slice(0, 8)])
       }
 
-      onChange(newValue);
+      onChange(newValue)
     }
   }
 
@@ -70,14 +70,14 @@ export default function PickerContextWrapper({
     setInternalHue(hue)
   }, [currentColor, hue])
 
-  const createGradientStr = newColors => {
+  const createGradientStr = (newColors) => {
     let sorted = newColors.sort((a, b) => a.left - b.left)
-    let colorString = sorted?.map(cc => `${cc?.value} ${cc.left}%`)
+    let colorString = sorted?.map((cc) => `${cc?.value} ${cc.left}%`)
     internalOnChange(`${gradientType}(${degreeStr}, ${colorString.join(', ')})`)
   }
 
   const handleGradient = (newColor, left = currentLeft) => {
-    let remaining = colors?.filter(c => !isUpperCase(c.value))
+    let remaining = colors?.filter((c) => !isUpperCase(c.value))
     let newColors = [
       { value: newColor.toUpperCase(), left: left },
       ...remaining,
@@ -85,7 +85,7 @@ export default function PickerContextWrapper({
     createGradientStr(newColors)
   }
 
-  const handleChange = newColor => {
+  const handleChange = (newColor) => {
     if (isGradient) {
       handleGradient(newColor)
     } else {
@@ -93,13 +93,13 @@ export default function PickerContextWrapper({
     }
   }
 
-  const handleOpacity = e => {
+  const handleOpacity = (e) => {
     let newO = getHandleValue(e) / 100
     let newColor = `rgba(${r}, ${g}, ${b}, ${newO})`
     handleChange(newColor)
   }
 
-  const handleHue = e => {
+  const handleHue = (e) => {
     let newHue = getHandleValue(e) * 3.6
     let newHsl = getNewHsl(newHue, s, l, opacity, setInternalHue)
     handleChange(newHsl)
@@ -114,7 +114,7 @@ export default function PickerContextWrapper({
     handleChange(newColor)
   }
 
-  const setSelectedColor = index => {
+  const setSelectedColor = (index) => {
     let newGradStr = colors?.map((cc, i) => ({
       ...cc,
       value: i === index ? high(cc) : low(cc),
@@ -125,17 +125,20 @@ export default function PickerContextWrapper({
   const addPoint = (e) => {
     let left = getHandleValue(e, offsetLeft)
     let newColors = [
-      ...colors.map(c => ({ ...c, value: low(c) })),
+      ...colors.map((c) => ({ ...c, value: low(c) })),
       { value: currentColor, left: left },
     ]?.sort((a, b) => a.left - b.left)
-    createGradientStr(newColors);
+    createGradientStr(newColors)
   }
 
   const deletePoint = () => {
     if (colors?.length > 2) {
-      let formatted = colors?.map((fc, i) => ({ ...fc, value: i === selectedColor - 1 ? high(fc) : low(fc) }));
-      let remaining = formatted?.filter((rc, i) => i !== selectedColor);
-      createGradientStr(remaining);
+      let formatted = colors?.map((fc, i) => ({
+        ...fc,
+        value: i === selectedColor - 1 ? high(fc) : low(fc),
+      }))
+      let remaining = formatted?.filter((rc, i) => i !== selectedColor)
+      createGradientStr(remaining)
     }
   }
 
@@ -157,17 +160,17 @@ export default function PickerContextWrapper({
   // }
 
   useEffect(() => {
-    window.addEventListener("click", handleClickFocus);
+    window.addEventListener('click', handleClickFocus)
     // window.addEventListener('keydown', handleKeyboard)
 
     return () => {
-      window.removeEventListener("click", handleClickFocus);
+      window.removeEventListener('click', handleClickFocus)
       // window.removeEventListener('keydown', handleKeyboard)
     }
   }, [inFocus, value, undoLog])
 
   const handleClickFocus = (e) => {
-    let formattedPath = e?.path?.map((el) => el.id);
+    let formattedPath = e?.path?.map((el) => el.id)
 
     if (formattedPath?.includes('gradient-bar')) {
       setInFocus('gpoint')

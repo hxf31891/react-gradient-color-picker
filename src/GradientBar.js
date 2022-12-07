@@ -25,9 +25,9 @@ const GradientBar = () => {
     selectedColor,
     setSelectedColor,
     inFocus,
-    setInFocus
+    setInFocus,
   } = usePicker()
-  const [dragging, setDragging] = useState(false);
+  const [dragging, setDragging] = useState(false)
 
   function force90degLinear(color) {
     return color.replace(
@@ -37,32 +37,34 @@ const GradientBar = () => {
   }
 
   useEffect(() => {
-    let selectedEl = window?.document?.getElementById(`gradient-handle-${selectedColor}`);
-    selectedEl.focus();
+    let selectedEl = window?.document?.getElementById(
+      `gradient-handle-${selectedColor}`
+    )
+    selectedEl.focus()
   }, [selectedColor])
 
   const stopDragging = () => {
     setDragging(false)
   }
 
-  const handleDown = e => {
+  const handleDown = (e) => {
     if (!dragging) {
-      addPoint(e);
-      setDragging(true);
+      addPoint(e)
+      setDragging(true)
     }
   }
 
-  const handleMove = e => {
+  const handleMove = (e) => {
     if (dragging) {
       handleGradient(currentColor, getHandleValue(e))
     }
   }
 
-  const handleKeyboard = e => {
+  const handleKeyboard = (e) => {
     if (isGradient) {
       if (e.keyCode === 8) {
         if (inFocus === 'gpoint') {
-          deletePoint();
+          deletePoint()
         }
       }
     }
@@ -83,13 +85,13 @@ const GradientBar = () => {
       style={{ ...barWrap, width: squareSize + 36 }}
     >
       <div
-        id='gradient-bar'
+        id="gradient-bar"
         onMouseUp={stopDragging}
         style={{ ...psRl, ...barWrapInner, width: squareSize + 30 }}
       >
         <div
-          onMouseDown={e => handleDown(e)}
-          onMouseMove={e => handleMove(e)}
+          onMouseDown={(e) => handleDown(e)}
+          onMouseMove={(e) => handleMove(e)}
           style={{ paddingTop: 6, paddingBottom: 6 }}
         >
           <div
@@ -120,10 +122,10 @@ export default GradientBar
 export const Handle = ({ left, i, setDragging, setInFocus }) => {
   const { setSelectedColor, selectedColor, squareSize } = usePicker()
   const isSelected = selectedColor === i
-  const leftMultiplyer = (squareSize - 18) / 100;
+  const leftMultiplyer = (squareSize - 18) / 100
 
-  const handleDown = e => {
-    e.stopPropagation();
+  const handleDown = (e) => {
+    e.stopPropagation()
     setSelectedColor(i)
     setDragging(true)
   }
@@ -143,7 +145,7 @@ export const Handle = ({ left, i, setDragging, setInFocus }) => {
       onBlur={handleBlur}
       onFocus={handleFocus}
       id={`gradient-handle-${i}`}
-      onMouseDown={e => handleDown(e)}
+      onMouseDown={(e) => handleDown(e)}
       style={{ left: left * leftMultiplyer + 13, ...gradientHandleWrap }}
     >
       <div
@@ -170,7 +172,7 @@ export const Handle = ({ left, i, setDragging, setInFocus }) => {
   )
 }
 
-const handleStyle = isSelected => {
+const handleStyle = (isSelected) => {
   return {
     boxShadow: isSelected ? '0px 0px 5px 1px rgba(86, 140, 245,.95)' : '',
     border: isSelected ? '2px solid white' : '2px solid rgba(255,255,255,.75)',
