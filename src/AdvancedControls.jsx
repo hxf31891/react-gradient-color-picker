@@ -7,15 +7,8 @@ import { barWrap, psRl, barWrapInner, cResize, handle } from './style'
 const tinycolor = require('tinycolor2')
 
 const AdvancedControls = ({ openAdvanced }) => {
-  const {
-    tinyColor,
-    hue,
-    l,
-    handleChange,
-    s,
-    opacity,
-    squareSize,
-  } = usePicker()
+  const { tinyColor, hue, l, handleChange, s, opacity, squareSize } =
+    usePicker()
   const { v, s: vs } = tinyColor.toHsv()
   const satRef = useRef(null)
   const lightRef = useRef(null)
@@ -24,17 +17,17 @@ const AdvancedControls = ({ openAdvanced }) => {
   usePaintLight(lightRef, hue, s * 100, squareSize)
   usePaintBright(brightRef, hue, s * 100, squareSize)
 
-  const satDesat = value => {
+  const satDesat = (value) => {
     const { r, g, b } = tinycolor({ h: hue, s: value / 100, l }).toRgb()
     handleChange(`rgba(${r},${g},${b},${opacity})`)
   }
 
-  const setLight = value => {
+  const setLight = (value) => {
     const { r, g, b } = tinycolor({ h: hue, s, l: value / 100 }).toRgb()
     handleChange(`rgba(${r},${g},${b},${opacity})`)
   }
 
-  const setBright = value => {
+  const setBright = (value) => {
     const { r, g, b } = tinycolor({ h: hue, s: vs * 100, v: value }).toRgb()
     handleChange(`rgba(${r},${g},${b},${opacity})`)
   }
@@ -79,7 +72,7 @@ export default AdvancedControls
 const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
   const { squareSize, inFocus } = usePicker()
   const [dragging, setDragging] = useState(false)
-  const [handleTop, setHandleTop] = useState(2);
+  const [handleTop, setHandleTop] = useState(2)
   const sliderId = `${label?.toLowerCase()}Handle`
   let left = value * (squareSize - 18)
 
@@ -91,13 +84,13 @@ const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
     setDragging(false)
   }
 
-  const handleMove = e => {
+  const handleMove = (e) => {
     if (dragging) {
       callback(getHandleValue(e))
     }
   }
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     if (!dragging) {
       callback(getHandleValue(e))
     }
@@ -139,7 +132,7 @@ const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
       >
         <div
           className="c-resize ps-rl"
-          onMouseMove={e => handleMove(e)}
+          onMouseMove={(e) => handleMove(e)}
           style={{ ...cResize, ...psRl }}
         >
           <div
@@ -160,8 +153,8 @@ const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
               zIndex: 10,
               textShadow: '1px 1px 1px rgba(0,0,0,.6)',
             }}
-            onMouseMove={e => handleMove(e)}
-            onClick={e => handleClick(e)}
+            onMouseMove={(e) => handleMove(e)}
+            onClick={(e) => handleClick(e)}
           >
             {label}
           </div>
@@ -170,7 +163,7 @@ const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
             width={`${squareSize}px`}
             height="14px"
             style={{ position: 'relative', borderRadius: 14 }}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { usePicker } from './context'
 import {
   barWrap,
@@ -11,7 +11,8 @@ import {
 } from './style'
 
 const Opacity = () => {
-  const { handleOpacity, opacity, tinyColor, squareSize, inFocus, value } = usePicker()
+  const { handleOpacity, opacity, tinyColor, squareSize, inFocus, value } =
+    usePicker()
   const [dragging, setDragging] = useState(false)
   const { r, g, b } = tinyColor.toRgb()
   const bg = `linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(${r},${g},${b},.5) 100%)`
@@ -36,7 +37,7 @@ const Opacity = () => {
     }
   }
 
-  let left = squareSize - 18;
+  let left = squareSize - 18
 
   // const handleKeyboard = (e) => {
   //   if (inFocus === 'opacityHandle') {

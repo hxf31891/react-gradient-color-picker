@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import throttle from 'lodash.throttle'
 import usePaintSquare from './usePaintSquare'
 import { usePicker } from './context'
@@ -19,7 +19,7 @@ const Square = () => {
   const canvas = useRef(null)
   usePaintSquare(canvas, internalHue, squareSize, squareHeight)
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
     const onMouseMove = throttle(() => handleColor(e, ctx), 250)
     onMouseMove()
@@ -29,13 +29,13 @@ const Square = () => {
     setDragging(false)
   }
 
-  const handleMove = e => {
+  const handleMove = (e) => {
     if (dragging) {
       handleChange(e)
     }
   }
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     if (!dragging) {
       handleChange(e)
     }
@@ -78,7 +78,7 @@ const Square = () => {
       />
       <div
         style={{ ...psRl, ...cCross }}
-        onMouseMove={e => handleMove(e)}
+        onMouseMove={(e) => handleMove(e)}
         onMouseUp={stopDragging}
       >
         <div
@@ -87,7 +87,7 @@ const Square = () => {
         />
         <div
           style={{ ...canvasWrapper, height: squareHeight }}
-          onClick={e => handleClick(e)}
+          onClick={(e) => handleClick(e)}
         >
           <canvas
             ref={canvas}

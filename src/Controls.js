@@ -212,7 +212,7 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
           ...controlBtn,
           ...controlBtnStyles(inputType === 'rgb'),
         }}
-        onClick={e => handleInputType(e, 'rgb')}
+        onClick={(e) => handleInputType(e, 'rgb')}
       >
         RGB
       </div>
@@ -223,7 +223,7 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
           ...controlBtn,
           ...controlBtnStyles(inputType === 'hsl'),
         }}
-        onClick={e => handleInputType(e, 'hsl')}
+        onClick={(e) => handleInputType(e, 'hsl')}
       >
         HSL
       </div>
@@ -234,7 +234,7 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
           ...controlBtn,
           ...controlBtnStyles(inputType === 'hsv'),
         }}
-        onClick={e => handleInputType(e, 'hsv')}
+        onClick={(e) => handleInputType(e, 'hsv')}
       >
         HSV
       </div>
@@ -245,7 +245,7 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
           ...controlBtn,
           ...controlBtnStyles(inputType === 'cmyk'),
         }}
-        onClick={e => handleInputType(e, 'cmyk')}
+        onClick={(e) => handleInputType(e, 'cmyk')}
       >
         CMYK
       </div>
@@ -253,7 +253,7 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
   )
 }
 
-export const controlBtnStyles = selected => {
+export const controlBtnStyles = (selected) => {
   return {
     background: selected ? 'white' : 'rgba(255,255,255,0)',
     color: selected ? '#568CF5' : 'rgb(86,86,86)',

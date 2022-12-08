@@ -9,7 +9,9 @@ function ColorPicker({
   onChange = () => {},
   hideControls = false,
   hideInputs = false,
+  hideOpacity = false,
   hidePresets = false,
+  hideHue = false,
   presets = [],
   hideEyeDrop = false,
   hideAdvancedSliders = false,
@@ -40,6 +42,8 @@ function ColorPicker({
           hideControls={hideControls}
           hideInputs={hideInputs}
           hidePresets={hidePresets}
+          hideOpacity={hideOpacity}
+          hideHue={hideHue}
           presets={presets}
           hideEyeDrop={hideEyeDrop}
           hideAdvancedSliders={hideAdvancedSliders}
