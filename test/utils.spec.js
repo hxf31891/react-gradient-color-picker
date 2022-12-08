@@ -1,4 +1,9 @@
-import { isUpperCase, getNewHsl, getGradientType, getDegrees } from '../src/utils/utils'
+import {
+  isUpperCase,
+  getNewHsl,
+  getGradientType,
+  getDegrees,
+} from '../src/utils/utils'
 
 describe('isUpperCase', () => {
   it('should return true when the first letter of the string is upper-cased', () => {

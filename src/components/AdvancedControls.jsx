@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { usePicker } from '../context'
 import { getHandleValue } from '../utils/utils'
-import { usePaintSat, usePaintLight, usePaintBright } from '../hooks/usePaintHue'
+import {
+  usePaintSat,
+  usePaintLight,
+  usePaintBright,
+} from '../hooks/usePaintHue'
 import { barWrap, psRl, barWrapInner, cResize, handle } from '../style'
 
 const tinycolor = require('tinycolor2')
