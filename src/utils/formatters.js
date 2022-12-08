@@ -1,4 +1,4 @@
-import { config } from './constants'
+import { config } from '../constants'
 import { gradientParser } from './gradientParser'
 
 const { defaultColor, defaultGradient } = config

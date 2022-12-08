@@ -1,6 +1,6 @@
 import React from 'react'
-import { usePicker } from './context'
-import { formatInputValues } from './formatters'
+import { usePicker } from '../context'
+import { formatInputValues } from '../utils/formatters'
 import { controlBtnStyles } from './Controls'
 import TrashIcon, {
   LinearIcon,
@@ -18,7 +18,7 @@ import {
   psRl,
   jc,
   borderBox,
-} from './style'
+} from '../style'
 
 const GradientControls = () => {
   const { gradientType } = usePicker()

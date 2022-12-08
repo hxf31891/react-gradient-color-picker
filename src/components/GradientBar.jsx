@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { getHandleValue } from './utils'
-import { usePicker } from './context'
+import { getHandleValue } from '../utils/utils'
+import { usePicker } from '../context'
 import {
   barWrap,
   psRl,
@@ -10,7 +10,7 @@ import {
   ac,
   gradientHandleWrap,
   gradientHandle,
-} from './style'
+} from '../style'
 
 const GradientBar = () => {
   const {
@@ -23,7 +23,6 @@ const GradientBar = () => {
     deletePoint,
     isGradient,
     selectedColor,
-    setSelectedColor,
     inFocus,
     setInFocus,
   } = usePicker()

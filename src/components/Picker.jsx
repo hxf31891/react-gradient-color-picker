@@ -6,7 +6,7 @@ import Opacity from './Opacity'
 import Presets from './Presets'
 import Controls from './Controls'
 import GradientBar from './GradientBar'
-import { usePicker } from './context'
+import { usePicker } from '../context'
 
 const Picker = ({
   hideControls,

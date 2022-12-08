@@ -1,5 +1,5 @@
 import React from 'react'
-import { usePicker } from './context'
+import { usePicker } from '../context'
 
 const Presets = ({ presets = [] }) => {
   const { value, handleChange, squareSize } = usePicker()

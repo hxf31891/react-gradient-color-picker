@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { rgb2cmyk, cmykToRgb } from './converters'
-import { formatInputValues } from './formatters'
-import { usePicker } from './context'
-import { inputWrap, inputLabel } from './style'
+import { rgb2cmyk, cmykToRgb } from '../utils/converters'
+import { formatInputValues } from '../utils/formatters'
+import { usePicker } from '../context'
+import { inputWrap, inputLabel } from '../style'
 
 var tc = require('tinycolor2')
 

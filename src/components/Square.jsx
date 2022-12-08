@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
 import throttle from 'lodash.throttle'
-import usePaintSquare from './usePaintSquare'
-import { usePicker } from './context'
-import { psRl, cCross, handle, canvasWrapper } from './style'
+import usePaintSquare from '../hooks/usePaintSquare'
+import { usePicker } from '../context'
+import { psRl, cCross, handle, canvasWrapper } from '../style'
 
 const Square = () => {
   const {

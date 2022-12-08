@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react'
 import PickerContextWrapper from './context'
-import Picker from './Picker'
+import Picker from './components/Picker'
 
-export * from './useColorPicker'
+export * from './hooks/useColorPicker'
 
 function ColorPicker({
   value = 'rgba(175, 51, 242, 1)',

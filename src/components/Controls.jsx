@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { SlidersIcon, InputsIcon, PaletteIcon } from './icon'
-import { usePicker } from './context'
+import { usePicker } from '../context'
 import EyeDropper from './EyeDropper'
-import { config } from './constants'
+import { config } from '../constants'
 import AdvancedControls from './AdvancedControls'
 import ComparibleColors from './ComparibleColors'
 import GradientControls from './GradientControls'
@@ -16,7 +16,7 @@ import {
   jfe,
   controlBtn,
   borderBox,
-} from './style'
+} from '../style'
 
 var { defaultColor, defaultGradient } = config
 

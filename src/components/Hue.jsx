@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { usePicker } from './context'
-import usePaintHue from './usePaintHue'
+import { usePicker } from '../context'
+import usePaintHue from '../hooks/usePaintHue'
 import {
   barWrap,
   psRl,
@@ -8,7 +8,7 @@ import {
   cResize,
   handle,
   borderBox,
-} from './style'
+} from '../style'
 
 const Hue = () => {
   const barRef = useRef(null)
