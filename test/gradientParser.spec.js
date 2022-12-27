@@ -1,4 +1,4 @@
-import { gradientParser } from './gradientParser'
+import { gradientParser } from '../src/utils/gradientParser'
 
 describe('gradientParser', () => {
   it('should parse linear gradient with hex colors', () => {

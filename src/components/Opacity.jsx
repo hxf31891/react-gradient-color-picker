@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { usePicker } from './context'
+import { usePicker } from '../context'
 import {
   barWrap,
   psRl,
@@ -8,7 +8,7 @@ import {
   handle,
   opacityOverlay,
   opacityBg,
-} from './style'
+} from '../style'
 
 const Opacity = () => {
   const { handleOpacity, opacity, tinyColor, squareSize, inFocus, value } =

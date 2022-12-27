@@ -1,5 +1,5 @@
 import { formatInputValues } from './formatters'
-import { config } from './constants'
+import { config } from '../constants'
 var tc = require('tinycolor2')
 
 const { barSize, crossSize } = config

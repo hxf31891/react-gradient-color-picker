@@ -1,6 +1,6 @@
 import React from 'react'
-import { usePicker } from './context'
-import { psRl, df, jfe } from './style'
+import { usePicker } from '../context'
+import { psRl, df, jfe } from '../style'
 
 const ComparibleColors = ({ openComparibles }) => {
   const { tinyColor, handleChange } = usePicker()

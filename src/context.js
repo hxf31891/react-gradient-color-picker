@@ -8,8 +8,8 @@ import {
   getHandleValue,
   isUpperCase,
   compareGradients,
-} from './utils'
-import { low, high, getColors } from './formatters'
+} from './utils/utils'
+import { low, high, getColors } from './utils/formatters'
 import { config } from './constants'
 
 var tinycolor = require('tinycolor2')

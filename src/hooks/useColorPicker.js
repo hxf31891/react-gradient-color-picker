@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { getGradientType, getDegrees, isUpperCase } from './utils'
-import { low, high, getColors, formatInputValues } from './formatters'
-import { rgb2cmyk } from './converters'
-import { config } from './constants'
+import { getGradientType, getDegrees, isUpperCase } from '../utils/utils'
+import { low, high, getColors, formatInputValues } from '../utils/formatters'
+import { rgb2cmyk } from '../utils/converters'
+import { config } from '../constants'
 
 const { defaultColor, defaultGradient } = config
 var tc = require('tinycolor2')
