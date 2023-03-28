@@ -123,12 +123,12 @@ export default function PickerContextWrapper({
   }
 
   const addPoint = (e) => {
-    let left = getHandleValue(e, offsetLeft)
-    let newColors = [
-      ...colors.map((c) => ({ ...c, value: low(c) })),
-      { value: currentColor, left: left },
-    ]?.sort((a, b) => a.left - b.left)
-    createGradientStr(newColors)
+    // let left = getHandleValue(e, offsetLeft)
+    // let newColors = [
+    //   ...colors.map((c) => ({ ...c, value: low(c) })),
+    //   { value: currentColor, left: left },
+    // ]?.sort((a, b) => a.left - b.left)
+    // createGradientStr(newColors)
   }
 
   const deletePoint = () => {
