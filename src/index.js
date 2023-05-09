@@ -17,6 +17,7 @@ function ColorPicker({
   hideAdvancedSliders = false,
   hideColorGuide = false,
   hideInputType = false,
+  hideColorTypeBtns = false,
   width = 294,
   height = 294,
   style = {},
@@ -49,6 +50,7 @@ function ColorPicker({
           hideAdvancedSliders={hideAdvancedSliders}
           hideColorGuide={hideColorGuide}
           hideInputType={hideInputType}
+          hideColorTypeBtns={hideColorTypeBtns}
         />
       </PickerContextWrapper>
     </div>

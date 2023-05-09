@@ -19,6 +19,7 @@ const Picker = ({
   hideAdvancedSliders,
   hideColorGuide,
   hideInputType,
+  hideColorTypeBtns,
 }) => {
   const { isGradient } = usePicker()
 
@@ -31,6 +32,7 @@ const Picker = ({
           hideAdvancedSliders={hideAdvancedSliders}
           hideColorGuide={hideColorGuide}
           hideInputType={hideInputType}
+          hideColorTypeBtns={hideColorTypeBtns}
         />
       )}
       {isGradient && <GradientBar />}
