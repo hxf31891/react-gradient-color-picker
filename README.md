@@ -56,7 +56,8 @@ function MyApp() {
 | hideInputs          | `boolean`    | `false`                 | (optional) hide the hex and rgba inputs                                   |
 | hideOpacity         | `boolean`    | `false`                 | (optional) hide the opacity bar                                           |
 | hideHue             | `boolean`    | `false`                 | (optional) hide the hue bar                                               |
-| hideControls        | `boolean`    | `false`                 | (optional) hide the solid/gradient and gradient options                   |
+| hideControls        | `boolean`    | `false`                 | (optional) hide the entrie top row of various control btns                |
+| hideColorTypeBtns   | `boolean`    | `false`                 | (optional) hide the solid/gradient buttons                                |
 | hidePresets         | `boolean`    | `false`                 | (optional) hide the preset color options                                  |
 | hideEyeDrop         | `boolean`    | `false`                 | (optional) hide (and disable the eye dropper tool                         |
 | hideAdvancedSliders | `boolean`    | `false`                 | (optional) hide the additional sliders (saturation, luminence, brightness |
