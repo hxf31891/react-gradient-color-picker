@@ -23,6 +23,7 @@ export default function PickerContextWrapper({
   onChange,
   squareSize,
   squareHeight,
+  hideOpacity
 }) {
   const offsetLeft = bounds?.x
   const isGradient = value?.includes('gradient')
@@ -209,6 +210,7 @@ export default function PickerContextWrapper({
     isGradient,
     offsetLeft,
     squareSize,
+    hideOpacity,
     handleColor,
     currentLeft,
     deletePoint,

@@ -38,6 +38,7 @@ function ColorPicker({
         onChange={onChange}
         squareSize={width}
         squareHeight={height}
+        hideOpacity={hideOpacity}
       >
         <Picker
           hideControls={hideControls}

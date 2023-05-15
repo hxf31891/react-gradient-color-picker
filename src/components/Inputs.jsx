@@ -7,7 +7,7 @@ import { inputWrap, inputLabel } from '../style'
 var tc = require('tinycolor2')
 
 const Inputs = () => {
-  const { handleChange, r, g, b, opacity, inputType } = usePicker()
+  const { handleChange, r, g, b, opacity, inputType, hideOpacity } = usePicker()
 
   return (
     <div
@@ -22,13 +22,16 @@ const Inputs = () => {
       {inputType === 'rgb' && <RGBInputs />}
       {inputType === 'hsv' && <HSVInputs />}
       {inputType === 'cmyk' && <CMKYInputs />}
-      <Input
-        value={opacity * 100}
-        callback={(newVal) =>
-          handleChange(`rgba(${r}, ${g}, ${b}, ${newVal / 100})`)
-        }
-        label="A"
-      />
+
+      {!hideOpacity && (
+        <Input
+          value={opacity * 100}
+          callback={(newVal) =>
+            handleChange(`rgba(${r}, ${g}, ${b}, ${newVal / 100})`)
+          }
+          label="A"
+        />
+      )}
     </div>
   )
 }
@@ -221,7 +224,9 @@ const CMKYInputs = () => {
 }
 
 const Input = ({ value, callback, max = 100, label }) => {
-  const [temp, setTemp] = useState(value)
+  const [temp, setTemp] = useState(value);
+  const { hideOpacity } = usePicker();
+  const width = hideOpacity ? '22%' : '18%'
 
   useEffect(() => {
     setTemp(value)
@@ -234,7 +239,7 @@ const Input = ({ value, callback, max = 100, label }) => {
   }
 
   return (
-    <div style={{ width: '18%' }}>
+    <div style={{ width: width }}>
       <input
         id="rbgcp-input"
         style={{ ...inputWrap }}
