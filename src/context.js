@@ -50,7 +50,7 @@ export default function PickerContextWrapper({
   const [previousColors, setPreviousColors] = useState([])
   const [previousGraidents, setPreviousGradients] = useState([])
   const [inFocus, setInFocus] = useState(null)
-  const [undoLog, setUndoLog] = useState(0)
+  // const [undoLog, setUndoLog] = useState(0)
 
   const internalOnChange = (newValue) => {
     if (newValue !== value) {
@@ -108,6 +108,7 @@ export default function PickerContextWrapper({
 
   const handleColor = (e, ctx) => {
     const [x, y] = computePickerPosition(e, squareHeight)
+    console.log(x, y, 'test');
     const x1 = Math.min(x + crossSize / 2, squareSize - 1)
     const y1 = Math.min(y + crossSize / 2, squareHeight - 1)
     const [r, g, b] = ctx.getImageData(x1, y1, 1, 1).data
@@ -168,7 +169,7 @@ export default function PickerContextWrapper({
       window.removeEventListener('click', handleClickFocus)
       // window.removeEventListener('keydown', handleKeyboard)
     }
-  }, [inFocus, value, undoLog])
+  }, [inFocus, value])
 
   const handleClickFocus = (e) => {
     let formattedPath = e?.path?.map((el) => el.id)

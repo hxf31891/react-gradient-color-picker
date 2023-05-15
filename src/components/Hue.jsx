@@ -2,9 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { usePicker } from '../context'
 import usePaintHue from '../hooks/usePaintHue'
 import {
-  barWrap,
   psRl,
-  barWrapInner,
   cResize,
   handle,
   borderBox,
@@ -63,38 +61,38 @@ const Hue = () => {
   //   };
   // }, [internalHue, inFocus, value]);
 
+  useEffect(() => {
+    const handleUp = () => {
+      stopDragging();
+    }
+
+    window.addEventListener('mouseup', handleUp);
+
+    return () => {
+      window.removeEventListener('mouseup', handleUp);
+    };
+  }, []);
+
   return (
     <div
-      onMouseEnter={stopDragging}
-      onMouseLeave={stopDragging}
-      style={{ ...barWrap, width: squareSize + 36 }}
+      style={{ ...psRl, ...cResize, ...borderBox, height: 14, marginTop: 17, marginBottom: 4 }}
+      onMouseMove={(e) => handleMove(e)}
     >
       <div
-        onMouseUp={stopDragging}
-        style={{ ...psRl, ...barWrapInner, width: squareSize + 30 }}
-      >
-        <div
-          style={{ ...psRl, ...cResize, ...borderBox }}
-          onMouseMove={(e) => handleMove(e)}
-          className="c-resize ps-rl"
-        >
-          <div
-            style={{
-              ...handle,
-              left: internalHue * ((squareSize - 18) / 360),
-              top: handleTop,
-            }}
-            onMouseDown={handleDown}
-          />
-          <canvas
-            ref={barRef}
-            width={`${squareSize}px`}
-            height="14px"
-            style={{ position: 'relative', borderRadius: 14 }}
-            onClick={(e) => handleClick(e)}
-          />
-        </div>
-      </div>
+        style={{
+          ...handle,
+          left: internalHue * ((squareSize - 18) / 360),
+          top: handleTop,
+        }}
+        onMouseDown={handleDown}
+      />
+      <canvas
+        ref={barRef}
+        width={`${squareSize}px`}
+        height="14px"
+        style={{ position: 'relative', borderRadius: 14, verticalAlign: 'top' }}
+        onClick={(e) => handleClick(e)}
+      />
     </div>
   )
 }

@@ -27,11 +27,11 @@ export function computePickerPosition(e) {
   const { offsetLeft, offsetTop, clientWidth, clientHeight } = safeBounds(e)
   const getX = () => {
     let xPos = e.clientX - offsetLeft - crossSize / 2
-    return formatInputValues(xPos, -8, clientWidth - 10)
+    return formatInputValues(xPos, -9, clientWidth - 10)
   }
   const getY = () => {
     let yPos = e.clientY - offsetTop - crossSize / 2
-    return formatInputValues(yPos, -8, clientHeight - 10)
+    return formatInputValues(yPos, -9, clientHeight - 10)
   }
 
   return [getX(), getY()]

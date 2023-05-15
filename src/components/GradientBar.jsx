@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { getHandleValue } from '../utils/utils'
 import { usePicker } from '../context'
 import {
-  barWrap,
   psRl,
-  barWrapInner,
   df,
   jc,
   ac,
   gradientHandleWrap,
   gradientHandle,
+  borderBox
 } from '../style'
 
 const GradientBar = () => {
@@ -69,49 +68,41 @@ const GradientBar = () => {
     }
   }
 
+  const handleUp = () => {
+    stopDragging()
+  }
+
   useEffect(() => {
+    window.addEventListener('mouseup', handleUp);
     window?.addEventListener('keydown', handleKeyboard)
 
     return () => {
+      window.removeEventListener('mouseup', handleUp);
       window?.removeEventListener('keydown', handleKeyboard)
     }
   })
 
   return (
-    <div
-      onMouseEnter={stopDragging}
-      onMouseLeave={stopDragging}
-      style={{ ...barWrap, width: squareSize + 36 }}
-    >
+    <div style={{ width: '100%', ...psRl, ...borderBox, marginTop: 17, marginBottom: 4 }} id="gradient-bar">
       <div
-        id="gradient-bar"
-        onMouseUp={stopDragging}
-        style={{ ...psRl, ...barWrapInner, width: squareSize + 30 }}
-      >
-        <div
-          onMouseDown={(e) => handleDown(e)}
-          onMouseMove={(e) => handleMove(e)}
-          style={{ paddingTop: 6, paddingBottom: 6 }}
-        >
-          <div
-            style={{
-              width: squareSize,
-              height: 14,
-              backgroundImage: force90degLinear(value),
-              borderRadius: 10,
-            }}
-          />
-        </div>
-        {colors?.map((c, i) => (
-          <Handle
-            i={i}
-            left={c.left}
-            key={`${i}-${c}`}
-            setInFocus={setInFocus}
-            setDragging={setDragging}
-          />
-        ))}
-      </div>
+        style={{
+          width: squareSize,
+          height: 14,
+          backgroundImage: force90degLinear(value),
+          borderRadius: 10,
+        }}
+        onMouseDown={(e) => handleDown(e)}
+        onMouseMove={(e) => handleMove(e)}
+      />
+      {colors?.map((c, i) => (
+        <Handle
+          i={i}
+          left={c.left}
+          key={`${i}-${c}`}
+          setInFocus={setInFocus}
+          setDragging={setDragging}
+        />
+      ))}
     </div>
   )
 }
@@ -145,7 +136,7 @@ export const Handle = ({ left, i, setDragging, setInFocus }) => {
       onFocus={handleFocus}
       id={`gradient-handle-${i}`}
       onMouseDown={(e) => handleDown(e)}
-      style={{ left: left * leftMultiplyer + 13, ...gradientHandleWrap }}
+      style={{ left: left * leftMultiplyer, ...gradientHandleWrap }}
     >
       <div
         style={{

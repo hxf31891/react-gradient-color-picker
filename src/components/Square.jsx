@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import throttle from 'lodash.throttle'
+import React, { useRef, useState, useEffect } from 'react'
+// import throttle from 'lodash.throttle'
 import usePaintSquare from '../hooks/usePaintSquare'
 import { usePicker } from '../context'
 import { psRl, cCross, handle, canvasWrapper } from '../style'
@@ -8,8 +8,6 @@ const Square = () => {
   const {
     x,
     y,
-    value,
-    inFocus,
     handleColor,
     internalHue,
     squareSize,
@@ -21,8 +19,9 @@ const Square = () => {
 
   const handleChange = (e) => {
     const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
-    const onMouseMove = throttle(() => handleColor(e, ctx), 250)
-    onMouseMove()
+    // const onMouseMove = throttle(() => handleColor(e, ctx), 250)
+    handleColor(e, ctx)
+    // onMouseMove()
   }
 
   const stopDragging = () => {
@@ -44,6 +43,23 @@ const Square = () => {
   const handleMouseDown = () => {
     setDragging(true)
   }
+
+  const handleCanvasDown = (e) => {
+    setDragging(true)
+    handleChange(e)
+  }
+
+  useEffect(() => {
+    const handleUp = () => {
+      stopDragging();
+    }
+
+    window.addEventListener('mouseup', handleUp);
+
+    return () => {
+      window.removeEventListener('mouseup', handleUp);
+    };
+  }, []);
 
   // const handleKeyboard = (e) => {
   //   if (inFocus === 'squareHandle') {
@@ -67,17 +83,8 @@ const Square = () => {
   return (
     <div style={psRl}>
       <div
-        style={{
-          position: 'absolute',
-          left: -7,
-          top: -7,
-          width: squareSize + 14,
-          height: squareHeight + 14,
-        }}
-        onMouseEnter={stopDragging}
-      />
-      <div
         style={{ ...psRl, ...cCross }}
+        onMouseDown={handleCanvasDown}
         onMouseMove={(e) => handleMove(e)}
         onMouseUp={stopDragging}
       >

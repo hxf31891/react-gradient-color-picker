@@ -52,7 +52,7 @@ const Controls = ({
   }
 
   return (
-    <div style={{ paddingTop: 12, paddingBottom: 9 }}>
+    <div style={{ paddingTop: 12, paddingBottom: 4 }}>
       <div style={{ width: '100%', ...df, ...jsb, ...ac }}>
         <div
           style={{

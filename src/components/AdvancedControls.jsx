@@ -6,7 +6,7 @@ import {
   usePaintLight,
   usePaintBright,
 } from '../hooks/usePaintHue'
-import { barWrap, psRl, barWrapInner, cResize, handle } from '../style'
+import { borderBox, psRl, cResize, handle } from '../style'
 
 const tinycolor = require('tinycolor2')
 
@@ -74,10 +74,10 @@ const AdvancedControls = ({ openAdvanced }) => {
 export default AdvancedControls
 
 const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
-  const { squareSize, inFocus } = usePicker()
+  const { squareSize } = usePicker()
   const [dragging, setDragging] = useState(false)
   const [handleTop, setHandleTop] = useState(2)
-  const sliderId = `${label?.toLowerCase()}Handle`
+  // const sliderId = `${label?.toLowerCase()}Handle`
   let left = value * (squareSize - 18)
 
   useEffect(() => {
@@ -124,52 +124,56 @@ const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
   //   };
   // }, [value, inFocus, openAdvanced]);
 
+
+  useEffect(() => {
+    const handleUp = () => {
+      stopDragging();
+    }
+
+    window.addEventListener('mouseup', handleUp);
+
+    return () => {
+      window.removeEventListener('mouseup', handleUp);
+    };
+  }, []);
+
   return (
-    <div
-      onMouseEnter={stopDragging}
-      onMouseLeave={stopDragging}
-      style={{ ...barWrap, width: squareSize + 36, marginTop: 0 }}
-    >
+    <div style={{ ...borderBox, width: '100%', padding: '3px 0px 3px 0px' }}>
       <div
-        onMouseUp={stopDragging}
-        style={{ ...psRl, ...barWrapInner, width: squareSize + 30 }}
+        className="c-resize ps-rl"
+        onMouseMove={(e) => handleMove(e)}
+        style={{ ...cResize, ...psRl }}
       >
         <div
-          className="c-resize ps-rl"
+          style={{ ...handle, left, top: handleTop }}
+          onMouseDown={handleDown}
+        />
+        <div
+          style={{
+            textAlign: 'center',
+            color: '#fff',
+            fontSize: 12,
+            fontWeight: 500,
+            lineHeight: 1,
+            position: 'absolute',
+            left: '50%',
+            transform: 'translate(-50%, 0%)',
+            top: handleTop + 2,
+            zIndex: 10,
+            textShadow: '1px 1px 1px rgba(0,0,0,.6)',
+          }}
           onMouseMove={(e) => handleMove(e)}
-          style={{ ...cResize, ...psRl }}
+          onClick={(e) => handleClick(e)}
         >
-          <div
-            style={{ ...handle, left, top: handleTop }}
-            onMouseDown={handleDown}
-          />
-          <div
-            style={{
-              textAlign: 'center',
-              color: '#fff',
-              fontSize: 12,
-              fontWeight: 500,
-              lineHeight: 1,
-              position: 'absolute',
-              left: '50%',
-              transform: 'translate(-50%, 0%)',
-              top: handleTop + 2,
-              zIndex: 10,
-              textShadow: '1px 1px 1px rgba(0,0,0,.6)',
-            }}
-            onMouseMove={(e) => handleMove(e)}
-            onClick={(e) => handleClick(e)}
-          >
-            {label}
-          </div>
-          <canvas
-            ref={reffy}
-            width={`${squareSize}px`}
-            height="14px"
-            style={{ position: 'relative', borderRadius: 14 }}
-            onClick={(e) => handleClick(e)}
-          />
+          {label}
         </div>
+        <canvas
+          ref={reffy}
+          width={`${squareSize}px`}
+          height="14px"
+          style={{ position: 'relative', borderRadius: 14 }}
+          onClick={(e) => handleClick(e)}
+        />
       </div>
     </div>
   )
