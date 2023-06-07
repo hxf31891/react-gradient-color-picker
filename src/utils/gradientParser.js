@@ -290,11 +290,23 @@ export const gradientParser = (input = '') => {
   }
 
   function matchLiteralColor() {
-    return match('literal', tokens.literalColor, 0)
+    let litObj =  match('literal', tokens.literalColor, 0)
+    if (litObj?.value) {
+      let { r, g, b, a } = tinycolor(litObj?.value).toRgb()
+      return {
+        value: `rgba(${r}, ${g}, ${b}, ${a})`,
+      }
+    }
   }
 
   function matchHexColor() {
-    return match('hex', tokens.hexColor, 1)
+    let hexObj = match('hex', tokens.hexColor, 1)
+    if (hexObj?.value) {
+      let { r, g, b, a } = tinycolor(hexObj?.value).toRgb()
+      return {
+        value: `rgba(${r}, ${g}, ${b}, ${a})`,
+      }
+    }
   }
 
   const convertHsl = (val) => {
