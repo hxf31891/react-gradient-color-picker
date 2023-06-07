@@ -379,3 +379,7 @@ Code released under the [MIT](https://github.com/hxf31891/react-gradient-color-p
 [downloads-url]: http://npm-stat.com/charts.html?package=react-best-gradient-color-picker
 [npm-version-image]: https://img.shields.io/npm/v/react-best-gradient-color-picker.svg?color=%23498af2
 [npm-version-url]: https://www.npmjs.com/package/react-best-gradient-color-picker
+
+## Acknowledgments
+
+Very special thank you to [Rafael Carício](https://github.com/rafaelcaricio) for his amazing work parsing gradient strings.
