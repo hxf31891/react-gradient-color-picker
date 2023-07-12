@@ -18,6 +18,10 @@ function ColorPicker({
   hideColorGuide = false,
   hideInputType = false,
   hideColorTypeBtns = false,
+  hideGradientType = false,
+  hideGradientAngle = false,
+  hideGradientStop = false,
+  hideGradientControls = false,
   width = 294,
   height = 294,
   style = {},
@@ -52,6 +56,10 @@ function ColorPicker({
           hideColorGuide={hideColorGuide}
           hideInputType={hideInputType}
           hideColorTypeBtns={hideColorTypeBtns}
+          hideGradientType={hideGradientType}
+          hideGradientAngle={hideGradientAngle}
+          hideGradientStop={hideGradientStop}
+          hideGradientControls={hideGradientControls}
         />
       </PickerContextWrapper>
     </div>

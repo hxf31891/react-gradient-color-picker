@@ -2,13 +2,21 @@ import React from 'react'
 import { usePicker } from '../context'
 
 const Presets = ({ presets = [] }) => {
-  const { value, handleChange, squareSize } = usePicker()
+  const { value, onChange, handleChange, squareSize } = usePicker()
 
   const getPresets = () => {
     if (presets?.length > 0) {
       return presets?.slice(0, 18)
     } else {
       return fakePresets
+    }
+  }
+
+  const handlePresetClick = (preset) => {
+    if (preset?.includes('gradient')) {
+      onChange(preset)
+    } else {
+      handleChange(preset)
     }
   }
 
@@ -48,7 +56,7 @@ const Presets = ({ presets = [] }) => {
               marginBottom: 2,
               border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : '',
             }}
-            onClick={() => handleChange(p)}
+            onClick={() => handlePresetClick(p)}
           />
         ))}
       </div>

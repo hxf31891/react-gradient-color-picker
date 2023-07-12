@@ -26,6 +26,10 @@ const Controls = ({
   hideColorGuide,
   hideInputType,
   hideColorTypeBtns,
+  hideGradientControls,
+  hideGradientType,
+  hideGradientAngle,
+  hideGradientStop,
 }) => {
   const {
     isGradient,
@@ -173,7 +177,13 @@ const Controls = ({
       {!hideColorGuide && (
         <ComparibleColors openComparibles={openComparibles} />
       )}
-      {isGradient && <GradientControls />}
+      {(isGradient && !hideGradientControls) && (
+        <GradientControls
+          hideGradientType={hideGradientType}
+          hideGradientAngle={hideGradientAngle}
+          hideGradientStop={hideGradientStop}
+        />
+      )}
     </div>
   )
 }

@@ -20,7 +20,7 @@ import {
   borderBox,
 } from '../style'
 
-const GradientControls = () => {
+const GradientControls = ({hideGradientType, hideGradientAngle, hideGradientStop}) => {
   const { gradientType } = usePicker()
   return (
     <div
@@ -32,13 +32,16 @@ const GradientControls = () => {
         background: '#e9e9f5',
         borderRadius: 6,
         ...borderBox,
+        paddingLeft: hideGradientType ? 4 : 0
       }}
     >
-      <GradientType />
+      {!hideGradientType && <GradientType />}
       <div style={{ width: 53 }}>
-        {gradientType === 'linear-gradient' && <DegreePicker />}
+        {(!hideGradientAngle && gradientType === 'linear-gradient') && (
+          <DegreePicker />
+        )}
       </div>
-      <StopPicker />
+      {!hideGradientStop && <StopPicker />}
       <DeleteBtn />
     </div>
   )
