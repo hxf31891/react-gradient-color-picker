@@ -63,6 +63,11 @@ function MyApp() {
 | hideAdvancedSliders | `boolean`    | `false`                 | (optional) hide the additional sliders (saturation, luminence, brightness |
 | hideColorGuide      | `boolean`    | `false`                 | (optional) hide the color guide, a tool that shows color pairings         |
 | hideInputType       | `boolean`    | `false`                 | (optional) hide the input type selector, looking the type                 |
+| hideGradientType    | `boolean`    | `false`                 | (optional) hide the linear/circular gradient type toggle (only relevant in gradient mode)|
+| hideGradientAngle   | `boolean`    | `false`                 | (optional) hide the gradient angle input (only relevant in gradient mode with a linear gradient)|
+| hideGradientStop    | `boolean`    | `false`                 | (optional) hide the gradient point stop input (only relevant in gradient mode)|
+| hideGradientControls| `boolean`    | `false`                 | (optional) hide the all gradient controls (the bar that appears below top controls when in gradient mode)|
+
 | presets             | `array`      | ['rgba(0,0,0,1)', ...]  | (optional) pass in custom preset options ['rgba()', 'rgba()', ..]         |
 
 ### API
