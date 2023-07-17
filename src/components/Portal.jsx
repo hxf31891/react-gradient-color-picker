@@ -1,9 +1,8 @@
 import { memo, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { v4 as uuidv4 } from 'uuid'
 
 const Portal = ({ children }) => {
-  const id = uuidv4()
+  var id = "id" + Math.random().toString(16).slice(2);
   const el = useRef(
     document.getElementById(id) || document.createElement('div')
   )
