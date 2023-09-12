@@ -54,5 +54,10 @@ export interface ColorPickerHook {
     rgbaArr: [r: number, g: number, b:number, a: number],
     hslArr: [h: number, s: number, l: number],
     getGradientObject: () => GradientObject
+    selectedPoint: number | undefined;
+    isGradient: GradientObject["isGradient"];
+    gradientType: GradientObject["gradientType"];
+    degrees: GradientObject["degrees"];
+    currentLeft: number | undefined;
 }
 export declare function useColorPicker(value: string, onChange: (value: string) => void): ColorPickerHook;
