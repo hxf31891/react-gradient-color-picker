@@ -8,11 +8,11 @@ const { defaultColor, defaultGradient } = config
 var tc = require('tinycolor2')
 
 export const useColorPicker = (value, onChange) => {
-  if (!value || !onChange) {
-    console.log(
-      'RBGCP ERROR - YOU MUST PASS A VALUE AND CALLBACK TO THE useColorPicker HOOK'
-    )
-  }
+  // if (!value || !onChange) {
+  //   console.log(
+  //     'RBGCP ERROR - YOU MUST PASS A VALUE AND CALLBACK TO THE useColorPicker HOOK'
+  //   )
+  // }
 
   const isGradient = value?.includes('gradient')
   const gradientType = getGradientType(value)
