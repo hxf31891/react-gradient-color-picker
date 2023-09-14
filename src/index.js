@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import PickerContextWrapper from './context'
 import Picker from './components/Picker'
+import { defaultLocales } from './constants'
 
 export * from './hooks/useColorPicker'
 
@@ -22,6 +23,7 @@ function ColorPicker({
   hideGradientAngle = false,
   hideGradientStop = false,
   hideGradientControls = false,
+  locales = defaultLocales,
   width = 294,
   height = 294,
   style = {},
@@ -60,6 +62,7 @@ function ColorPicker({
           hideGradientAngle={hideGradientAngle}
           hideGradientStop={hideGradientStop}
           hideGradientControls={hideGradientControls}
+          locales={locales}
         />
       </PickerContextWrapper>
     </div>
