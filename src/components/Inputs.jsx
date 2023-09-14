@@ -25,7 +25,7 @@ const Inputs = () => {
 
       {!hideOpacity && (
         <Input
-          value={opacity * 100}
+          value={Math.round(opacity * 100)}
           callback={(newVal) =>
             handleChange(`rgba(${r}, ${g}, ${b}, ${newVal / 100})`)
           }
