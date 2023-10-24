@@ -68,6 +68,7 @@ function MyApp() {
 | hideGradientStop    | `boolean`    | `false`                 | (optional) hide the gradient point stop input (only relevant in gradient mode)|
 | hideGradientControls| `boolean`    | `false`                 | (optional) hide the all gradient controls (the bar that appears below top controls when in gradient mode)|
 | presets             | `array`      | ['rgba(0,0,0,1)', ...]  | (optional) pass in custom preset options ['rgba()', 'rgba()', ..]         |
+| locales             | `object`      | { CONTROLS: { SOLID: 'Solid', GRADIENT: 'Gradient' }}  | (optional) pass in custom locales |
 
 ### API
 
@@ -259,6 +260,27 @@ function MyApp() {
 }
 ```
 
+### Custom Locales Example 
+You can pass custom locales via `locales` prop.
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const customLocales = {
+    CONTROLS: {
+      SOLID: 'Obične',
+      GRADIENT: 'Gradijent',
+    },
+  }
+  return (
+    <div>
+      <ColorPicker locales={customLocales} />
+    </div>
+  )
+}
+```
 ### Getting Value in Object Form
 The picker returns the new value as a css gradient string but you may need it parsed as an object. This can easily be accomplised by using the getGradientObject function returned by the useColorPicker hook like so:
 

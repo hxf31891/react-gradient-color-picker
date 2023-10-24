@@ -56,7 +56,7 @@ const Controls = ({
   }
 
   const allRightControlsHidden = hideEyeDrop && hideAdvancedSliders && hideColorGuide && hideInputType;
-  const allControlsHidden = hideColorTypeBtns && allRightControlsHidden;
+  const allControlsHidden = allRightControlsHidden && hideColorTypeBtns;
 
   if (allControlsHidden) {
     return null;
