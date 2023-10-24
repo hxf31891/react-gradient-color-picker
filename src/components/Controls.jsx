@@ -56,141 +56,146 @@ const Controls = ({
   }
 
   const allRightControlsHidden = hideEyeDrop && hideAdvancedSliders && hideColorGuide && hideInputType;
+  const allControlsHidden = hideColorTypeBtns && allRightControlsHidden;
 
-  return (
-    <div style={{ paddingTop: 12, paddingBottom: 4 }}>
-      <div style={{ width: '100%', ...df, ...jsb, ...ac }}>
-        <div
-          style={{
-            height: 28,
-            background: hideColorTypeBtns ? '' : '#e9e9f5',
-            borderRadius: 6,
-            padding: 2,
-            ...df,
-            ...jc,
-            ...ac,
-            ...borderBox,
-          }}
-        >
-          {!hideColorTypeBtns && (
-            <>
-              <div
-                style={{
-                  ...controlBtn,
-                  ...controlBtnStyles(!isGradient),
-                  ...df,
-                  ...ac,
-                }}
-                onClick={setSolid}
-              >
-                Solid
-              </div>
-              <div
-                style={{
-                  ...controlBtn,
-                  ...controlBtnStyles(isGradient),
-                  ...df,
-                  ...ac,
-                }}
-                onClick={setGradient}
-              >
-                Gradient
-              </div>
-            </>
-          )}
-        </div>
-
-        {!allRightControlsHidden && (
+  if (allControlsHidden) {
+    return null;
+  } else {
+    return (
+      <div style={{ paddingTop: 12, paddingBottom: 4 }}>
+        <div style={{ width: '100%', ...df, ...jsb, ...ac }}>
           <div
             style={{
-              ...ac,
-              ...jfe,
               height: 28,
-              background: '#e9e9f5',
+              background: hideColorTypeBtns ? '' : '#e9e9f5',
               borderRadius: 6,
               padding: 2,
-              display: noTools ? 'none' : '',
               ...df,
+              ...jc,
+              ...ac,
               ...borderBox,
             }}
           >
-            {!hideEyeDrop && (
-              <EyeDropper
-                onSelect={handleChange}
-                buttonStyle={{
+            {!hideColorTypeBtns && (
+              <>
+                <div
+                  style={{
+                    ...controlBtn,
+                    ...controlBtnStyles(!isGradient),
+                    ...df,
+                    ...ac,
+                  }}
+                  onClick={setSolid}
+                >
+                  Solid
+                </div>
+                <div
+                  style={{
+                    ...controlBtn,
+                    ...controlBtnStyles(isGradient),
+                    ...df,
+                    ...ac,
+                  }}
+                  onClick={setGradient}
+                >
+                  Gradient
+                </div>
+              </>
+            )}
+          </div>
+
+          {!allRightControlsHidden && (
+            <div
+              style={{
+                ...ac,
+                ...jfe,
+                height: 28,
+                background: '#e9e9f5',
+                borderRadius: 6,
+                padding: 2,
+                display: noTools ? 'none' : '',
+                ...df,
+                ...borderBox,
+              }}
+            >
+              {!hideEyeDrop && (
+                <EyeDropper
+                  onSelect={handleChange}
+                  buttonStyle={{
+                    width: 30,
+                    height: 24,
+                    borderRadius: 4,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                />
+              )}
+              <div
+                style={{
                   width: 30,
+                  ...controlBtnStyles(openAdvanced),
                   height: 24,
                   borderRadius: 4,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  display: hideAdvancedSliders ? 'none' : 'flex',
+                  ...jc,
+                  ...ac,
                 }}
-              />
-            )}
-            <div
-              style={{
-                width: 30,
-                ...controlBtnStyles(openAdvanced),
-                height: 24,
-                borderRadius: 4,
-                display: hideAdvancedSliders ? 'none' : 'flex',
-                ...jc,
-                ...ac,
-              }}
-              onClick={() => setOpenAdvanced(!openAdvanced)}
-            >
-              <SlidersIcon color={openAdvanced ? '#568CF5' : ''} />
+                onClick={() => setOpenAdvanced(!openAdvanced)}
+              >
+                <SlidersIcon color={openAdvanced ? '#568CF5' : ''} />
+              </div>
+              <div
+                style={{
+                  width: 30,
+                  ...controlBtnStyles(openComparibles),
+                  height: 24,
+                  borderRadius: 4,
+                  display: hideColorGuide ? 'none' : 'flex',
+                  ...jc,
+                  ...ac,
+                }}
+                onClick={() => setOpenComparibles(!openComparibles)}
+              >
+                <PaletteIcon color={openComparibles ? '#568CF5' : ''} />
+              </div>
+              <div
+                style={{
+                  width: 30,
+                  ...controlBtnStyles(openInputType),
+                  height: 24,
+                  borderRadius: 4,
+                  display: hideInputType ? 'none' : 'flex',
+                  ...jc,
+                  ...ac,
+                  ...psRl,
+                }}
+                onClick={() => setOpenInputType(!openInputType)}
+              >
+                <InputsIcon color={openInputType ? '#568CF5' : ''} />
+                <InputTypeDropdown
+                  openInputType={openInputType}
+                  setOpenInputType={setOpenInputType}
+                />
+              </div>
             </div>
-            <div
-              style={{
-                width: 30,
-                ...controlBtnStyles(openComparibles),
-                height: 24,
-                borderRadius: 4,
-                display: hideColorGuide ? 'none' : 'flex',
-                ...jc,
-                ...ac,
-              }}
-              onClick={() => setOpenComparibles(!openComparibles)}
-            >
-              <PaletteIcon color={openComparibles ? '#568CF5' : ''} />
-            </div>
-            <div
-              style={{
-                width: 30,
-                ...controlBtnStyles(openInputType),
-                height: 24,
-                borderRadius: 4,
-                display: hideInputType ? 'none' : 'flex',
-                ...jc,
-                ...ac,
-                ...psRl,
-              }}
-              onClick={() => setOpenInputType(!openInputType)}
-            >
-              <InputsIcon color={openInputType ? '#568CF5' : ''} />
-              <InputTypeDropdown
-                openInputType={openInputType}
-                setOpenInputType={setOpenInputType}
-              />
-            </div>
-          </div>
-        )}
+          )}
 
+        </div>
+        {!hideAdvancedSliders && <AdvancedControls openAdvanced={openAdvanced} />}
+        {!hideColorGuide && (
+          <ComparibleColors openComparibles={openComparibles} />
+        )}
+        {(isGradient && !hideGradientControls) && (
+          <GradientControls
+            hideGradientType={hideGradientType}
+            hideGradientAngle={hideGradientAngle}
+            hideGradientStop={hideGradientStop}
+          />
+        )}
       </div>
-      {!hideAdvancedSliders && <AdvancedControls openAdvanced={openAdvanced} />}
-      {!hideColorGuide && (
-        <ComparibleColors openComparibles={openComparibles} />
-      )}
-      {(isGradient && !hideGradientControls) && (
-        <GradientControls
-          hideGradientType={hideGradientType}
-          hideGradientAngle={hideGradientAngle}
-          hideGradientStop={hideGradientStop}
-        />
-      )}
-    </div>
-  )
+    )  
+  }
 }
 
 export default Controls
