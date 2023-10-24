@@ -30,6 +30,7 @@ const Controls = ({
   hideGradientType,
   hideGradientAngle,
   hideGradientStop,
+  locales,
 }) => {
   const {
     isGradient,
@@ -83,7 +84,7 @@ const Controls = ({
                 }}
                 onClick={setSolid}
               >
-                Solid
+                {locales.CONTROLS.SOLID}
               </div>
               <div
                 style={{
@@ -94,7 +95,7 @@ const Controls = ({
                 }}
                 onClick={setGradient}
               >
-                Gradient
+                {locales.CONTROLS.GRADIENT}
               </div>
             </>
           )}

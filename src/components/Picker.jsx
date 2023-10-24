@@ -23,7 +23,8 @@ const Picker = ({
   hideGradientType,
   hideGradientAngle,
   hideGradientStop,
-  hideGradientControls
+  hideGradientControls,
+  locales,
 }) => {
   const { isGradient } = usePicker()
 
@@ -41,6 +42,7 @@ const Picker = ({
           hideGradientType={hideGradientType}
           hideGradientAngle={hideGradientAngle}
           hideGradientStop={hideGradientStop}
+          locales={locales}
         />
       )}
       {isGradient && <GradientBar />}
