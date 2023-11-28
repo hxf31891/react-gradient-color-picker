@@ -128,7 +128,7 @@ function MyApp() {
 }
 ```
 
-<a id="item-eigth"></a>
+<a id="item-eight"></a>
 ### Included Functions 
 
 | Name             | Arguments        | Description                                                      |
