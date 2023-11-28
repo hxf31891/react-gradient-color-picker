@@ -47,6 +47,8 @@ See the picker in action [here](https://gradient-package-demo.web.app/)
 - [License](#item-thirteen)
 - [Acknowledgments](#item-fourteen)
 
+<br />
+
 <a id="item-three"></a>
 ## Basic Example 
 ```js
