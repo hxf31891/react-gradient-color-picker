@@ -6,17 +6,6 @@ import { config } from "../constants";
 import AdvancedControls from "./AdvancedControls";
 import ComparibleColors from "./ComparibleColors";
 import GradientControls from "./GradientControls";
-import {
-  ac,
-  df,
-  jc,
-  jsb,
-  inputDropdown,
-  psRl,
-  jfe,
-  controlBtn,
-  borderBox,
-} from "../style";
 
 var { defaultColor, defaultGradient } = config;
 
@@ -75,113 +64,41 @@ const Controls = ({
   } else {
     return (
       <div style={{ paddingTop: 12, paddingBottom: 4 }}>
-        <div style={{ width: "100%", ...df, ...jsb, ...ac }}>
-          <div
-            style={{
-              height: 28,
-              background: hideColorTypeBtns ? "" : "#e9e9f5",
-              borderRadius: 6,
-              padding: 2,
-              ...df,
-              ...jc,
-              ...ac,
-              ...borderBox,
-            }}
-          >
-            {!hideColorTypeBtns && (
-              <>
-                <div
-                  style={{
-                    ...controlBtn,
-                    ...controlBtnStyles(!isGradient),
-                    ...df,
-                    ...ac,
-                  }}
-                  onClick={setSolid}
-                >
-                  {locales?.CONTROLS?.SOLID}
-                </div>
-                <div
-                  style={{
-                    ...controlBtn,
-                    ...controlBtnStyles(isGradient),
-                    ...df,
-                    ...ac,
-                  }}
-                  onClick={setGradient}
-                >
-                  {locales?.CONTROLS?.GRADIENT}
-                </div>
-              </>
-            )}
-          </div>
+        <div style={{ width: "100%" }} className='ac jsb'>
+          <ColorTypeBtns
+            hideColorTypeBtns={hideColorTypeBtns}
+            setGradient={setGradient}
+            isGradient={isGradient}
+            setSolid={setSolid}
+            locales={locales}
+          />
 
           {!allRightControlsHidden && (
             <div
-              style={{
-                ...ac,
-                ...jfe,
-                height: 28,
-                background: "#e9e9f5",
-                borderRadius: 6,
-                padding: 2,
-                display: noTools ? "none" : "",
-                ...df,
-                ...borderBox,
-              }}
+              style={{ display: noTools ? "none" : "" }}
+              className="rbgcp-control-btn-wrapper"
             >
-              {!hideEyeDrop && (
-                <EyeDropper
-                  onSelect={handleChange}
-                  buttonStyle={{
-                    width: 30,
-                    height: 24,
-                    borderRadius: 4,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                />
-              )}
+              {!hideEyeDrop && <EyeDropper onSelect={handleChange} />}
               <div
-                style={{
-                  width: 30,
-                  ...controlBtnStyles(openAdvanced),
-                  height: 24,
-                  borderRadius: 4,
-                  display: hideAdvancedSliders ? "none" : "flex",
-                  ...jc,
-                  ...ac,
-                }}
+                style={{ display: hideAdvancedSliders ? "none" : "flex" }}
+                id="rbgcp-advanced-btn"
+                className={`rbgcp-control-icon-btn rbgcp-advanced-btn ${openAdvanced && "rbgcp-control-btn-selected"}`}
                 onClick={() => setOpenAdvanced(!openAdvanced)}
               >
                 <SlidersIcon color={openAdvanced ? "#568CF5" : ""} />
               </div>
               <div
-                style={{
-                  width: 30,
-                  ...controlBtnStyles(openComparibles),
-                  height: 24,
-                  borderRadius: 4,
-                  display: hideColorGuide ? "none" : "flex",
-                  ...jc,
-                  ...ac,
-                }}
+                style={{ display: hideColorGuide ? "none" : "flex" }}
+                id="rbgcp-comparibles-btn"
+                className={`rbgcp-control-icon-btn rbgcp-comparibles-btn ${openComparibles && "rbgcp-control-btn-selected"}`}
                 onClick={() => setOpenComparibles(!openComparibles)}
               >
                 <PaletteIcon color={openComparibles ? "#568CF5" : ""} />
               </div>
               <div
-                style={{
-                  width: 30,
-                  ...controlBtnStyles(openInputType),
-                  height: 24,
-                  borderRadius: 4,
-                  display: hideInputType ? "none" : "flex",
-                  ...jc,
-                  ...ac,
-                  ...psRl,
-                }}
+                style={{ display: hideInputType ? "none" : "flex" }}
+                id="rbgcp-color-model-btn"
+                className={`rbgcp-control-icon-btn rbgcp-color-model-btn ${openInputType && "rbgcp-control-btn-selected"}`}
                 onClick={() => setOpenInputType(!openInputType)}
               >
                 <InputsIcon color={openInputType ? "#568CF5" : ""} />
@@ -240,50 +157,29 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
         zIndex: openInputType ? "" : -100,
         opacity: openInputType ? 1 : 0,
         transition: `${oTrans}, ${vTrans}, ${zTrans}`,
-        ...inputDropdown,
       }}
+      className="rbgcp-color-model-dropdown"
     >
       <div
-        style={{
-          ...df,
-          ...ac,
-          ...psRl,
-          ...controlBtn,
-          ...controlBtnStyles(inputType === "rgb"),
-        }}
+        className={`rbgcp-control-btn rbgcp-color-model-dropdown-btn ${inputType === "rgb" && "rbgcp-control-btn-selected"}`}
         onClick={(e) => handleInputType(e, "rgb")}
       >
         RGB
       </div>
       <div
-        style={{
-          ...df,
-          ...ac,
-          ...controlBtn,
-          ...controlBtnStyles(inputType === "hsl"),
-        }}
+        className={`rbgcp-control-btn rbgcp-color-model-dropdown-btn ${inputType === "hsl" && "rbgcp-control-btn-selected"}`}
         onClick={(e) => handleInputType(e, "hsl")}
       >
         HSL
       </div>
       <div
-        style={{
-          ...df,
-          ...ac,
-          ...controlBtn,
-          ...controlBtnStyles(inputType === "hsv"),
-        }}
+        className={`rbgcp-control-btn rbgcp-color-model-dropdown-btn ${inputType === "hsv" && "rbgcp-control-btn-selected"}`}
         onClick={(e) => handleInputType(e, "hsv")}
       >
         HSV
       </div>
       <div
-        style={{
-          ...df,
-          ...ac,
-          ...controlBtn,
-          ...controlBtnStyles(inputType === "cmyk"),
-        }}
+        className={`rbgcp-control-btn rbgcp-color-model-dropdown-btn ${inputType === "cmyk" && "rbgcp-control-btn-selected"}`}
         onClick={(e) => handleInputType(e, "cmyk")}
       >
         CMYK
@@ -292,10 +188,35 @@ const InputTypeDropdown = ({ openInputType, setOpenInputType }) => {
   );
 };
 
+const ColorTypeBtns = ({ hideColorTypeBtns, isGradient, setSolid, setGradient, locales }) => {
+  if (hideColorTypeBtns) {
+    return <div style={{ width: 1 }} />
+  } else {
+    return(
+      <div className="rbgcp-control-btn-wrapper">
+        <div
+          onClick={setSolid}
+          id="rbgcp-solid-btn"
+          className={`rbgcp-control-btn rbgcp-solid-btn ${!isGradient && "rbgcp-control-btn-selected"}`}
+        >
+          {locales?.CONTROLS?.SOLID}
+        </div>
+        <div
+          onClick={setGradient}
+          id="rbgcp-gradient-btn"
+          className={`rbgcp-control-btn rbgcp-gradient-btn ${isGradient && "rbgcp-control-btn-selected"}`}
+        >
+          {locales?.CONTROLS?.GRADIENT}
+        </div>
+      </div>
+    )
+  }
+}
+
 export const controlBtnStyles = (selected) => {
   return {
     background: selected ? "white" : "rgba(255,255,255,0)",
-    color: selected ? "#568CF5" : "rgb(86,86,86)",
+    color: selected ? "#568CF5" : "",
     boxShadow: selected
       ? "1px 1px 3px rgba(0,0,0,.2)"
       : "1px 1px 3px rgba(0,0,0,0)",

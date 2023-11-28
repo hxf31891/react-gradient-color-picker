@@ -1,6 +1,5 @@
 import React from 'react'
 import { usePicker } from '../context'
-import { psRl, df, jfe } from '../style'
 
 const ComparibleColors = ({ openComparibles }) => {
   const { tinyColor, handleChange } = usePicker()
@@ -27,34 +26,34 @@ const ComparibleColors = ({ openComparibles }) => {
         style={{
           paddingTop: 11,
           display: openComparibles ? '' : 'none',
-          ...psRl,
+          position: "relative"
         }}
       >
         <div
           style={{
             textAlign: 'center',
-            color: '#323136',
             fontSize: 13,
             fontWeight: 600,
             position: 'absolute',
             top: 6.5,
             left: 2,
           }}
+          className="rbgcp-comparible-label"
         >
           Color Guide
         </div>
         <div
           style={{
             textAlign: 'center',
-            color: '#323136',
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
           }}
+          className="rbgcp-comparible-label"
         >
           Analogous
         </div>
-        <div style={{ borderRadius: 5, overflow: 'hidden', ...df }}>
+        <div style={{ borderRadius: 5, overflow: 'hidden', display: 'flex' }}>
           {analogous?.map((c, key) => (
             <div
               key={key}
@@ -66,15 +65,15 @@ const ComparibleColors = ({ openComparibles }) => {
         <div
           style={{
             textAlign: 'center',
-            color: '#323136',
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
           }}
+          className="rbgcp-comparible-label"
         >
           Monochromatic
         </div>
-        <div style={{ borderRadius: 5, overflow: 'hidden', ...df, ...jfe }}>
+        <div style={{ borderRadius: 5, overflow: 'hidden', display: 'flex', justifyContent: "flex-end" }}>
           {monochromatic?.map((c, key) => (
             <div
               key={key}
@@ -86,15 +85,15 @@ const ComparibleColors = ({ openComparibles }) => {
         <div
           style={{
             textAlign: 'center',
-            color: '#323136',
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
           }}
+          className="rbgcp-comparible-label"
         >
           Triad
         </div>
-        <div style={{ borderRadius: 5, overflow: 'hidden', ...df, ...jfe }}>
+        <div style={{ borderRadius: 5, overflow: 'hidden', display: 'flex', justifyContent: "flex-end" }}>
           {triad?.map((c, key) => (
             <div
               key={key}
@@ -110,15 +109,15 @@ const ComparibleColors = ({ openComparibles }) => {
         <div
           style={{
             textAlign: 'center',
-            color: '#323136',
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
           }}
+          className="rbgcp-comparible-label"
         >
           Tetrad
         </div>
-        <div style={{ borderRadius: 5, overflow: 'hidden', ...df, ...jfe }}>
+        <div style={{ borderRadius: 5, overflow: 'hidden', display: 'flex', justifyContent: "flex-end" }}>
           {tetrad?.map((c, key) => (
             <div
               key={key}

@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react'
 // import throttle from 'lodash.throttle'
 import usePaintSquare from '../hooks/usePaintSquare'
 import { usePicker } from '../context'
-import { psRl, cCross, handle, canvasWrapper } from '../style'
 
 const Square = () => {
   const {
@@ -81,19 +80,21 @@ const Square = () => {
   // }, [value, inFocus, x, y]);
 
   return (
-    <div style={psRl}>
+    <div style={{ position: 'relative' }}>
       <div
-        style={{ ...psRl, ...cCross }}
+        className="ps-rl c-cross"
         onMouseDown={handleCanvasDown}
         onMouseMove={(e) => handleMove(e)}
         onMouseUp={stopDragging}
       >
         <div
-          style={{ left: x, top: y, ...handle }}
+          className="rbgcp-handle"
+          style={{ left: x, top: y }}
           onMouseDown={handleMouseDown}
         />
         <div
-          style={{ ...canvasWrapper, height: squareHeight }}
+          className="rbgcp-canvas-wrapper"
+          style={{ height: squareHeight }}
           onClick={(e) => handleClick(e)}
         >
           <canvas

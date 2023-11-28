@@ -5,8 +5,7 @@ import {
   usePaintSat,
   usePaintLight,
   usePaintBright,
-} from '../hooks/usePaintHue'
-import { borderBox, psRl, cResize, handle } from '../style'
+} from '../hooks/usePaintHue';
 
 const tinycolor = require('tinycolor2')
 
@@ -44,7 +43,7 @@ const AdvancedControls = ({ openAdvanced }) => {
         transition: 'all 120ms linear',
       }}
     >
-      <div style={{ paddingTop: 11, display: openAdvanced ? '' : 'none' }}>
+      <div style={{ paddingTop: 11, display: openAdvanced ? '' : 'none', display: 'flex', flexDirection: 'column', justifyContent: "space-between", height: openAdvanced ? 98 : 0, overflow: 'hidden', transition: 'height 100ms linear' }}>
         <AdvBar
           value={s}
           reffy={satRef}
@@ -138,15 +137,15 @@ const AdvBar = ({ value, callback, reffy, openAdvanced, label }) => {
   }, []);
 
   return (
-    <div style={{ ...borderBox, width: '100%', padding: '3px 0px 3px 0px' }}>
+    <div style={{ width: '100%', padding: '3px 0px 3px 0px' }}>
       <div
         className="c-resize ps-rl"
         onMouseMove={(e) => handleMove(e)}
-        style={{ ...cResize, ...psRl }}
       >
         <div
-          style={{ ...handle, left, top: handleTop }}
+          style={{ left, top: handleTop }}
           onMouseDown={handleDown}
+          className="rbgcp-handle"
         />
         <div
           style={{

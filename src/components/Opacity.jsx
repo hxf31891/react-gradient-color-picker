@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { usePicker } from '../context'
-import {
-  psRl,
-  cResize,
-  handle,
-  opacityOverlay,
-  borderBox,
-  checkered
-} from '../style'
 
 const Opacity = () => {
   const { handleOpacity, opacity, tinyColor, squareSize } = usePicker()
@@ -73,12 +65,14 @@ const Opacity = () => {
     <div
       onMouseDown={handleDown}
       onMouseMove={(e) => handleMove(e)}
-      style={{ ...cResize, ...psRl, height: 14, ...borderBox, marginTop: 17, marginBottom: 4 }}
+      className="c-resize ps-rl"
+      style={{ height: 14,  marginTop: 17, marginBottom: 4 }}
     >
-      <div style={{ ...checkered, width: '100%', height: 14 }} />
-      <div style={{ left: left * opacity, top: -2, ...handle }} />
+      <div style={{ width: '100%', height: 14 }} className="rbgcp-checkered" />
+      <div style={{ left: left * opacity, top: -2 }} className="rbgcp-handle" />
       <div
-        style={{ background: bg, ...opacityOverlay }}
+        style={{ background: bg }}
+        className="rbgcp-opacity-overlay"
         onClick={(e) => handleClick(e)}
       />
     </div>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { rgb2cmyk, cmykToRgb } from '../utils/converters'
 import { formatInputValues } from '../utils/formatters'
 import { usePicker } from '../context'
-import { inputWrap, inputLabel } from '../style'
 
 var tc = require('tinycolor2')
 
@@ -12,10 +11,12 @@ const Inputs = () => {
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'space-between',
         paddingTop: 14,
+        display: 'flex',
+        justifyContent: 'space-between'
       }}
+      id="rbgcp-inputs-wrap"
+      className="rbgcp-inputs-wrap"
     >
       {inputType !== 'cmyk' && <HexInput />}
       {inputType === 'hsl' && <HSLInputs />}
@@ -71,14 +72,14 @@ const HexInput = () => {
   return (
     <div style={{ width: '23%' }}>
       <input
-        style={{ ...inputWrap }}
         value={newHex}
         onChange={(e) => handleHex(e)}
-        id="rbgcp-input"
+        id="rbgcp-hex-input"
         onFocus={hexFocus}
         onBlur={hexBlur}
+        className="rbgcp-input rbgcp-hex-input"
       />
-      <div style={{ ...inputLabel }}>HEX</div>
+      <div className="rbgcp-input-label">HEX</div>
     </div>
   )
 }
@@ -241,12 +242,12 @@ const Input = ({ value, callback, max = 100, label }) => {
   return (
     <div style={{ width: width }}>
       <input
-        id="rbgcp-input"
-        style={{ ...inputWrap }}
         value={temp}
+        id="rbgcp-input"
+        className="rbgcp-input"
         onChange={(e) => onChange(e)}
       />
-      <div style={{ ...inputLabel }}>{label}</div>
+      <div className="rbgcp-input-label">{label}</div>
     </div>
   )
 }

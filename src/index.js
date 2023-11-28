@@ -3,6 +3,8 @@ import PickerContextWrapper from './context'
 import Picker from './components/Picker'
 import { defaultLocales } from './constants'
 import { objectToString } from './utils/utils'
+import "./styles.css";
+
 export * from './hooks/useColorPicker'
 
 function ColorPicker({
@@ -42,28 +44,28 @@ function ColorPicker({
       <PickerContextWrapper
         bounds={bounds}
         value={safeValue}
-        squareSize={width}
         onChange={onChange}
+        squareSize={width}
         squareHeight={height}
         hideOpacity={hideOpacity}
       >
         <Picker
-          hideHue={hideHue}
-          presets={presets}
-          locales={locales}
+          hideControls={hideControls}
           hideInputs={hideInputs}
           hidePresets={hidePresets}
           hideOpacity={hideOpacity}
+          hideHue={hideHue}
+          presets={presets}
           hideEyeDrop={hideEyeDrop}
-          hideControls={hideControls}
-          hideInputType={hideInputType}
-          hideColorGuide={hideColorGuide}
-          hideGradientType={hideGradientType}
-          hideGradientStop={hideGradientStop}
-          hideColorTypeBtns={hideColorTypeBtns}
-          hideGradientAngle={hideGradientAngle}
           hideAdvancedSliders={hideAdvancedSliders}
+          hideColorGuide={hideColorGuide}
+          hideInputType={hideInputType}
+          hideColorTypeBtns={hideColorTypeBtns}
+          hideGradientType={hideGradientType}
+          hideGradientAngle={hideGradientAngle}
+          hideGradientStop={hideGradientStop}
           hideGradientControls={hideGradientControls}
+          locales={locales}
         />
       </PickerContextWrapper>
     </div>

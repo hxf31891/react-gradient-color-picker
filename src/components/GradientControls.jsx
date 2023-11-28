@@ -7,33 +7,19 @@ import TrashIcon, {
   RadialIcon,
   DegreesIcon,
   StopIcon,
-} from './icon'
-import {
-  df,
-  jsb,
-  ac,
-  controlBtnsWrap,
-  controlBtn,
-  degreeInput,
-  psRl,
-  jc,
-  borderBox,
-} from '../style'
+} from './icon';
 
 const GradientControls = ({hideGradientType, hideGradientAngle, hideGradientStop}) => {
   const { gradientType } = usePicker()
   return (
     <div
       style={{
-        ...df,
-        ...jsb,
         marginTop: 12,
         marginBottom: -4,
-        background: '#e9e9f5',
-        borderRadius: 6,
-        ...borderBox,
         paddingLeft: hideGradientType ? 4 : 0
       }}
+      id="rbgcp-gradient-controls-wrap"
+      className="rbgcp-control-btn-wrapper jsb"
     >
       {!hideGradientType && <GradientType />}
       <div style={{ width: 53 }}>
@@ -65,16 +51,18 @@ const GradientType = () => {
   }
 
   return (
-    <div style={{ ...df, ...ac, ...controlBtnsWrap, ...borderBox }}>
+    <div className='rbgcp-control-btn-wrapper'>
       <div
         onClick={handleLinear}
-        style={{ ...controlBtn, ...controlBtnStyles(isLinear) }}
+        id="rbgcp-linear-btn"
+        className={`rbgcp-control-btn rbgcp-linear-btn ${isLinear && "rbgcp-control-btn-selected"}`}
       >
         <LinearIcon color={isLinear ? '#568CF5' : ''} />
       </div>
       <div
         onClick={handleRadial}
-        style={{ ...controlBtn, ...controlBtnStyles(isRadial) }}
+        id="rbgcp-gradient-btn"
+        className={`rbgcp-control-btn rbgcp-gradient-btn ${isRadial && "rbgcp-control-btn-selected"}`}
       >
         <RadialIcon color={isRadial ? '#568CF5' : ''} />
       </div>
@@ -90,12 +78,12 @@ const StopPicker = () => {
   }
 
   return (
-    <div style={{ ...df, ...ac, ...controlBtnsWrap, paddingLeft: 8 }}>
+    <div className="rbgcp-control-btn-wrapper rbgcp-control-input-wrap rbgcp-stop-input-wrap" style={{ paddingLeft: 8 }}>
       <StopIcon />
       <input
-        id="rbgcp-input"
-        style={degreeInput}
+        id="rbgcp-stop-input"
         value={currentLeft}
+        className="rbgcp-control-input rbgcp-stop-input"
         onChange={(e) => handleMove(e.target.value || 0)}
       />
     </div>
@@ -112,12 +100,12 @@ const DegreePicker = () => {
   }
 
   return (
-    <div style={{ ...psRl, ...controlBtnsWrap, ...df, ...ac }}>
+    <div className="rbgcp-control-btn-wrapper rbgcp-control-input-wrap rbgcp-degree-input-wrap">
       <DegreesIcon />
       <input
-        id="rbgcp-input"
-        style={degreeInput}
+        id="rbgcp-degree-input"
         value={degrees}
+        className="rbgcp-control-input rbgcp-degree-input"
         onChange={(e) => handleDegrees(e)}
       />
       <div
@@ -128,6 +116,7 @@ const DegreePicker = () => {
           fontWeight: 400,
           fontSize: 13,
         }}
+        className="rbgcp-degree-icon"
       >
         °
       </div>
@@ -141,15 +130,9 @@ const DeleteBtn = () => {
   return (
     <div
       onClick={deletePoint}
-      style={{
-        ...df,
-        ...jc,
-        ...ac,
-        ...controlBtnsWrap,
-        width: 30,
-        ...controlBtnStyles(false),
-        marginRight: 1,
-      }}
+      style={{ width: 28, ...controlBtnStyles(false)}}
+      id="rbgcp-point-delete-btn"
+      className="rbgcp-control-icon-btn rbgcp-point-delete-btn"
     >
       <TrashIcon />
     </div>

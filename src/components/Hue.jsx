@@ -1,12 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { usePicker } from '../context'
 import usePaintHue from '../hooks/usePaintHue'
-import {
-  psRl,
-  cResize,
-  handle,
-  borderBox,
-} from '../style'
 
 const Hue = () => {
   const barRef = useRef(null)
@@ -75,16 +69,17 @@ const Hue = () => {
 
   return (
     <div
-      style={{ ...psRl, ...cResize, ...borderBox, height: 14, marginTop: 17, marginBottom: 4 }}
+      style={{ height: 14, marginTop: 17, marginBottom: 4 }}
       onMouseMove={(e) => handleMove(e)}
+      className='c-resize ps-rl'
     >
       <div
         style={{
-          ...handle,
           left: internalHue * ((squareSize - 18) / 360),
           top: handleTop,
         }}
         onMouseDown={handleDown}
+        className='rbgcp-handle'
       />
       <canvas
         ref={barRef}

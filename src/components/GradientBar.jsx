@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getHandleValue } from '../utils/utils'
 import { usePicker } from '../context'
-import {
-  psRl,
-  df,
-  jc,
-  ac,
-  gradientHandleWrap,
-  gradientHandle,
-  borderBox
-} from '../style'
 
 const GradientBar = () => {
   const {
@@ -83,7 +74,7 @@ const GradientBar = () => {
   })
 
   return (
-    <div style={{ width: '100%', ...psRl, ...borderBox, marginTop: 17, marginBottom: 4 }} id="gradient-bar">
+    <div style={{ width: '100%', marginTop: 17, marginBottom: 4, position: 'relative' }} id="gradient-bar">
       <div
         style={{
           width: squareSize,
@@ -136,16 +127,12 @@ export const Handle = ({ left, i, setDragging, setInFocus }) => {
       onFocus={handleFocus}
       id={`gradient-handle-${i}`}
       onMouseDown={(e) => handleDown(e)}
-      style={{ left: left * leftMultiplyer, ...gradientHandleWrap }}
+      style={{ left: left * leftMultiplyer }}
+      className="rbgcp-gradient-handle-wrap"
     >
       <div
-        style={{
-          ...handleStyle(isSelected),
-          ...gradientHandle,
-          ...df,
-          ...jc,
-          ...ac,
-        }}
+        style={handleStyle(isSelected)}
+        className="rbgcp-gradient-handle"
       >
         {isSelected && (
           <div
