@@ -11,22 +11,6 @@
 - You can completly customize the UI by hiding the included elements and using the hook to build your own
 - You can also customize preset options by passing in an array of rgba colors (see custom presets below)
 
-**Table of Contents**
-- [Install](#item-one)
-- [Demo](#item-two)
-- [Basic Example](#item-three)
-- [Props](#item-four)
-- [API](#item-five)
-- [useColorPicker Hook](#item-six)
-- [Hook Basic Example](#item-seven)
-- [Hook Functions](#item-eight)
-- [Hook State](#item-nine)
-- [More Hook Examples](#item-ten)
-- [Legacy Options](#item-eleven)
-- [Roadmap](#item-twelve)
-- [License](#item-thirteen)
-- [Acknowledgments](#item-fourteen)
-
 <br /> 
 
 <img alt="" src="https://gradient-package-demo.web.app/gradientPickerImg.png" width="100%" />
@@ -48,6 +32,20 @@ yarn add react-best-gradient-color-picker
 See the picker in action [here](https://gradient-package-demo.web.app/)
 
 <br />
+
+**Table of Contents**
+- [Basic Example](#item-three)
+- [Props](#item-four)
+- [API](#item-five)
+- [useColorPicker Hook](#item-six)
+- [Hook Basic Example](#item-seven)
+- [Hook Functions](#item-eight)
+- [Hook State](#item-nine)
+- [More Hook Examples](#item-ten)
+- [Legacy Options](#item-eleven)
+- [Roadmap](#item-twelve)
+- [License](#item-thirteen)
+- [Acknowledgments](#item-fourteen)
 
 <a id="item-three"></a>
 ## Basic Example 
