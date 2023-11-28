@@ -49,8 +49,13 @@ export default function PickerContextWrapper({
   const [x, y] = computeSquareXY([hue, s, l], squareSize, squareHeight)
   const [previousColors, setPreviousColors] = useState([])
   const [previousGraidents, setPreviousGradients] = useState([])
-  const [inFocus, setInFocus] = useState(null)
+  const [inFocus, setInFocus] = useState(null);
+  // const [darkMode, setDarkMode] = useState(false);
   // const [undoLog, setUndoLog] = useState(0)
+
+  // if (!darkMode && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  //   setDarkMode(true);
+  // }
 
   const internalOnChange = (newValue) => {
     if (newValue !== value) {
@@ -200,6 +205,7 @@ export default function PickerContextWrapper({
     degrees,
     inFocus,
     opacity,
+    // darkMode,
     onChange,
     addPoint,
     inputType,
