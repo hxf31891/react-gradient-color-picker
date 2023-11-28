@@ -17,7 +17,7 @@
 
 <br />
 
-
+<a id="item-one"></a>
 ## Install
 ```
 npm install react-best-gradient-color-picker
@@ -27,11 +27,29 @@ npm install react-best-gradient-color-picker
 yarn add react-best-gradient-color-picker
 ```
 
+<a id="item-two"></a>
 ## Demo
 See the picker in action [here](https://gradient-package-demo.web.app/)
 
 <br />
 
+**Table of Contents**
+- [Basic Example](#item-three)
+- [Props](#item-four)
+- [API](#item-five)
+- [useColorPicker Hook](#item-six)
+- [Hook Basic Example](#item-seven)
+- [Hook Functions](#item-eight)
+- [Hook State](#item-nine)
+- [More Hook Examples](#item-ten)
+- [Legacy Options](#item-eleven)
+- [Roadmap](#item-twelve)
+- [License](#item-thirteen)
+- [Acknowledgments](#item-fourteen)
+
+<br />
+
+<a id="item-three"></a>
 ## Basic Example 
 ```js
 import React from 'react'
@@ -46,6 +64,7 @@ function MyApp() {
 
 <br />
 
+<a id="item-four"></a>
 ### Props
 
 | Name                | Type         | Default                 | Description                                                               |
@@ -70,6 +89,7 @@ function MyApp() {
 | presets             | `array`      | ['rgba(0,0,0,1)', ...]  | (optional) pass in custom preset options ['rgba()', 'rgba()', ..]         |
 | locales             | `object`      | { CONTROLS: { SOLID: 'Solid', GRADIENT: 'Gradient' }}  | (optional) pass in custom locales |
 
+<a id="item-five"></a>
 ### API
 
 | Name             | Description                                                      |
@@ -78,12 +98,14 @@ function MyApp() {
 
 <br />
 
+<a id="item-six"></a>
 # useColorPicker 
 
 - Take complete control of the picker
 - Get current state
 - Convert between color types
 
+<a id="item-seven"></a>
 ## Basic Example 
 
 - Initialize the hook by passing in the same color value and onChange handler
@@ -106,6 +128,7 @@ function MyApp() {
 }
 ```
 
+<a id="item-eight"></a>
 ### Included Functions 
 
 | Name             | Arguments        | Description                                                      |
@@ -132,6 +155,7 @@ function MyApp() {
 | setPointLeft     | value (num, 0 - 100) | Update the position (left) of the currently selected gradient color |
 | getGradientObject|                      | get the gradients value parsed into a key/value object (see example below)|
 
+<a id="item-nine"></a>
 ### Available State
 
 | Name             | Description                                                      |
@@ -144,7 +168,7 @@ function MyApp() {
 | rgbaArr          | get the current rgba values in an array                          |
 | hslArr           | get the current hsl values in an array                           |
 
-
+<a id="item-ten"></a>
 ## Various Customization Examples
 
 ### Custom Gradient Controls
@@ -281,6 +305,7 @@ function MyApp() {
   )
 }
 ```
+
 ### Getting Value in Object Form
 The picker returns the new value as a css gradient string but you may need it parsed as an object. This can easily be accomplised by using the getGradientObject function returned by the useColorPicker hook like so:
 
@@ -344,6 +369,7 @@ function MyApp() {
 
 <br />
 
+<a id="item-eleven"></a>
 ## LEGACY V1 - Manual Control - Customizing UI
 
 This still works, although most functions are available through the useColorPicker hook, if there is something you need that is not available you could use the below methods to create your desired functionality.
@@ -417,7 +443,13 @@ function MyApp() {
 }
 ```
 
+<a id="item-twelve"></a>
+## Roadmap
+1. enhanced mobile support
+2. cross browser eye dropper issue
+3. enhanced gradient parsing to allow additional gradient types
 
+<a id="item-thirteen"></a>
 ## License
 
 Code released under the [MIT](https://github.com/hxf31891/react-gradient-color-picker/blob/main/LICENSE) license.
@@ -430,6 +462,7 @@ Code released under the [MIT](https://github.com/hxf31891/react-gradient-color-p
 [npm-version-image]: https://img.shields.io/npm/v/react-best-gradient-color-picker.svg?color=%23498af2
 [npm-version-url]: https://www.npmjs.com/package/react-best-gradient-color-picker
 
+<a id="item-fourteen"></a>
 ## Acknowledgments
 
 Very special thank you to [Rafael Carício](https://github.com/rafaelcaricio) for his amazing work parsing gradient strings.
