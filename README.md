@@ -11,13 +11,16 @@
 - You can completly customize the UI by hiding the included elements and using the hook to build your own
 - You can also customize preset options by passing in an array of rgba colors (see custom presets below)
 
+**Table of Contents**
+- [Install](#item-one)
+
 <br /> 
 
 <img alt="" src="https://gradient-package-demo.web.app/gradientPickerImg.png" width="100%" />
 
 <br />
 
-
+<a id="item-one"></a>
 ## Install
 ```
 npm install react-best-gradient-color-picker
@@ -417,6 +420,10 @@ function MyApp() {
 }
 ```
 
+## Roadmap
+1. enhanced mobile support
+2. cross browser eye dropper issue
+3. enhanced gradient parsing to allow additional gradient types
 
 ## License
 
