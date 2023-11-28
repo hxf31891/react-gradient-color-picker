@@ -318,6 +318,30 @@ function MyApp() {
 }
 ```
 
+### Only Gradients Example
+If you would like to not allow selection of solid colors disable the color type buttons and feed in the initial value as a gradient like below:
+
+NOTE: the same can be done in reverse to only allow selection of solid colors
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const [color, setColor] = useState('linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)');  
+
+  return(
+    <div>
+      <ColorPicker
+        value={color}
+        onChange={setColor}
+        hideColorTypeBtns={true}
+      />
+    </div>
+   )
+}
+```
+
 <br />
 
 ## LEGACY V1 - Manual Control - Customizing UI
