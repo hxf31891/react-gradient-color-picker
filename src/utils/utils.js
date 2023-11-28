@@ -41,11 +41,6 @@ export function computePickerPosition(e) {
   return [getX(), getY()];
 }
 
-export const getDegrees = (value) => {
-  let s1 = value?.split(",")[0];
-  return parseInt(s1?.split("(")[1]?.slice(0, -3));
-};
-
 export const getGradientType = (value) => {
   return value?.split("(")[0];
 };
@@ -84,6 +79,35 @@ export const compareGradients = (g1, g2) => {
   }
 };
 
+const convertShortHandDeg = (dir) => {
+  if (dir === "to top") {
+    return 0
+  } else if (dir === "to bottom") {
+    return 180
+  } else if (dir === "to left") {
+    return 270
+  } else if (dir === "to right") {
+    return 90
+  } else if (dir === "to top right") {
+    return 45
+  } else if (dir === "to bottom right") {
+    return 135
+  } else if (dir === "to bottom left") {
+    return 225
+  } else if (dir === "to top left") {
+    return 315
+  } else {
+    let safeDir = dir || 0
+    return parseInt(safeDir);
+  }
+}
+
+export const getDegrees = (value) => {
+  let s1 = value?.split(",")[0];
+  let s2 = s1?.split("(")[1]?.replace("deg", "");
+  return convertShortHandDeg(s2)
+};
+
 export const objectToString = (value) => {
   if (typeof value === 'string') {
     return value
@@ -92,7 +116,8 @@ export const objectToString = (value) => {
       let sorted = value?.colorStops?.sort((a, b) => a?.left - b?.left);
       let string = sorted?.map((c) => `${c?.value} ${c?.left}%`)?.join(", ");
       let type = value?.type;
-      let gradientStr = type === 'linear-gradient' ? `${value?.orientation?.value}deg` : 'circle';
+      let degs = convertShortHandDeg(value?.orientation?.value);
+      let gradientStr = type === 'linear-gradient' ? `${degs}deg` : 'circle';
       return `${type}(${gradientStr}, ${string})`
     } else {
       let color = value?.colorStops[0]?.value || 'rgba(175, 51, 242, 1)';
