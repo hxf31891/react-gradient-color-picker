@@ -1,15 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react'
-// import throttle from 'lodash.throttle'
 import usePaintSquare from '../hooks/usePaintSquare'
+import throttle from 'lodash.throttle'
 import { usePicker } from '../context'
 
 const Square = () => {
   const {
     x,
     y,
+    isMobile,
+    squareSize,
     handleColor,
     internalHue,
-    squareSize,
     squareHeight,
   } = usePicker()
   const [dragging, setDragging] = useState(false)
@@ -18,17 +19,25 @@ const Square = () => {
 
   const handleChange = (e) => {
     const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
-    // const onMouseMove = throttle(() => handleColor(e, ctx), 250)
-    handleColor(e, ctx)
-    // onMouseMove()
+    const onMouseMove = throttle(() => handleColor(e, ctx), 100)
+    // handleColor(e, ctx)
+    onMouseMove()
   }
 
   const stopDragging = () => {
     setDragging(false)
+    document.body.style.overflow = "auto"
   }
 
   const handleMove = (e) => {
-    if (dragging) {
+    if (dragging && !isMobile) {
+      handleChange(e)
+    }
+  }
+
+  const handleTouchMove = (e) => {
+    if (dragging && isMobile) {
+      document.body.style.overflow = "hidden"
       handleChange(e)
     }
   }
@@ -83,9 +92,12 @@ const Square = () => {
     <div style={{ position: 'relative' }}>
       <div
         className="ps-rl c-cross"
-        onMouseDown={handleCanvasDown}
-        onMouseMove={(e) => handleMove(e)}
         onMouseUp={stopDragging}
+        onTouchEnd={stopDragging}
+        onMouseDown={handleCanvasDown}
+        onTouchStart={handleCanvasDown}
+        onMouseMove={(e) => handleMove(e)}
+        onTouchMove={(e) => handleTouchMove(e)}
       >
         <div
           className="rbgcp-handle"

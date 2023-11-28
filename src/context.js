@@ -40,22 +40,16 @@ export default function PickerContextWrapper({
   const currentLeft = currentColorObj?.left
   const [tinyColor, setTinyColor] = useState(tinycolor(currentColor))
   const [inputType, setInputType] = useState('rgb')
-
   const { r, g, b, a: opacity } = tinyColor.toRgb()
-  const { h, s, l } = tinyColor.toHsl()
+  const { h: hue, s, l } = tinyColor.toHsl()
   const { s: hsvS, v: hsvV } = tinyColor.toHsv()
-  const [internalHue, setInternalHue] = useState(Math.round(h))
-  const hue = Math.round(h)
+  const [internalHue, setInternalHue] = useState(Math.round(hue))
   const [x, y] = computeSquareXY([hue, s, l], squareSize, squareHeight)
   const [previousColors, setPreviousColors] = useState([])
   const [previousGraidents, setPreviousGradients] = useState([])
   const [inFocus, setInFocus] = useState(null);
-  // const [darkMode, setDarkMode] = useState(false);
-  // const [undoLog, setUndoLog] = useState(0)
-
-  // if (!darkMode && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  //   setDarkMode(true);
-  // }
+  const useragent = navigator.userAgent || "";
+  const isMobile = useragent?.includes("Mobile")
 
   const internalOnChange = (newValue) => {
     if (newValue !== value) {
@@ -73,8 +67,7 @@ export default function PickerContextWrapper({
 
   useEffect(() => {
     setTinyColor(tinycolor(currentColor))
-    setInternalHue(hue)
-  }, [currentColor, hue])
+  }, [currentColor])
 
   const createGradientStr = (newColors) => {
     let sorted = newColors.sort((a, b) => a.left - b.left)
@@ -116,8 +109,11 @@ export default function PickerContextWrapper({
     const x1 = Math.min(x + crossSize / 2, squareSize - 1)
     const y1 = Math.min(y + crossSize / 2, squareHeight - 1)
     const [r, g, b] = ctx.getImageData(x1, y1, 1, 1).data
-    let newColor = `rgba(${r}, ${g}, ${b}, ${opacity})`
-    handleChange(newColor)
+    let rgbaData = `rgba(${r}, ${g}, ${b}, ${opacity})`
+    let newTc = tinycolor(rgbaData);
+    let newHsl = newTc.toHsl(newTc);
+    let fixedH = tinycolor({ h: hue, s: newHsl?.s, l: newHsl?.l, a: newHsl?.a });
+    handleChange(`rgba(${fixedH?._r}, ${fixedH?._g}, ${fixedH?._b}, ${fixedH?._a})`);
   }
 
   const setSelectedColor = (index) => {
@@ -153,17 +149,6 @@ export default function PickerContextWrapper({
       setSelectedColor(selectedColor + 1)
     }
   }
-
-  // const handleKeyboard = (e) => {
-  //   if (inFocus !== null && inFocus !== 'input') {
-  //     if (e.keyCode === 90 && (e.ctrlKey || e.metaKey)) {
-  //       if (isGradient && previousGraidents?.length > undoLog) {
-  //         onChange(previousGraidents[undoLog]);
-  //         setUndoLog(undoLog + 1);
-  //       }
-  //     }
-  //   }
-  // }
 
   useEffect(() => {
     window.addEventListener('click', handleClickFocus)
@@ -205,7 +190,7 @@ export default function PickerContextWrapper({
     degrees,
     inFocus,
     opacity,
-    // darkMode,
+    isMobile,
     onChange,
     addPoint,
     inputType,

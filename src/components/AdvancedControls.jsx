@@ -43,7 +43,7 @@ const AdvancedControls = ({ openAdvanced }) => {
         transition: 'all 120ms linear',
       }}
     >
-      <div style={{ paddingTop: 11, display: openAdvanced ? '' : 'none', display: 'flex', flexDirection: 'column', justifyContent: "space-between", height: openAdvanced ? 98 : 0, overflow: 'hidden', transition: 'height 100ms linear' }}>
+      <div style={{ paddingTop: 11, display: openAdvanced ? 'flex' : 'none', flexDirection: 'column', justifyContent: "space-between", height: openAdvanced ? 98 : 0, overflow: 'hidden', transition: 'height 100ms linear' }}>
         <AdvBar
           value={s}
           reffy={satRef}

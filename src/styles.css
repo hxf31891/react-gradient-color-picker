@@ -29,12 +29,6 @@ body {
   cursor: crosshair
 }
 
-/* export const canvasWrapper = {
-  borderRadius: 6,
-  overflow: 'hidden',
-  height: 294,
-} */
-
 .rbgcp-control-btn {
   padding-left: 8px;
   padding-right: 8px;
