@@ -37,8 +37,7 @@ const Controls = ({
     internalOnChange,
     previousColors,
     previousGraidents,
-    handleChange,
-    darkMode,
+    handleChange
   } = usePicker();
   const [openAdvanced, setOpenAdvanced] = useState(false);
   const [openComparibles, setOpenComparibles] = useState(false);

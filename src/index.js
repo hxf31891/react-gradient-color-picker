@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import PickerContextWrapper from './context'
 import Picker from './components/Picker'
 import { defaultLocales } from './constants'
-
+import { objectToString } from './utils/utils'
 export * from './hooks/useColorPicker'
 
 function ColorPicker({
@@ -30,7 +30,8 @@ function ColorPicker({
   className,
 }) {
   const contRef = useRef(null)
-  const [bounds, setBounds] = useState({})
+  const [bounds, setBounds] = useState({});
+  const safeValue = objectToString(value);
 
   useEffect(() => {
     setBounds(contRef?.current?.getBoundingClientRect())
@@ -40,29 +41,29 @@ function ColorPicker({
     <div ref={contRef} style={{ ...style, width: width }} className={className}>
       <PickerContextWrapper
         bounds={bounds}
-        value={value}
-        onChange={onChange}
+        value={safeValue}
         squareSize={width}
+        onChange={onChange}
         squareHeight={height}
         hideOpacity={hideOpacity}
       >
         <Picker
-          hideControls={hideControls}
+          hideHue={hideHue}
+          presets={presets}
+          locales={locales}
           hideInputs={hideInputs}
           hidePresets={hidePresets}
           hideOpacity={hideOpacity}
-          hideHue={hideHue}
-          presets={presets}
           hideEyeDrop={hideEyeDrop}
-          hideAdvancedSliders={hideAdvancedSliders}
-          hideColorGuide={hideColorGuide}
+          hideControls={hideControls}
           hideInputType={hideInputType}
-          hideColorTypeBtns={hideColorTypeBtns}
+          hideColorGuide={hideColorGuide}
           hideGradientType={hideGradientType}
-          hideGradientAngle={hideGradientAngle}
           hideGradientStop={hideGradientStop}
+          hideColorTypeBtns={hideColorTypeBtns}
+          hideGradientAngle={hideGradientAngle}
+          hideAdvancedSliders={hideAdvancedSliders}
           hideGradientControls={hideGradientControls}
-          locales={locales}
         />
       </PickerContextWrapper>
     </div>
