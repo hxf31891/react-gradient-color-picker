@@ -42,6 +42,7 @@ See the picker in action [here](https://gradient-package-demo.web.app/)
 - [Hook Functions](#item-eight)
 - [Hook State](#item-nine)
 - [More Hook Examples](#item-ten)
+- [Styling](#item-fifteen)
 - [Legacy Options](#item-eleven)
 - [Roadmap](#item-twelve)
 - [License](#item-thirteen)
@@ -366,6 +367,22 @@ function MyApp() {
    )
 }
 ```
+
+<br />
+
+<a id="item-fifteen"></a>
+## Styling
+Many of the pickers components have css classnames you can target to change styles. Below are some of the more common, others can be found using the elements inspector.
+
+| Class                       | Description                                                      |
+| --------------------------- | ---------------------------------------------------------------- |
+| rbgcp-control-btn-wrapper   | grey area around the buttons                                     |
+| rbgcp-control-icon-btn      | icon buttons                                                     |
+| rbgcp-control-btn           | text buttons                                                     |
+| rbgcp-control-btn-selected  | selected buttons, icon and text                                  |
+| rbgcp-color-model-dropdown  | dropdown to select between color modes                           |
+| rbgcp-control-input         | inputs on the gradient control bar, angle and stop               |
+| rbgcp-input                 | color value inputs, hex, rgba etc                                |
 
 <br />
 
