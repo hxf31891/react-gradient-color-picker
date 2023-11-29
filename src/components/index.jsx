@@ -6,7 +6,7 @@ import { objectToString } from '../utils/utils'
 
 export function ColorPicker({
   value = 'rgba(175, 51, 242, 1)',
-  onChange = () => {},
+  onChange,
   hideControls = false,
   hideInputs = false,
   hideOpacity = false,
