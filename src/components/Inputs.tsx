@@ -1,43 +1,46 @@
 import React, { useState, useEffect } from 'react'
-import { rgb2cmyk, cmykToRgb } from '../utils/converters'
-import { formatInputValues } from '../utils/formatters'
-import { usePicker } from '../context'
+import { formatInputValues, round } from '../utils/formatters.js'
+import { rgb2cmyk, cmykToRgb } from '../utils/converters.js'
+import { usePicker } from '../context.js'
+import tc from 'tinycolor2'
 
-var tc = require('tinycolor2')
+const Input = ({
+  value,
+  callback,
+  max = 100,
+  label,
+}: {
+  max?: number
+  label: string
+  value: number
+  callback: (arg0: number) => void
+}) => {
+  const [temp, setTemp] = useState(value)
+  const { hideOpacity } = usePicker()
+  const width = hideOpacity ? '22%' : '18%'
 
-const Inputs = () => {
-  const { handleChange, r, g, b, opacity, inputType, hideOpacity } = usePicker()
+  useEffect(() => {
+    setTemp(value)
+  }, [value])
+
+  const onChange = (e: any) => {
+    const newVal = formatInputValues(parseFloat(e.target.value), 0, max)
+    setTemp(newVal)
+    callback(newVal)
+  }
 
   return (
-    <div
-      style={{
-        paddingTop: 14,
-        display: 'flex',
-        justifyContent: 'space-between'
-      }}
-      id="rbgcp-inputs-wrap"
-      className="rbgcp-inputs-wrap"
-    >
-      {inputType !== 'cmyk' && <HexInput />}
-      {inputType === 'hsl' && <HSLInputs />}
-      {inputType === 'rgb' && <RGBInputs />}
-      {inputType === 'hsv' && <HSVInputs />}
-      {inputType === 'cmyk' && <CMKYInputs />}
-
-      {!hideOpacity && (
-        <Input
-          value={Math.round(opacity * 100)}
-          callback={(newVal) =>
-            handleChange(`rgba(${r}, ${g}, ${b}, ${newVal / 100})`)
-          }
-          label="A"
-        />
-      )}
+    <div style={{ width: width }}>
+      <input
+        value={temp}
+        id="rbgcp-input"
+        className="rbgcp-input"
+        onChange={(e) => onChange(e)}
+      />
+      <div className="rbgcp-input-label">{label}</div>
     </div>
   )
 }
-
-export default Inputs
 
 const HexInput = () => {
   const { handleChange, tinyColor, opacity } = usePicker()
@@ -59,12 +62,12 @@ const HexInput = () => {
     setDisable('')
   }
 
-  const handleHex = (e) => {
-    let tinyHex = tc(e.target.value)
+  const handleHex = (e: any) => {
+    const tinyHex = tc(e.target.value)
     setNewHex(e.target.value)
     if (tinyHex.isValid()) {
-      let { r, g, b } = tinyHex.toRgb()
-      let newColor = `rgba(${r}, ${g}, ${b}, ${opacity})`
+      const { r, g, b } = tinyHex.toRgb()
+      const newColor = `rgba(${r}, ${g}, ${b}, ${opacity})`
       handleChange(newColor)
     }
   }
@@ -87,7 +90,7 @@ const HexInput = () => {
 const RGBInputs = () => {
   const { handleChange, r, g, b, opacity } = usePicker()
 
-  const handleRgb = ({ r, g, b }) => {
+  const handleRgb = ({ r, g, b }: { r: number; g: number; b: number }) => {
     handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`)
   }
 
@@ -119,14 +122,14 @@ const HSLInputs = () => {
   const { handleChange, s, l, internalHue, opacity, setInternalHue } =
     usePicker()
 
-  const handleH = (h, s, l) => {
+  const handleH = (h: number, s: number, l: number) => {
     setInternalHue(h)
-    let { r, g, b } = tc({ h: h, s: s, l: l }).toRgb()
+    const { r, g, b } = tc({ h: h, s: s, l: l }).toRgb()
     handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`)
   }
 
-  const handleSl = (value) => {
-    let { r, g, b } = tc(value).toRgb()
+  const handleSl = (value: any) => {
+    const { r, g, b } = tc(value).toRgb()
     handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`)
   }
 
@@ -156,14 +159,14 @@ const HSVInputs = () => {
   const { handleChange, hsvS, hsvV, internalHue, setInternalHue, opacity } =
     usePicker()
 
-  const handleH = (h, s, v) => {
+  const handleH = (h: number, s: number, v: number) => {
     setInternalHue(h)
-    let { r, g, b } = tc({ h: h, s: s, v: v }).toRgb()
+    const { r, g, b } = tc({ h: h, s: s, v: v }).toRgb()
     handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`)
   }
 
-  const handleSV = (value) => {
-    let { r, g, b } = tc(value).toRgb()
+  const handleSV = (value: any) => {
+    const { r, g, b } = tc(value).toRgb()
     handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`)
   }
 
@@ -191,10 +194,10 @@ const HSVInputs = () => {
 
 const CMKYInputs = () => {
   const { handleChange, r, g, b, opacity } = usePicker()
-  const { c, m, k, y } = rgb2cmyk(r, g, b)
+  const { c, m, y, k } = rgb2cmyk(r, g, b)
 
-  const handleCmyk = (value) => {
-    let { r, g, b } = cmykToRgb(value)
+  const handleCmyk = (value: any) => {
+    const { r, g, b } = cmykToRgb(value)
     handleChange(`rgba(${r}, ${g}, ${b}, ${opacity})`)
   }
 
@@ -202,56 +205,58 @@ const CMKYInputs = () => {
     <>
       <Input
         value={round(c * 100)}
-        callback={(newVal) => handleCmyk({ c: newVal, m: m, y: y, k: k })}
+        callback={(newVal) => handleCmyk({ c: newVal / 100, m: m, y: y, k: k })}
         label="C"
       />
       <Input
         value={round(m * 100)}
-        callback={(newVal) => handleCmyk({ c: c, m: newVal, y: y, k: k })}
+        callback={(newVal) => handleCmyk({ c: c, m: newVal / 100, y: y, k: k })}
         label="M"
       />
       <Input
         value={round(y * 100)}
-        callback={(newVal) => handleCmyk({ c: c, m: m, y: newVal, k: k })}
+        callback={(newVal) => handleCmyk({ c: c, m: m, y: newVal / 100, k: k })}
         label="Y"
       />
       <Input
         value={round(k * 100)}
-        callback={(newVal) => handleCmyk({ c: c, m: m, y: y, k: newVal })}
+        callback={(newVal) => handleCmyk({ c: c, m: m, y: y, k: newVal / 100 })}
         label="K"
       />
     </>
   )
 }
 
-const Input = ({ value, callback, max = 100, label }) => {
-  const [temp, setTemp] = useState(value);
-  const { hideOpacity } = usePicker();
-  const width = hideOpacity ? '22%' : '18%'
-
-  useEffect(() => {
-    setTemp(value)
-  }, [value])
-
-  const onChange = (e) => {
-    const newVal = formatInputValues(parseFloat(e.target.value), 0, max)
-    setTemp(newVal)
-    callback(newVal)
-  }
+const Inputs = () => {
+  const { handleChange, r, g, b, opacity, inputType, hideOpacity } = usePicker()
 
   return (
-    <div style={{ width: width }}>
-      <input
-        value={temp}
-        id="rbgcp-input"
-        className="rbgcp-input"
-        onChange={(e) => onChange(e)}
-      />
-      <div className="rbgcp-input-label">{label}</div>
+    <div
+      style={{
+        paddingTop: 14,
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+      id="rbgcp-inputs-wrap"
+      className="rbgcp-inputs-wrap"
+    >
+      {inputType !== 'cmyk' && <HexInput />}
+      {inputType === 'hsl' && <HSLInputs />}
+      {inputType === 'rgb' && <RGBInputs />}
+      {inputType === 'hsv' && <HSVInputs />}
+      {inputType === 'cmyk' && <CMKYInputs />}
+
+      {!hideOpacity && (
+        <Input
+          value={Math.round(opacity * 100)}
+          callback={(newVal: number) =>
+            handleChange(`rgba(${r}, ${g}, ${b}, ${newVal / 100})`)
+          }
+          label="A"
+        />
+      )}
     </div>
   )
 }
 
-const round = (val) => {
-  return Math.round(val, 2)
-}
+export default Inputs

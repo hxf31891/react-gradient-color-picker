@@ -1,8 +1,8 @@
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
-const Portal = ({ children }) => {
-  var id = "id" + Math.random().toString(16).slice(2);
+const Portal = ({ children }: { children: ReactNode }) => {
+  const id = 'id' + Math.random().toString(16).slice(2)
   const el = useRef(
     document.getElementById(id) || document.createElement('div')
   )
@@ -20,7 +20,7 @@ const Portal = ({ children }) => {
       }
     }
     //eslint-disable-next-line
-  }, [id]);
+  }, [id])
   return createPortal(children, el.current)
 }
 

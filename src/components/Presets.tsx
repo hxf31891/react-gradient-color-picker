@@ -1,7 +1,8 @@
 import React from 'react'
-import { usePicker } from '../context'
+import { usePicker } from '../context.js'
+import { fakePresets } from '../constants.js'
 
-const Presets = ({ presets = [] }) => {
+const Presets = ({ presets = [] }: { presets?: string[] }) => {
   const { value, onChange, handleChange, squareSize } = usePicker()
 
   const getPresets = () => {
@@ -12,7 +13,7 @@ const Presets = ({ presets = [] }) => {
     }
   }
 
-  const handlePresetClick = (preset) => {
+  const handlePresetClick = (preset: string) => {
     if (preset?.includes('gradient')) {
       onChange(preset)
     } else {
@@ -45,9 +46,9 @@ const Presets = ({ presets = [] }) => {
           justifyContent: 'space-between',
         }}
       >
-        {getPresets().map((p, key) => (
+        {getPresets().map((p: any, key: number) => (
           <div
-            key={key}
+            key={`${p}-${key}`}
             style={{
               height: 23,
               width: '10.2%',
@@ -65,24 +66,3 @@ const Presets = ({ presets = [] }) => {
 }
 
 export default Presets
-
-const fakePresets = [
-  'rgba(0,0,0,1)',
-  'rgba(128,128,128, 1)',
-  'rgba(192,192,192, 1)',
-  'rgba(255,255,255, 1)',
-  'rgba(0,0,128,1)',
-  'rgba(0,0,255,1)',
-  'rgba(0,255,255, 1)',
-  'rgba(0,128,0,1)',
-  'rgba(128,128,0, 1)',
-  'rgba(0,128,128,1)',
-  'rgba(0,255,0, 1)',
-  'rgba(128,0,0, 1)',
-  'rgba(128,0,128, 1)',
-  'rgba(175, 51, 242, 1)',
-  'rgba(255,0,255, 1)',
-  'rgba(255,0,0, 1)',
-  'rgba(240, 103, 46, 1)',
-  'rgba(255,255,0, 1)',
-]

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-var tinycolor = require('tinycolor2')
+import tinycolor from 'tinycolor2'
 
 const usePaintHue = (canvas, squareSize) => {
   useEffect(() => {

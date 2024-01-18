@@ -1,7 +1,11 @@
 import React from 'react'
-import { usePicker } from '../context'
+import { usePicker } from '../context.js'
 
-const ComparibleColors = ({ openComparibles }) => {
+const ComparibleColors = ({
+  openComparibles,
+}: {
+  openComparibles: boolean
+}) => {
   const { tinyColor, handleChange } = usePicker()
 
   const analogous = tinyColor.analogous()
@@ -9,8 +13,8 @@ const ComparibleColors = ({ openComparibles }) => {
   const triad = tinyColor.triad()
   const tetrad = tinyColor.tetrad()
 
-  const handleClick = (tiny) => {
-    let { r, g, b, a } = tiny.toRgb()
+  const handleClick = (tiny: any) => {
+    const { r, g, b, a } = tiny.toRgb()
     handleChange(`rgba(${r},${g},${b},${a})`)
   }
 
@@ -26,7 +30,7 @@ const ComparibleColors = ({ openComparibles }) => {
         style={{
           paddingTop: 11,
           display: openComparibles ? '' : 'none',
-          position: "relative"
+          position: 'relative',
         }}
       >
         <div
@@ -54,7 +58,7 @@ const ComparibleColors = ({ openComparibles }) => {
           Analogous
         </div>
         <div style={{ borderRadius: 5, overflow: 'hidden', display: 'flex' }}>
-          {analogous?.map((c, key) => (
+          {analogous?.map((c: any, key: number) => (
             <div
               key={key}
               style={{ width: '20%', height: 30, background: c.toHexString() }}
@@ -73,8 +77,15 @@ const ComparibleColors = ({ openComparibles }) => {
         >
           Monochromatic
         </div>
-        <div style={{ borderRadius: 5, overflow: 'hidden', display: 'flex', justifyContent: "flex-end" }}>
-          {monochromatic?.map((c, key) => (
+        <div
+          style={{
+            borderRadius: 5,
+            overflow: 'hidden',
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          {monochromatic?.map((c: any, key: number) => (
             <div
               key={key}
               style={{ width: '20%', height: 30, background: c.toHexString() }}
@@ -93,8 +104,15 @@ const ComparibleColors = ({ openComparibles }) => {
         >
           Triad
         </div>
-        <div style={{ borderRadius: 5, overflow: 'hidden', display: 'flex', justifyContent: "flex-end" }}>
-          {triad?.map((c, key) => (
+        <div
+          style={{
+            borderRadius: 5,
+            overflow: 'hidden',
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          {triad?.map((c: any, key: number) => (
             <div
               key={key}
               style={{
@@ -117,8 +135,15 @@ const ComparibleColors = ({ openComparibles }) => {
         >
           Tetrad
         </div>
-        <div style={{ borderRadius: 5, overflow: 'hidden', display: 'flex', justifyContent: "flex-end" }}>
-          {tetrad?.map((c, key) => (
+        <div
+          style={{
+            borderRadius: 5,
+            overflow: 'hidden',
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          {tetrad?.map((c: any, key: number) => (
             <div
               key={key}
               style={{ width: '25%', height: 28, background: c.toHexString() }}

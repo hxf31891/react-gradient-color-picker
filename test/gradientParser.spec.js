@@ -1,4 +1,5 @@
 import { gradientParser } from '../src/utils/gradientParser'
+import { describe, expect, it } from 'vitest'
 
 describe('gradientParser', () => {
   it('should parse linear gradient with hex colors', () => {

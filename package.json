@@ -1,34 +1,41 @@
 {
   "name": "react-best-gradient-color-picker",
-  "version": "2.3.4",
+  "version": "3.0.2",
   "description": "An easy to use color/gradient picker for React.js",
-  "source": "src/index.js",
-  "main": "lib/index.js",
-  "module": "lib/index.module.js",
-  "esmodule": "lib/index.esmodule.js",
-  "umd:main": "lib/index.umd.js",
-  "types": "lib/index.d.ts",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/cjs/index.d.ts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "umd": "./lib/index.umd.js",
-      "import": "./lib/index.module.js",
-      "require": "./lib/index.js",
-      "default": "./lib/index.module.js"
-    }
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./dist/Picker.css": "./dist/Picker.css"
   },
   "scripts": {
-    "build": "del-cli 'lib/*' && microbundle --entry src/index.js --jsx React.createElement --jsxFragment React.Fragment --name react-best-gradient-color-picker --tsconfig tsconfig.build.json",
-    "prepublishOnly": "npm run build",
-    "check-release": "npm publish --dry-run",
-    "release": "npm publish"
+    "build": "yarn build-js && yarn copy-styles",
+    "build-js": "yarn build-js-esm && yarn build-js-cjs && yarn build-js-cjs-package",
+    "build-js-esm": "tsc --project tsconfig.build.json --outDir dist/esm",
+    "build-js-cjs": "tsc --project tsconfig.build.json --outDir dist/cjs --module commonjs --moduleResolution node --verbatimModuleSyntax false",
+    "build-js-cjs-package": "echo '{\n  \"type\": \"commonjs\"\n}' > dist/cjs/package.json",
+    "clean": "rimraf dist",
+    "copy-styles": "cpy 'src/**/*.css' dist",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "prepack": "yarn clean && yarn build",
+    "prettier": "prettier --check . --cache",
+    "test": "yarn lint && yarn tsc && yarn prettier && yarn unit",
+    "tsc": "tsc",
+    "unit": "vitest",
+    "watch": "yarn build-js-esm --watch & yarn build-js-cjs --watch & nodemon --watch src --ext css --exec \"yarn copy-styles\""
   },
   "files": [
-    "lib/*.{js,mjs,ts,map}",
-    "lib/components/*.ts",
-    "LICENSE",
-    "README.md",
-    "package.json"
+    "dist",
+    "src"
   ],
   "repository": {
     "type": "git",
@@ -47,28 +54,40 @@
     "name": "Harry Fox",
     "email": "hxfox1@gmail.com"
   },
-  "peerDependencies": {
-    "react": "^16.3.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.3.0 || ^17.0.0 || ^18.0.0"
+  "dependencies": {
+    "html2canvas": "^1.4.1",
+    "lodash.throttle": "^4.1.1",
+    "prop-types": "^15.6.0",
+    "tinycolor2": "1.4.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.3",
-    "@babel/core": "^7.17.4",
-    "@babel/preset-env": "^7.18.10",
-    "@babel/preset-react": "^7.16.7",
-    "@types/jest": "^29.0.0",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^14.0.0",
+    "@types/lodash.throttle": "*",
+    "@types/node": "*",
+    "@types/react": "*",
+    "@types/tinycolor2": "^1.4.6",
     "cpy-cli": "^3.1.1",
-    "del-cli": "^3.0.1",
     "eslint": "8.22.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.5",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.0.1",
-    "eslint-plugin-react": "^7.31.8",
-    "microbundle": "0.13.0",
-    "ts-jest": "^28.0.8"
+    "eslint-config-wojtekmaj": "^0.9.0",
+    "happy-dom": "^12.6.0",
+    "nodemon": "^3.0.0",
+    "prettier": "^3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^3.0.0",
+    "typescript": "^5.3.2",
+    "vitest": "^1.0.2"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   },
   "license": "MIT",
   "bugs": {
@@ -77,10 +96,5 @@
   "homepage": "https://gradient-package-demo.web.app/",
   "publishConfig": {
     "@hxf31891:registry": "https://npm.pkg.github.com"
-  },
-  "dependencies": {
-    "html2canvas": "^1.4.1",
-    "lodash.throttle": "^4.1.1",
-    "tinycolor2": "1.4.2"
   }
 }

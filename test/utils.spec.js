@@ -4,6 +4,7 @@ import {
   getGradientType,
   getDegrees,
 } from '../src/utils/utils'
+import { describe, expect, it } from 'vitest'
 
 describe('isUpperCase', () => {
   it('should return true when the first letter of the string is upper-cased', () => {

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { getGradientType, getDegrees, isUpperCase } from '../utils/utils'
-import { low, high, getColors, formatInputValues } from '../utils/formatters'
-import { rgb2cmyk } from '../utils/converters'
-import { config } from '../constants'
+import { getGradientType, getDegrees, isUpperCase } from '../utils/utils.js'
+import { low, high, getColors, formatInputValues } from '../utils/formatters.js'
+import { rgb2cmyk } from '../utils/converters.js'
+import { config } from '../constants.js'
+import tc from 'tinycolor2'
 
 const { defaultColor, defaultGradient } = config
-var tc = require('tinycolor2')
 
 export const useColorPicker = (value, onChange) => {
   // if (!value || !onChange) {
@@ -58,7 +58,7 @@ export const useColorPicker = (value, onChange) => {
 
   useEffect(() => {
     if (tc(currentColor)?.isValid() && previousColors[0] !== currentColor) {
-      setPreviousColors([currentColor, ...previousColors?.slice(0, 19)])
+      setPreviousColors([currentColor, ...previousColors.slice(0, 19)])
     }
   }, [currentColor, previousColors])
 

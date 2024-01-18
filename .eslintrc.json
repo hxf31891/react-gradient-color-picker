@@ -1,0 +1,7 @@
+{
+  "extends": "wojtekmaj/react-no-automatic-runtime",
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-console": 0
+  }
+}
