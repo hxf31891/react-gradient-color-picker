@@ -58,17 +58,17 @@ export function ColorPicker({
   const [bounds, setBounds] = useState({})
   const safeValue = objectToString(value)
 
-  document
-    ?.getElementsByTagName('head')[0]
-    ?.insertAdjacentHTML(
-      'beforeend',
-      '<link rel="stylesheet" href="https://gradient-package-demo.web.app/packagestyles.css" />'
-    )
-
   useEffect(() => {
     if (contRef && contRef?.current) {
       setBounds(contRef?.current?.getBoundingClientRect())
     }
+
+    document
+      ?.getElementsByTagName('head')[0]
+      ?.insertAdjacentHTML(
+        'beforeend',
+        '<link rel="stylesheet" href="https://gradient-package-demo.web.app/packagestyles.css" />'
+      )
   }, [])
 
   return (

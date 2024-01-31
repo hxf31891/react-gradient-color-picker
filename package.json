@@ -1,6 +1,6 @@
 {
   "name": "react-best-gradient-color-picker",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "An easy to use color/gradient picker for React.js",
   "type": "module",
   "sideEffects": [

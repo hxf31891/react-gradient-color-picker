@@ -80,6 +80,10 @@ export default function PickerContextWrapper({
     setTinyColor(tinycolor(currentColor))
   }, [currentColor])
 
+  useEffect(() => {
+    setInternalHue(hue)
+  }, [hue])
+
   const createGradientStr = (newColors: GradientProps[]) => {
     const sorted = newColors.sort(
       (a: GradientProps, b: GradientProps) => a.left - b.left

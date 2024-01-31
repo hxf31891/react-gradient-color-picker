@@ -1,6 +1,7 @@
 import { formatInputValues } from './formatters.js'
 import { config } from '../constants.js'
 import tc from 'tinycolor2'
+import { ThemeProps } from '../shared/types.js'
 
 const { barSize, crossSize } = config
 
@@ -148,3 +149,34 @@ export const objectToString = (value: any) => {
     }
   }
 }
+
+// export const validateTheme = (allowDark: boolean, theme?: ThemeProps) => {
+//   let isDarkMode: any = ''
+//
+//   if (typeof window !== 'undefined' && allowDark) {
+//     isDarkMode =
+//       window.matchMedia &&
+//       window.matchMedia('(prefers-color-scheme: dark)').matches
+//   }
+//
+//   const processedTheme = {
+//     light: {
+//       color: theme?.light?.color || defaultLight?.color,
+//       background: theme?.light?.background || defaultLight?.background,
+//       highlights: theme?.light?.highlights || defaultLight?.highlights,
+//       accent: theme?.light?.accent || defaultLight?.accent,
+//     },
+//     dark: {
+//       color: theme?.dark?.color || defaultDark?.color,
+//       background: theme?.dark?.background || defaultDark?.background,
+//       highlights: theme?.dark?.highlights || defaultDark?.highlights,
+//       accent: theme?.dark?.accent || defaultDark?.accent,
+//     },
+//   }
+//
+//   if (isDarkMode === 'dark' && allowDark) {
+//     return processedTheme?.dark
+//   } else {
+//     return processedTheme?.light
+//   }
+// }
