@@ -78,11 +78,8 @@ export default function PickerContextWrapper({
 
   useEffect(() => {
     setTinyColor(tinycolor(currentColor))
-  }, [currentColor])
-
-  useEffect(() => {
     setInternalHue(hue)
-  }, [hue])
+  }, [currentColor, hue])
 
   const createGradientStr = (newColors: GradientProps[]) => {
     const sorted = newColors.sort(
