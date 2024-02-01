@@ -3,8 +3,11 @@ import Portal from './Portal.js'
 import html2canvas from 'html2canvas'
 import { controlBtnStyles } from './Controls.js'
 import tc from 'tinycolor2'
+import { usePicker } from '../context.js'
 
 const DropperIcon = ({ color }: { color: string }) => {
+  const { classes } = usePicker()
+
   const col = color || ''
   const style1 = {
     fill: 'none',
@@ -29,21 +32,21 @@ const DropperIcon = ({ color }: { color: string }) => {
         style={style1}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="rbgcp-control-icon"
+        className={classes.rbgcpControlIcon}
         d="M15.6,7h0L7.78,14.86c-.37.37-1.61.38-2,.75s-.5,1.53-.76,2a3.53,3.53,0,0,1-.52.52,1.6,1.6,0,0,1-2.27-.06l-.32-.32a1.61,1.61,0,0,1-.06-2.27A3.25,3.25,0,0,1,2.4,15c.47-.26,1.65-.35,2-.73s.34-1.64.71-2c1.68-1.73,5.61-5.65,7.91-7.93h0l1.14,1.38L15.6,7Z"
       />
       <polygon
         style={style2}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="rbgcp-control-icon2"
+        className={classes.rbgcpControlIcon2}
         points="15.7 8.87 11.13 4.29 12.69 2.73 17.25 7.31 15.7 8.87"
       />
       <path
         style={style2}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="rbgcp-control-icon2"
+        className={classes.rbgcpControlIcon2}
         d="M18.18,3.71,16.36,5.53a1.33,1.33,0,0,1-1.88,0h0a1.34,1.34,0,0,1,0-1.89l1.81-1.82a1.34,1.34,0,0,1,1.89,0h0A1.34,1.34,0,0,1,18.18,3.71Z"
       />
     </svg>
@@ -51,6 +54,7 @@ const DropperIcon = ({ color }: { color: string }) => {
 }
 
 const Dropper = ({ onSelect }: { onSelect: (arg0: string) => void }) => {
+  const { classes } = usePicker()
   const [pickerCanvas, setPickerCanvas] =
     useState<CanvasRenderingContext2D | null>(null)
   const [coverUp, setCoverUp] = useState(false)
@@ -111,10 +115,9 @@ const Dropper = ({ onSelect }: { onSelect: (arg0: string) => void }) => {
   return (
     <div>
       <div
-        style={controlBtnStyles(coverUp)}
-        id="rbgcp-eyedropper-btn"
-        className="rbgcp-control-icon-btn rbgcp-eyedropper-btn"
         onClick={getEyeDrop}
+        id="rbgcp-eyedropper-btn"
+        className={`${controlBtnStyles(coverUp, classes)} ${classes.rbgcpEyedropperBtn}`}
       >
         <DropperIcon color={coverUp ? 'rgb(86, 140, 245)' : ''} />
       </div>
@@ -122,8 +125,8 @@ const Dropper = ({ onSelect }: { onSelect: (arg0: string) => void }) => {
       {coverUp && (
         <Portal>
           <div
-            className="rbgcp-eyedropper-cover"
             onClick={(e) => getColorLegacy(e)}
+            className={classes.rbgcpEyedropperCover}
           />
         </Portal>
       )}

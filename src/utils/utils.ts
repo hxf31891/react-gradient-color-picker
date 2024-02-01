@@ -1,7 +1,6 @@
 import { formatInputValues } from './formatters.js'
+import { ColorsProps } from '../shared/types.js'
 import { config } from '../constants.js'
-import tc from 'tinycolor2'
-import { ThemeProps } from '../shared/types.js'
 
 const { barSize, crossSize } = config
 
@@ -26,22 +25,14 @@ export function getHandleValue(e: any) {
 }
 
 export function computeSquareXY(
-  hsl: number[],
-  squareSize: number,
+  s: number,
+  v: number,
+  squareWidth: number,
   squareHeight: number
 ) {
-  if (hsl[1] && hsl[2]) {
-    const s = hsl[1] * 100
-    const l = hsl[2] * 100
-    const t = (s * (l < 50 ? l : 100 - l)) / 100
-    const s1 = Math.round((200 * t) / (l + t)) | 0
-    const b1 = Math.round(t + l)
-    const x = (squareSize / 100) * s1 - crossSize / 2
-    const y = squareHeight - (squareHeight / 100) * b1 - crossSize / 2
-    return [x, y]
-  } else {
-    return [0, 0]
-  }
+  const x = s * squareWidth - crossSize / 2
+  const y = ((100 - v) / 100) * squareHeight - crossSize / 2
+  return [x, y]
 }
 
 const getClientXY = (e: any) => {
@@ -56,6 +47,7 @@ const getClientXY = (e: any) => {
 export function computePickerPosition(e: any) {
   const { offsetLeft, offsetTop, clientWidth, clientHeight } = safeBounds(e)
   const { clientX, clientY } = getClientXY(e)
+
   const getX = () => {
     const xPos = clientX - offsetLeft - crossSize / 2
     return formatInputValues(xPos, -9, clientWidth - 10)
@@ -68,36 +60,23 @@ export function computePickerPosition(e: any) {
   return [getX(), getY()]
 }
 
-export const getGradientType = (value: string) => {
-  return value?.split('(')[0]
-}
-
-export const getNewHsl = (
-  newHue: number,
-  s: number,
-  l: number,
-  o: number,
-  setInternalHue: (arg0: number) => void
-) => {
-  setInternalHue(newHue)
-  const tiny = tc({ h: newHue, s: s, l: l })
-  const { r, g, b } = tiny.toRgb()
-  return `rgba(${r}, ${g}, ${b}, ${o})`
-}
+// export const getGradientType = (value: string) => {
+//   return value?.split('(')[0]
+// }
 
 export const isUpperCase = (str: string) => {
   return str?.[0] === str?.[0]?.toUpperCase()
 }
 
-export const compareGradients = (g1: string, g2: string) => {
-  const ng1 = g1?.toLowerCase()?.replaceAll(' ', '')
-  const ng2 = g2?.toLowerCase()?.replaceAll(' ', '')
-  if (ng1 === ng2) {
-    return true
-  } else {
-    return false
-  }
-}
+// export const compareGradients = (g1: string, g2: string) => {
+//   const ng1 = g1?.toLowerCase()?.replaceAll(' ', '')
+//   const ng2 = g2?.toLowerCase()?.replaceAll(' ', '')
+//   if (ng1 === ng2) {
+//     return true
+//   } else {
+//     return false
+//   }
+// }
 
 const convertShortHandDeg = (dir: any) => {
   if (dir === 'to top') {
@@ -122,12 +101,6 @@ const convertShortHandDeg = (dir: any) => {
   }
 }
 
-export const getDegrees = (value: string) => {
-  const s1 = value?.split(',')[0]
-  const s2 = s1?.split('(')[1]?.replace('deg', '')
-  return convertShortHandDeg(s2)
-}
-
 export const objectToString = (value: any) => {
   if (typeof value === 'string') {
     return value
@@ -150,33 +123,39 @@ export const objectToString = (value: any) => {
   }
 }
 
-// export const validateTheme = (allowDark: boolean, theme?: ThemeProps) => {
-//   let isDarkMode: any = ''
-//
-//   if (typeof window !== 'undefined' && allowDark) {
-//     isDarkMode =
-//       window.matchMedia &&
-//       window.matchMedia('(prefers-color-scheme: dark)').matches
-//   }
-//
-//   const processedTheme = {
-//     light: {
-//       color: theme?.light?.color || defaultLight?.color,
-//       background: theme?.light?.background || defaultLight?.background,
-//       highlights: theme?.light?.highlights || defaultLight?.highlights,
-//       accent: theme?.light?.accent || defaultLight?.accent,
-//     },
-//     dark: {
-//       color: theme?.dark?.color || defaultDark?.color,
-//       background: theme?.dark?.background || defaultDark?.background,
-//       highlights: theme?.dark?.highlights || defaultDark?.highlights,
-//       accent: theme?.dark?.accent || defaultDark?.accent,
-//     },
-//   }
-//
-//   if (isDarkMode === 'dark' && allowDark) {
-//     return processedTheme?.dark
-//   } else {
-//     return processedTheme?.light
-//   }
-// }
+export const getColorObj = (colors: ColorsProps[]) => {
+  const idxCols = colors?.map((c: ColorsProps, i: number) => ({
+    ...c,
+    index: i,
+  }))
+
+  const upperObj = idxCols?.find((c: ColorsProps) => isUpperCase(c.value))
+  const ccObj = upperObj || idxCols[0]
+
+  return {
+    currentColor: ccObj?.value || config?.defaultGradient,
+    selectedColor: ccObj?.index || 0,
+    currentLeft: ccObj?.left || 0,
+  }
+}
+
+const getDegrees = (value: string) => {
+  const s1 = value?.split(',')[0]
+  const s2 = s1?.split('(')[1]?.replace('deg', '')
+  return convertShortHandDeg(s2)
+}
+
+export const getDetails = (value: string) => {
+  const isGradient = value?.includes('gradient')
+  const gradientType = value?.split('(')[0]
+  const degrees = getDegrees(value)
+  const degreeStr =
+    gradientType === 'linear-gradient' ? `${degrees}deg` : 'circle'
+
+  return {
+    degrees,
+    degreeStr,
+    isGradient,
+    gradientType,
+  }
+}

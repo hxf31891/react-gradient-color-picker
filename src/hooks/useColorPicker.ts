@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getGradientType, getDegrees, isUpperCase } from '../utils/utils.js'
+import { isUpperCase, getDetails, getColorObj } from '../utils/utils.js'
 import { low, high, getColors, formatInputValues } from '../utils/formatters.js'
 import { rgb2cmyk } from '../utils/converters.js'
 import { config } from '../constants.js'
@@ -12,28 +12,9 @@ export const useColorPicker = (
   value: string,
   onChange: (arg0: string) => void
 ) => {
-  // if (!value || !onChange) {
-  //   console.log(
-  //     'RBGCP ERROR - YOU MUST PASS A VALUE AND CALLBACK TO THE useColorPicker HOOK'
-  //   )
-  // }
-
-  const isGradient = value?.includes('gradient')
-  const gradientType = getGradientType(value)
-  const degrees = getDegrees(value)
-  const degreeStr =
-    gradientType === 'linear-gradient' ? `${degrees}deg` : 'circle'
   const colors = getColors(value)
-  const indexedColors = colors?.map((c: ColorsProps, i: number) => ({
-    ...c,
-    index: i,
-  }))
-  const currentColorObj =
-    indexedColors?.filter((c: ColorsProps) => isUpperCase(c.value))[0] ||
-    indexedColors[0]
-  const currentColor = currentColorObj?.value
-  const selectedPoint = currentColorObj?.index
-  const currentLeft = currentColorObj?.left
+  const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
+  const { currentColor, selectedColor, currentLeft } = getColorObj(colors)
   const [previousColors, setPreviousColors] = useState([])
 
   const getGradientObject = () => {
@@ -233,7 +214,7 @@ export const useColorPicker = (
 
   const deletePoint = (index: number) => {
     if (colors?.length > 2) {
-      const pointToDelete = index || selectedPoint
+      const pointToDelete = index || selectedColor
       const remaining = colors?.filter(
         (rc: ColorsProps, i: number) => i !== pointToDelete
       )
@@ -277,7 +258,7 @@ export const useColorPicker = (
     setSelectedPoint,
     addPoint,
     deletePoint,
-    selectedPoint,
+    selectedPoint: selectedColor,
     isGradient,
     gradientType,
     degrees,

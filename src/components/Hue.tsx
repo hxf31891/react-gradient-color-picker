@@ -1,18 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { usePicker } from '../context.js'
 import usePaintHue from '../hooks/usePaintHue.js'
+import { getHandleValue } from '../utils/utils.js'
+import tinycolor from 'tinycolor2'
 
 const Hue = () => {
   const barRef = useRef<HTMLCanvasElement>(null)
-  const { handleHue, internalHue, squareSize } = usePicker()
+  const { handleChange, squareWidth, hc, setHc } = usePicker()
   const [dragging, setDragging] = useState(false)
-  usePaintHue(barRef, squareSize)
-
-  // useEffect(() => {
-  //   if (barRef?.current) {
-  //     setHandleTop(barRef?.current?.offsetTop - 2)
-  //   }
-  // }, [barRef])
+  usePaintHue(barRef, squareWidth)
 
   const stopDragging = () => {
     setDragging(false)
@@ -20,6 +16,14 @@ const Hue = () => {
 
   const handleDown = () => {
     setDragging(true)
+  }
+
+  const handleHue = (e: any) => {
+    const newHue = getHandleValue(e) * 3.6
+    const tinyHsv = tinycolor({ h: newHue, s: hc?.s, v: hc?.v })
+    const { r, g, b } = tinyHsv.toRgb()
+    handleChange(`rgba(${r}, ${g}, ${b}, ${hc.a})`)
+    setHc({ ...hc, h: newHue })
   }
 
   const handleMove = (e: any) => {
@@ -48,9 +52,14 @@ const Hue = () => {
 
   return (
     <div
-      style={{ height: 14, marginTop: 17, marginBottom: 4 }}
+      style={{
+        height: 14,
+        marginTop: 17,
+        marginBottom: 4,
+        cursor: 'ew-resize',
+        position: 'relative',
+      }}
       onMouseMove={(e) => handleMove(e)}
-      className="c-resize ps-rl"
     >
       <div
         role="button"
@@ -63,17 +72,18 @@ const Hue = () => {
           zIndex: 1000,
           transition: 'all 10ms linear',
           position: 'absolute',
-          left: internalHue * ((squareSize - 18) / 360),
+          left: hc?.h * ((squareWidth - 18) / 360),
           top: -2,
+          cursor: 'ew-resize',
         }}
         onMouseDown={handleDown}
       />
       <canvas
         ref={barRef}
-        width={`${squareSize}px`}
         height="14px"
-        style={{ position: 'relative', borderRadius: 14, verticalAlign: 'top' }}
+        width={`${squareWidth}px`}
         onClick={(e) => handleClick(e)}
+        style={{ position: 'relative', borderRadius: 14, verticalAlign: 'top' }}
       />
     </div>
   )

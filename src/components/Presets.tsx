@@ -3,7 +3,7 @@ import { usePicker } from '../context.js'
 import { fakePresets } from '../constants.js'
 
 const Presets = ({ presets = [] }: { presets?: string[] }) => {
-  const { value, onChange, handleChange, squareSize } = usePicker()
+  const { value, onChange, handleChange, squareWidth } = usePicker()
 
   const getPresets = () => {
     if (presets?.length > 0) {
@@ -42,7 +42,7 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          width: squareSize - 66,
+          width: squareWidth - 66,
           justifyContent: 'space-between',
         }}
       >

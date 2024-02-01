@@ -2,18 +2,43 @@ import React, { useRef, useState, useEffect } from 'react'
 import usePaintSquare from '../hooks/usePaintSquare.js'
 import throttle from 'lodash.throttle'
 import { usePicker } from '../context.js'
+import tinycolor from 'tinycolor2'
+import { computePickerPosition, computeSquareXY } from '../utils/utils.js'
+import { config } from '../constants.js'
+
+const { crossSize } = config
 
 const Square = () => {
-  const { x, y, isMobile, squareSize, handleColor, internalHue, squareHeight } =
-    usePicker()
+  const { hc, classes, squareWidth, squareHeight, handleChange } = usePicker()
   const [dragging, setDragging] = useState(false)
   const canvas = useRef<HTMLCanvasElement>(null)
-  usePaintSquare(canvas, internalHue, squareSize, squareHeight)
+  const [x, y] = computeSquareXY(hc?.s, hc?.v * 100, squareWidth, squareHeight)
+  const [dragPos, setDragPos] = useState({ x, y })
 
-  const handleChange = (e: any) => {
-    const ctx = canvas?.current?.getContext('2d', { willReadFrequently: true })
-    const onMouseMove = throttle(() => handleColor(e, ctx), 100)
-    // handleColor(e, ctx)
+  usePaintSquare(canvas, hc?.h, squareWidth, squareHeight)
+
+  useEffect(() => {
+    if (!dragging) {
+      setDragPos({ x: hc?.v === 0 ? dragPos.x : x, y })
+    }
+  }, [x, y])
+
+  const handleColor = (e: any) => {
+    const onMouseMove = throttle(() => {
+      const [x, y] = computePickerPosition(e)
+      if (x && y) {
+        const x1 = Math.min(x + crossSize / 2, squareWidth - 1)
+        const y1 = Math.min(y + crossSize / 2, squareHeight - 1)
+        const newS = (x1 / squareWidth) * 100
+        const newY = 100 - (y1 / squareHeight) * 100
+        setDragPos({ x: newY === 0 ? dragPos?.x : x, y })
+        const updated = tinycolor(
+          `hsva(${hc?.h}, ${newS}%, ${newY}%, ${hc?.a})`
+        )
+        handleChange(updated.toRgbString())
+      }
+    }, 250)
+
     onMouseMove()
   }
 
@@ -23,21 +48,21 @@ const Square = () => {
   }
 
   const handleMove = (e: any) => {
-    if (dragging && !isMobile) {
-      handleChange(e)
+    if (dragging) {
+      handleColor(e)
     }
   }
 
-  const handleTouchMove = (e: any) => {
-    if (dragging && isMobile) {
-      document.body.style.overflow = 'hidden'
-      handleChange(e)
-    }
-  }
+  // const handleTouchMove = (e: any) => {
+  //   if (dragging && isMobile) {
+  //     document.body.style.overflow = 'hidden'
+  //     handleColor(e)
+  //   }
+  // }
 
   const handleClick = (e: any) => {
     if (!dragging) {
-      handleChange(e)
+      handleColor(e)
     }
   }
 
@@ -47,7 +72,7 @@ const Square = () => {
 
   const handleCanvasDown = (e: any) => {
     setDragging(true)
-    handleChange(e)
+    handleColor(e)
   }
 
   useEffect(() => {
@@ -65,31 +90,34 @@ const Square = () => {
   return (
     <div style={{ position: 'relative' }}>
       <div
-        className="ps-rl c-cross"
         onMouseUp={stopDragging}
         onTouchEnd={stopDragging}
         onMouseDown={handleCanvasDown}
         onTouchStart={handleCanvasDown}
         onMouseMove={(e) => handleMove(e)}
-        onTouchMove={(e) => handleTouchMove(e)}
+        style={{ position: 'relative', cursor: 'ew-cross' }}
+        // onTouchMove={(e) => handleTouchMove(e)}
       >
         <div
-          className="rbgcp-handle"
-          style={{ left: x, top: y }}
+          className={classes.rbgcpHandle}
+          style={{
+            left: dragPos?.x,
+            top: dragPos?.y,
+          }}
           onMouseDown={handleMouseDown}
           role="button"
           tabIndex={0}
         />
         <div
-          className="rbgcp-canvas-wrapper"
+          className={classes.rbgcpCanvasWrapper}
           style={{ height: squareHeight }}
           onClick={(e) => handleClick(e)}
         >
           <canvas
             ref={canvas}
-            width={`${squareSize}px`}
-            height={`${squareHeight}px`}
             id="paintSquare"
+            width={`${squareWidth}px`}
+            height={`${squareHeight}px`}
           />
         </div>
       </div>

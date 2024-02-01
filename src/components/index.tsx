@@ -1,9 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef } from 'react'
 import PickerContextWrapper from '../context.js'
 import Picker from './Picker.js'
 import { LocalesProps } from '../shared/types.js'
 import { defaultLocales } from '../constants.js'
 import { objectToString } from '../utils/utils.js'
+// import { useStyles, DarkProps } from '../styles.js'
+import { coreCss, darkCss } from '../styles.js'
+import { createUseStyles } from 'react-jss'
 
 type ColorPickerProps = {
   value?: string
@@ -28,6 +31,7 @@ type ColorPickerProps = {
   style?: {}
   className?: any
   locales?: LocalesProps
+  disableDarkMode?: boolean
 }
 
 export function ColorPicker({
@@ -49,35 +53,25 @@ export function ColorPicker({
   hideGradientStop = false,
   hideGradientControls = false,
   locales = defaultLocales,
+  disableDarkMode = false,
   width = 294,
   height = 294,
   style = {},
   className,
 }: ColorPickerProps) {
-  const contRef = useRef<HTMLDivElement>(null)
-  const [bounds, setBounds] = useState({})
   const safeValue = objectToString(value)
-
-  useEffect(() => {
-    if (contRef && contRef?.current) {
-      setBounds(contRef?.current?.getBoundingClientRect())
-    }
-
-    document
-      ?.getElementsByTagName('head')[0]
-      ?.insertAdjacentHTML(
-        'beforeend',
-        '<link rel="stylesheet" href="https://gradient-package-demo.web.app/packagestyles.css" />'
-      )
-  }, [])
+  const contRef = useRef<HTMLDivElement>(null)
+  const styles = disableDarkMode ? coreCss : { ...coreCss, ...darkCss }
+  const useStyles = createUseStyles(styles)
+  const classes = useStyles()
 
   return (
     <div ref={contRef} style={{ ...style, width: width }} className={className}>
       <PickerContextWrapper
-        bounds={bounds}
         value={safeValue}
+        classes={classes}
         onChange={onChange}
-        squareSize={width}
+        squareWidth={width}
         squareHeight={height}
         hideOpacity={hideOpacity}
       >

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { getHandleValue } from '../utils/utils.js'
 import { usePicker } from '../context.js'
+import { low, high } from '../utils/formatters.js'
+import { GradientProps } from '../shared/types.js'
 
 const handleStyle = (isSelected: boolean) => {
   return {
@@ -20,9 +22,18 @@ export const Handle = ({
   setDragging: (arg0: boolean) => void
   setInFocus: (arg0: string | null) => void
 }) => {
-  const { setSelectedColor, selectedColor, squareSize } = usePicker()
+  const { colors, selectedColor, squareWidth, classes, createGradientStr } =
+    usePicker()
   const isSelected = selectedColor === i
-  const leftMultiplyer = (squareSize - 18) / 100
+  const leftMultiplyer = (squareWidth - 18) / 100
+
+  const setSelectedColor = (index: number) => {
+    const newGradStr = colors?.map((cc: GradientProps, i: number) => ({
+      ...cc,
+      value: i === index ? high(cc) : low(cc),
+    }))
+    createGradientStr(newGradStr)
+  }
 
   const handleDown = (e: any) => {
     e.stopPropagation()
@@ -31,12 +42,12 @@ export const Handle = ({
   }
 
   const handleFocus = () => {
-    setInFocus('gpoint')
+    // setInFocus('gpoint')
     setSelectedColor(i)
   }
 
   const handleBlur = () => {
-    setInFocus(null)
+    // setInFocus(null)
   }
 
   return (
@@ -46,10 +57,13 @@ export const Handle = ({
       onFocus={handleFocus}
       id={`gradient-handle-${i}`}
       onMouseDown={(e) => handleDown(e)}
+      className={classes.rbgcpGradientHandleWrap}
       style={{ left: (left || 0) * leftMultiplyer }}
-      className="rbgcp-gradient-handle-wrap"
     >
-      <div style={handleStyle(isSelected)} className="rbgcp-gradient-handle">
+      <div
+        style={handleStyle(isSelected)}
+        className={classes.rbgcpGradientHandle}
+      >
         {isSelected && (
           <div
             style={{
@@ -68,24 +82,32 @@ export const Handle = ({
 const GradientBar = () => {
   const {
     currentColor,
-    addPoint,
+    createGradientStr,
     colors,
     value,
     handleGradient,
-    squareSize,
+    squareWidth,
     deletePoint,
     isGradient,
     selectedColor,
-    inFocus,
-    setInFocus,
   } = usePicker()
   const [dragging, setDragging] = useState(false)
+  const [inFocus, setInFocus] = useState<string | null>(null)
 
   function force90degLinear(color: string) {
     return color.replace(
       /(radial|linear)-gradient\([^,]+,/,
       'linear-gradient(90deg,'
     )
+  }
+
+  const addPoint = (e: any) => {
+    const left = getHandleValue(e)
+    const newColors = [
+      ...colors.map((c: any) => ({ ...c, value: low(c) })),
+      { value: currentColor, left: left },
+    ]?.sort((a, b) => a.left - b.left)
+    createGradientStr(newColors)
   }
 
   useEffect(() => {
@@ -150,7 +172,7 @@ const GradientBar = () => {
     >
       <div
         style={{
-          width: squareSize,
+          width: squareWidth,
           height: 14,
           backgroundImage: force90degLinear(value),
           borderRadius: 10,

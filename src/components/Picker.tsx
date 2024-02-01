@@ -10,25 +10,6 @@ import { usePicker } from '../context.js'
 import GradientBar from './GradientBar.js'
 import { LocalesProps } from '../shared/types.js'
 
-type PickerProps = {
-  hideControls?: boolean
-  hideInputs?: boolean
-  hidePresets?: boolean
-  hideOpacity?: boolean
-  hideHue?: boolean
-  presets?: string[]
-  hideEyeDrop?: boolean
-  hideAdvancedSliders?: boolean
-  hideColorGuide?: boolean
-  hideInputType?: boolean
-  hideColorTypeBtns?: boolean
-  hideGradientType?: boolean
-  hideGradientAngle?: boolean
-  hideGradientStop?: boolean
-  hideGradientControls?: boolean
-  locales?: LocalesProps
-}
-
 const Picker = ({
   locales,
   presets,
@@ -76,3 +57,22 @@ const Picker = ({
 }
 
 export default Picker
+
+type PickerProps = {
+  hideControls?: boolean
+  hideInputs?: boolean
+  hidePresets?: boolean
+  hideOpacity?: boolean
+  hideHue?: boolean
+  presets?: string[]
+  hideEyeDrop?: boolean
+  hideAdvancedSliders?: boolean
+  hideColorGuide?: boolean
+  hideInputType?: boolean
+  hideColorTypeBtns?: boolean
+  hideGradientType?: boolean
+  hideGradientAngle?: boolean
+  hideGradientStop?: boolean
+  hideGradientControls?: boolean
+  locales?: LocalesProps
+}

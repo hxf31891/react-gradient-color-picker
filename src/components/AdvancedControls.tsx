@@ -21,11 +21,10 @@ const AdvBar = ({
   openAdvanced: boolean
   label: string
 }) => {
-  const { squareSize } = usePicker()
+  const { squareWidth, classes } = usePicker()
   const [dragging, setDragging] = useState<boolean>(false)
   const [handleTop, setHandleTop] = useState<number>(2)
-  // const sliderId = `${label?.toLowerCase()}Handle`
-  const left = value * (squareSize - 18)
+  const left = value * (squareWidth - 18)
 
   useEffect(() => {
     setHandleTop(reffy?.current?.offsetTop - 2)
@@ -65,11 +64,14 @@ const AdvBar = ({
 
   return (
     <div style={{ width: '100%', padding: '3px 0px 3px 0px' }}>
-      <div className="c-resize ps-rl" onMouseMove={(e) => handleMove(e)}>
+      <div
+        onMouseMove={(e) => handleMove(e)}
+        className={`${classes.cResize} ${classes.psRl}`}
+      >
         <div
           style={{ left, top: handleTop }}
+          className={classes.rbgcpHandle}
           onMouseDown={handleDown}
-          className="rbgcp-handle"
           role="button"
           tabIndex={0}
         />
@@ -94,10 +96,10 @@ const AdvBar = ({
         </div>
         <canvas
           ref={reffy}
-          width={`${squareSize}px`}
           height="14px"
-          style={{ position: 'relative', borderRadius: 14 }}
+          width={`${squareWidth}px`}
           onClick={(e) => handleClick(e)}
+          style={{ position: 'relative', borderRadius: 14 }}
         />
       </div>
     </div>
@@ -105,29 +107,33 @@ const AdvBar = ({
 }
 
 const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
-  const { tinyColor, hue, l, handleChange, s, opacity, squareSize } =
-    usePicker()
-  const { v, s: vs } = tinyColor.toHsv()
+  const { tinyColor, handleChange, squareWidth, hc } = usePicker()
+  const { s, l } = tinyColor.toHsl()
+
   const satRef = useRef(null)
   const lightRef = useRef(null)
   const brightRef = useRef(null)
-  usePaintSat(satRef, hue, l * 100, squareSize)
-  usePaintLight(lightRef, hue, s * 100, squareSize)
-  usePaintBright(brightRef, hue, s * 100, squareSize)
+  usePaintSat(satRef, hc?.h, l * 100, squareWidth)
+  usePaintLight(lightRef, hc?.h, s * 100, squareWidth)
+  usePaintBright(brightRef, hc?.h, s * 100, squareWidth)
 
   const satDesat = (value: number) => {
-    const { r, g, b } = tinycolor({ h: hue, s: value / 100, l }).toRgb()
-    handleChange(`rgba(${r},${g},${b},${opacity})`)
+    const { r, g, b } = tinycolor({ h: hc?.h, s: value / 100, l }).toRgb()
+    handleChange(`rgba(${r},${g},${b},${hc?.a})`)
   }
 
   const setLight = (value: number) => {
-    const { r, g, b } = tinycolor({ h: hue, s, l: value / 100 }).toRgb()
-    handleChange(`rgba(${r},${g},${b},${opacity})`)
+    const { r, g, b } = tinycolor({ h: hc?.h, s, l: value / 100 }).toRgb()
+    handleChange(`rgba(${r},${g},${b},${hc?.a})`)
   }
 
   const setBright = (value: number) => {
-    const { r, g, b } = tinycolor({ h: hue, s: vs * 100, v: value }).toRgb()
-    handleChange(`rgba(${r},${g},${b},${opacity})`)
+    const { r, g, b } = tinycolor({
+      h: hc?.h,
+      s: hc?.s * 100,
+      v: value,
+    }).toRgb()
+    handleChange(`rgba(${r},${g},${b},${hc?.a})`)
   }
 
   return (
@@ -164,7 +170,7 @@ const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
           openAdvanced={openAdvanced}
         />
         <AdvBar
-          value={v}
+          value={hc?.v}
           reffy={brightRef}
           label="Brightness"
           callback={setBright}
