@@ -1,6 +1,6 @@
 {
   "name": "react-best-gradient-color-picker",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "An easy to use color/gradient picker for React.js",
   "type": "module",
   "sideEffects": [
@@ -24,7 +24,7 @@
     "build-js-cjs": "tsc --project tsconfig.build.json --outDir dist/cjs --module commonjs --moduleResolution node --verbatimModuleSyntax false",
     "build-js-cjs-package": "echo '{\n  \"type\": \"commonjs\"\n}' > dist/cjs/package.json",
     "clean": "rimraf dist",
-    "copy-styles": "cpy 'src/**/*.css' dist",
+    "copy-styles": "cpy 'src/**/*.css' dist/esm && cpy 'src/**/*.css' dist/cjs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepack": "yarn clean && yarn build",
     "prettier": "prettier --check . --cache",
@@ -57,8 +57,6 @@
   "dependencies": {
     "html2canvas": "^1.4.1",
     "lodash.throttle": "^4.1.1",
-    "prop-types": "^15.6.0",
-    "react-jss": "^10.10.0",
     "tinycolor2": "1.4.2"
   },
   "devDependencies": {
