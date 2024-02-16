@@ -5,8 +5,8 @@ import { LocalesProps } from '../shared/types.js'
 import { defaultLocales } from '../constants.js'
 import { objectToString } from '../utils/utils.js'
 // import { useStyles, DarkProps } from '../styles.js'
-import { coreCss, darkCss } from '../styles.js'
-import { createUseStyles } from 'react-jss'
+import coreCss from '../core.module.css'
+import darkCss from '../dark.module.css'
 
 type ColorPickerProps = {
   value?: string
@@ -62,14 +62,12 @@ export function ColorPicker({
   const safeValue = objectToString(value)
   const contRef = useRef<HTMLDivElement>(null)
   const styles = disableDarkMode ? coreCss : { ...coreCss, ...darkCss }
-  const useStyles = createUseStyles(styles)
-  const classes = useStyles()
 
   return (
     <div ref={contRef} style={{ ...style, width: width }} className={className}>
       <PickerContextWrapper
         value={safeValue}
-        classes={classes}
+        classes={styles}
         onChange={onChange}
         squareWidth={width}
         squareHeight={height}

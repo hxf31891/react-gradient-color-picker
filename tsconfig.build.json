@@ -5,6 +5,6 @@
     "outDir": "dist",
     "rootDir": "src"
   },
-  "include": ["src"],
+  "include": ["src","styles.d.ts"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.spec.tsx"]
 }
