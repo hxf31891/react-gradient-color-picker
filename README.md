@@ -134,6 +134,7 @@ function MyApp() {
 
 | Name             | Arguments        | Description                                                      |
 | ---------------- | ---------------- | ---------------------------------------------------------------- |
+| handleChange     | value (rgba string)| Most useful for setting color value of the selectedPoint without overwriting entire gradient string. Only pass this function a single color value, not a gradient |
 | setLinear        |                  | Change the type of gradient to linear                            |
 | setRadial        |                  | Change the type of gradient to radial                            |
 | setDegrees       | degrees (num, 0 - 360)| Change the degrees of a linear gradient                     |
