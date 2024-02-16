@@ -27,13 +27,6 @@ npm install react-best-gradient-color-picker
 yarn add react-best-gradient-color-picker
 ```
 
-### For vite configurations, in vite.config.ts
-```
-build: {
-  commonJsOptions: { transformMixedEsModules: true }
-}
-```
-
 <a id="item-two"></a>
 ## Demo
 See the picker in action [here](https://gradient-package-demo.web.app/)
