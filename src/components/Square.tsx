@@ -44,7 +44,6 @@ const Square = () => {
 
   const stopDragging = () => {
     setDragging(false)
-    document.body.style.overflow = 'auto'
   }
 
   const handleMove = (e: any) => {
