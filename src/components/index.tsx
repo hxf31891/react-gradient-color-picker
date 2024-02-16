@@ -60,7 +60,7 @@ export function ColorPicker({
   const contRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div ref={contRef} style={{ ...style, width: width }} className={className}>
+    <div ref={contRef} className={className} style={{ ...style, width: width }}>
       <PickerContextWrapper
         value={safeValue}
         classes={coreCss}

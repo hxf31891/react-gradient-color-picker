@@ -196,7 +196,7 @@ const InputTypeDropdown = ({
       </div>
       <div
         onClick={(e) => handleInputType(e, 'cmyk')}
-        className={modalBtnStyles(inputType === 'cmky', classes)}
+        className={modalBtnStyles(inputType === 'cmyk', classes)}
       >
         CMYK
       </div>

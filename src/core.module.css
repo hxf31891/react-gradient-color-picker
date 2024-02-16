@@ -45,6 +45,7 @@
   background: rgba(255, 255, 255, 0);
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0);
   color: rgb(86, 86, 86);
+  box-sizing: border-box;
 }
 
 .rbgcpControlIcon {
@@ -59,6 +60,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  box-sizing: border-box;
 }
 
 .rbgcpControlBtnWrapper {
@@ -70,6 +72,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  box-sizing: border-box;
 }
 
 .rbgcpColorModelDropdown {
@@ -105,6 +108,7 @@
   color: rgb(50, 49, 54);
   font-size: 13px;
   background: transparent;
+  box-sizing: border-box;
 }
 
 .rbgcpInputLabel {
@@ -125,6 +129,7 @@
   color: black;
   font-weight: 400;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .rbgcpHandle {
@@ -136,6 +141,7 @@
   height: 18px;
   z-index: 1000;
   transition: all 10ms linear;
+  box-sizing: border-box;
 }
 
 .rbgcpCanvasWrapper {
@@ -204,6 +210,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .rbgcpControlIcon2 {

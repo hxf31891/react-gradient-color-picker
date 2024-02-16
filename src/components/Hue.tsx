@@ -75,6 +75,7 @@ const Hue = () => {
           left: hc?.h * ((squareWidth - 18) / 360),
           top: -2,
           cursor: 'ew-resize',
+          boxSizing: 'border-box',
         }}
         onMouseDown={handleDown}
       />
