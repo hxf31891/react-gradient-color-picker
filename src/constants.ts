@@ -1,4 +1,6 @@
-export const config = {
+import { Config } from './shared/types.js'
+
+export const config: Config = {
   barSize: 18,
   crossSize: 18,
   inputSize: 40,

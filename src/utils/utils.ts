@@ -1,8 +1,5 @@
 import { formatInputValues } from './formatters.js'
 import { ColorsProps } from '../shared/types.js'
-import { config } from '../constants.js'
-
-const { barSize, crossSize } = config
 
 export const safeBounds = (e: any) => {
   const client = e.target.parentNode.getBoundingClientRect()
@@ -16,7 +13,7 @@ export const safeBounds = (e: any) => {
   }
 }
 
-export function getHandleValue(e: any) {
+export function getHandleValue(e: any, barSize: number) {
   const { offsetLeft, clientWidth } = safeBounds(e)
   const pos = e.clientX - offsetLeft - barSize / 2
   const adjuster = clientWidth - 18
@@ -28,7 +25,8 @@ export function computeSquareXY(
   s: number,
   v: number,
   squareWidth: number,
-  squareHeight: number
+  squareHeight: number,
+  crossSize: number
 ) {
   const x = s * squareWidth - crossSize / 2
   const y = ((100 - v) / 100) * squareHeight - crossSize / 2
@@ -44,7 +42,7 @@ const getClientXY = (e: any) => {
   }
 }
 
-export function computePickerPosition(e: any) {
+export function computePickerPosition(e: any, crossSize: number) {
   const { offsetLeft, offsetTop, clientWidth, clientHeight } = safeBounds(e)
   const { clientX, clientY } = getClientXY(e)
 
@@ -123,7 +121,7 @@ export const objectToString = (value: any) => {
   }
 }
 
-export const getColorObj = (colors: ColorsProps[]) => {
+export const getColorObj = (colors: ColorsProps[], defaultGradient: string) => {
   const idxCols = colors?.map((c: ColorsProps, i: number) => ({
     ...c,
     index: i,
@@ -133,7 +131,7 @@ export const getColorObj = (colors: ColorsProps[]) => {
   const ccObj = upperObj || idxCols[0]
 
   return {
-    currentColor: ccObj?.value || config?.defaultGradient,
+    currentColor: ccObj?.value || defaultGradient,
     selectedColor: ccObj?.index || 0,
     currentLeft: ccObj?.left || 0,
   }

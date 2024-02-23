@@ -308,6 +308,35 @@ function MyApp() {
 }
 ```
 
+### Custom Default Config Example
+You can pass custom config overrides via `config` prop.
+
+Note that if you use the `useColorPicker` hook, you need to pass the config object to both the hook and the `ColorPicker` component.
+
+```js
+import React from 'react'
+import ColorPicker, { useColorPicker } from 'react-best-gradient-color-picker'
+
+function MyApp() {
+  const customConfig = {
+    barSize: 20, // default is 18
+    crossSize: 20, // default is 18
+    inputSize: 35, // default is 40
+    delay: 100, // default is 150
+    defaultColor: 'rgba(175, 51, 242, 1)',
+    defaultGradient: 'linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)',
+  }
+
+  const { color, setColor } = useColorPicker(color, setColor, customConfig);
+
+  return (
+    <div>
+      <ColorPicker config={customConfig} />
+    </div>
+  )
+}
+```
+
 ### Getting Value in Object Form
 The picker returns the new value as a css gradient string but you may need it parsed as an object. This can easily be accomplised by using the getGradientObject function returned by the useColorPicker hook like so:
 

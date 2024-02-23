@@ -21,7 +21,7 @@ const AdvBar = ({
   openAdvanced: boolean
   label: string
 }) => {
-  const { squareWidth, classes } = usePicker()
+  const { squareWidth, classes, config } = usePicker()
   const [dragging, setDragging] = useState<boolean>(false)
   const [handleTop, setHandleTop] = useState<number>(2)
   const left = value * (squareWidth - 18)
@@ -36,13 +36,13 @@ const AdvBar = ({
 
   const handleMove = (e: any) => {
     if (dragging) {
-      callback(getHandleValue(e))
+      callback(getHandleValue(e, config.barSize))
     }
   }
 
   const handleClick = (e: any) => {
     if (!dragging) {
-      callback(getHandleValue(e))
+      callback(getHandleValue(e, config.barSize))
     }
   }
 

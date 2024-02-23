@@ -2,13 +2,10 @@ import React, { useState } from 'react'
 import { SlidersIcon, InputsIcon, PaletteIcon } from './icon.js'
 import { usePicker } from '../context.js'
 import EyeDropper from './EyeDropper.js'
-import { config } from '../constants.js'
 import AdvancedControls from './AdvancedControls.js'
 import ComparibleColors from './ComparibleColors.js'
 import GradientControls from './GradientControls.js'
 import { LocalesProps } from '../shared/types.js'
-
-var { defaultColor, defaultGradient } = config
 
 const Controls = ({
   locales,
@@ -33,7 +30,8 @@ const Controls = ({
   hideGradientAngle?: boolean
   hideGradientStop?: boolean
 }) => {
-  const { onChange, isGradient, handleChange, classes, previous } = usePicker()
+  const { onChange, isGradient, handleChange, classes, previous, config } = usePicker()
+  const { defaultColor, defaultGradient } = config
   const [openComparibles, setOpenComparibles] = useState(false)
   const [openInputType, setOpenInputType] = useState(false)
   const [openAdvanced, setOpenAdvanced] = useState(false)

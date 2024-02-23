@@ -4,17 +4,19 @@ import { low, high, getColors, formatInputValues } from '../utils/formatters.js'
 import { rgb2cmyk } from '../utils/converters.js'
 import { config } from '../constants.js'
 import tc from 'tinycolor2'
-import { ColorsProps, GradientProps } from '../shared/types.js'
+import { ColorsProps, Config, GradientProps } from '../shared/types.js'
 
-const { defaultColor, defaultGradient } = config
+const defaultConfig = config;
 
 export const useColorPicker = (
   value: string,
-  onChange: (arg0: string) => void
+  onChange: (arg0: string) => void,
+  config: Config = defaultConfig,
 ) => {
-  const colors = getColors(value)
+  const { defaultColor, defaultGradient } = config
+  const colors = getColors(value, defaultColor, defaultGradient)
   const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
-  const { currentColor, selectedColor, currentLeft } = getColorObj(colors)
+  const { currentColor, selectedColor, currentLeft } = getColorObj(colors, defaultGradient)
   const [previousColors, setPreviousColors] = useState([])
 
   const getGradientObject = () => {
