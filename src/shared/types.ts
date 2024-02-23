@@ -30,3 +30,12 @@ export type ThemeMode = {
   highlights?: string
   accent?: string
 }
+
+export type Config = {
+  barSize: number
+  crossSize: number
+  inputSize: number
+  delay: number
+  defaultColor: string
+  defaultGradient: string
+}

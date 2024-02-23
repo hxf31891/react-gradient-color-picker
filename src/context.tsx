@@ -7,12 +7,13 @@ import React, {
 } from 'react'
 import { isUpperCase, getColorObj, getDetails } from './utils/utils.js'
 import { low, high, getColors } from './utils/formatters.js'
-import { GradientProps } from './shared/types.js'
+import { Config, GradientProps } from './shared/types.js'
 import tinycolor from 'tinycolor2'
 
 const PickerContext = createContext<PickerContextProps | null>(null)
 
 export default function PickerContextWrapper({
+  config,
   value,
   classes,
   children,
@@ -21,9 +22,9 @@ export default function PickerContextWrapper({
   hideOpacity,
   squareHeight,
 }: PCWProps) {
-  const colors = getColors(value)
+  const colors = getColors(value, config.defaultColor, config.defaultGradient)
   const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
-  const { currentColor, selectedColor, currentLeft } = getColorObj(colors)
+  const { currentColor, selectedColor, currentLeft } = getColorObj(colors, config.defaultGradient)
   const [inputType, setInputType] = useState('rgb')
   const [previous, setPrevious] = useState({})
   const tinyColor = tinycolor(currentColor)
@@ -83,6 +84,7 @@ export default function PickerContextWrapper({
   }
 
   const pickerContext = {
+    config,
     hc,
     setHc,
     value,
@@ -126,6 +128,7 @@ export function usePicker() {
 }
 
 type PCWProps = {
+  config: Config
   classes: any
   value: string
   squareWidth: number
@@ -136,6 +139,7 @@ type PCWProps = {
 }
 
 export type PickerContextProps = {
+  config: Config
   hc: any
   classes: any
   value: string

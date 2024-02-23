@@ -3,7 +3,7 @@ import { usePicker } from '../context.js'
 import { getHandleValue } from '../utils/utils.js'
 
 const Opacity = () => {
-  const { handleChange, hc = {}, squareWidth, classes } = usePicker()
+  const { handleChange, hc = {}, squareWidth, classes, config } = usePicker()
   const [dragging, setDragging] = useState(false)
   const { r, g, b } = hc
   const bg = `linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(${r},${g},${b},.5) 100%)`
@@ -17,7 +17,7 @@ const Opacity = () => {
   }
 
   const handleOpacity = (e: any) => {
-    const newO = getHandleValue(e) / 100
+    const newO = getHandleValue(e, config.barSize) / 100
     const newColor = `rgba(${r}, ${g}, ${b}, ${newO})`
     handleChange(newColor)
   }

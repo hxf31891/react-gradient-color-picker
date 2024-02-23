@@ -1,10 +1,12 @@
 import React, { useRef } from 'react'
 import PickerContextWrapper from '../context.js'
 import Picker from './Picker.js'
-import { LocalesProps } from '../shared/types.js'
-import { defaultLocales } from '../constants.js'
+import { Config, LocalesProps } from '../shared/types.js'
+import { config, defaultLocales } from '../constants.js'
 import { objectToString } from '../utils/utils.js'
 import coreCss from '../core.module.css'
+
+const defaultConfig = config;
 
 type ColorPickerProps = {
   value?: string
@@ -30,6 +32,7 @@ type ColorPickerProps = {
   className?: any
   locales?: LocalesProps
   disableDarkMode?: boolean
+  config?: Config
 }
 
 export function ColorPicker({
@@ -55,6 +58,7 @@ export function ColorPicker({
   height = 294,
   style = {},
   className,
+  config = defaultConfig,
 }: ColorPickerProps) {
   const safeValue = objectToString(value)
   const contRef = useRef<HTMLDivElement>(null)
@@ -62,6 +66,7 @@ export function ColorPicker({
   return (
     <div ref={contRef} className={className} style={{ ...style, width: width }}>
       <PickerContextWrapper
+        config={config}
         value={safeValue}
         classes={coreCss}
         onChange={onChange}

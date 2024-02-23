@@ -90,6 +90,7 @@ const GradientBar = () => {
     deletePoint,
     isGradient,
     selectedColor,
+    config,
   } = usePicker()
   const [dragging, setDragging] = useState(false)
   const [inFocus, setInFocus] = useState<string | null>(null)
@@ -102,7 +103,7 @@ const GradientBar = () => {
   }
 
   const addPoint = (e: any) => {
-    const left = getHandleValue(e)
+    const left = getHandleValue(e, config.barSize)
     const newColors = [
       ...colors.map((c: any) => ({ ...c, value: low(c) })),
       { value: currentColor, left: left },
@@ -132,7 +133,7 @@ const GradientBar = () => {
 
   const handleMove = (e: any) => {
     if (dragging) {
-      handleGradient(currentColor, getHandleValue(e))
+      handleGradient(currentColor, getHandleValue(e, config.barSize))
     }
   }
 

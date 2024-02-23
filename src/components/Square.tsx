@@ -4,15 +4,13 @@ import throttle from 'lodash.throttle'
 import { usePicker } from '../context.js'
 import tinycolor from 'tinycolor2'
 import { computePickerPosition, computeSquareXY } from '../utils/utils.js'
-import { config } from '../constants.js'
-
-const { crossSize } = config
 
 const Square = () => {
-  const { hc, classes, squareWidth, squareHeight, handleChange } = usePicker()
+  const { hc, classes, squareWidth, squareHeight, handleChange, config } = usePicker()
+  const { crossSize } = config
   const [dragging, setDragging] = useState(false)
   const canvas = useRef<HTMLCanvasElement>(null)
-  const [x, y] = computeSquareXY(hc?.s, hc?.v * 100, squareWidth, squareHeight)
+  const [x, y] = computeSquareXY(hc?.s, hc?.v * 100, squareWidth, squareHeight, crossSize)
   const [dragPos, setDragPos] = useState({ x, y })
 
   usePaintSquare(canvas, hc?.h, squareWidth, squareHeight)
@@ -25,7 +23,7 @@ const Square = () => {
 
   const handleColor = (e: any) => {
     const onMouseMove = throttle(() => {
-      const [x, y] = computePickerPosition(e)
+      const [x, y] = computePickerPosition(e, crossSize)
       if (x && y) {
         const x1 = Math.min(x + crossSize / 2, squareWidth - 1)
         const y1 = Math.min(y + crossSize / 2, squareHeight - 1)

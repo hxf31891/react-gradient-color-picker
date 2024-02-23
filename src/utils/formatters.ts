@@ -1,8 +1,5 @@
-import { config } from '../constants.js'
 import { ColorsProps } from '../shared/types.js'
 import { gradientParser } from './gradientParser.js'
-
-const { defaultColor, defaultGradient } = config
 
 export const low = (color: ColorsProps) => {
   return color.value.toLowerCase()
@@ -12,7 +9,7 @@ export const high = (color: ColorsProps) => {
   return color.value.toUpperCase()
 }
 
-export const getColors = (value: string) => {
+export const getColors = (value: string, defaultColor: string, defaultGradient: string) => {
   const isGradient = value?.includes('gradient')
   if (isGradient) {
     const isConic = value?.includes('conic')
