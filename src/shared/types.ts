@@ -1,3 +1,29 @@
+export type ColorPickerProps = {
+  value?: string
+  onChange: (value: string) => void
+  hideControls?: boolean
+  hideInputs?: boolean
+  hideOpacity?: boolean
+  hidePresets?: boolean
+  hideHue?: boolean
+  presets?: string[]
+  hideEyeDrop?: boolean
+  hideAdvancedSliders?: boolean
+  hideColorGuide?: boolean
+  hideInputType?: boolean
+  hideColorTypeBtns?: boolean
+  hideGradientType?: boolean
+  hideGradientAngle?: boolean
+  hideGradientStop?: boolean
+  hideGradientControls?: boolean
+  width?: number
+  height?: number
+  style?: {}
+  className?: any
+  locales?: LocalesProps
+  disableDarkMode?: boolean
+}
+
 export type ColorsProps = {
   value: string
   index?: number
