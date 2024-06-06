@@ -100,8 +100,7 @@ const Square = () => {
         <div
           className={classes.rbgcpHandle}
           style={{
-            left: dragPos?.x,
-            top: dragPos?.y,
+             transform: `translate(${dragPos?.x || 0}px, ${dragPos?.y || 0}px)`,
           }}
           onMouseDown={handleMouseDown}
           role="button"
