@@ -5,6 +5,7 @@ export type {
   ColorsProps,
   LocalesProps,
   GradientProps,
+  ColorPickerProps
 } from './shared/types.js'
 
 export default ColorPicker
