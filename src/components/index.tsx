@@ -1,36 +1,10 @@
 import React, { useRef } from 'react'
 import PickerContextWrapper from '../context.js'
 import Picker from './Picker.js'
-import { LocalesProps } from '../shared/types.js'
+import { ColorPickerProps } from '../shared/types.js'
 import { defaultLocales } from '../constants.js'
 import { objectToString } from '../utils/utils.js'
 import coreCss from '../core.module.css'
-
-type ColorPickerProps = {
-  value?: string
-  onChange: (value: string) => void
-  hideControls?: boolean
-  hideInputs?: boolean
-  hideOpacity?: boolean
-  hidePresets?: boolean
-  hideHue?: boolean
-  presets?: string[]
-  hideEyeDrop?: boolean
-  hideAdvancedSliders?: boolean
-  hideColorGuide?: boolean
-  hideInputType?: boolean
-  hideColorTypeBtns?: boolean
-  hideGradientType?: boolean
-  hideGradientAngle?: boolean
-  hideGradientStop?: boolean
-  hideGradientControls?: boolean
-  width?: number
-  height?: number
-  style?: {}
-  className?: any
-  locales?: LocalesProps
-  disableDarkMode?: boolean
-}
 
 export function ColorPicker({
   value = 'rgba(175, 51, 242, 1)',
