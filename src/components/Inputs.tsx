@@ -16,7 +16,7 @@ const Input = ({
   callback: (arg0: number) => void
 }) => {
   const [temp, setTemp] = useState(value)
-  const { hideOpacity, classes } = usePicker()
+  const { hideOpacity, defaultStyles } = usePicker()
   const width = hideOpacity ? '22%' : '18%'
 
   useEffect(() => {
@@ -35,15 +35,15 @@ const Input = ({
         value={temp}
         id="rbgcp-input"
         onChange={(e) => onChange(e)}
-        className={classes.rbgcpInput}
+        style={{ ...defaultStyles.rbgcpInput }}
       />
-      <div className={classes.rbgcpInputLabel}>{label}</div>
+      <div style={{ ...defaultStyles.rbgcpInputLabel }}>{label}</div>
     </div>
   )
 }
 
 const HexInput = ({ opacity }: { opacity: number }) => {
-  const { handleChange, tinyColor, classes } = usePicker()
+  const { handleChange, tinyColor, defaultStyles } = usePicker()
   const [disable, setDisable] = useState('')
   const hex = tinyColor.toHex()
   const [newHex, setNewHex] = useState(hex)
@@ -80,9 +80,9 @@ const HexInput = ({ opacity }: { opacity: number }) => {
         onFocus={hexFocus}
         id="rbgcp-hex-input"
         onChange={(e) => handleHex(e)}
-        className={`${classes.rbgcpInput} ${classes.rbgcpHexInput}`}
+        style={{ ...defaultStyles.rbgcpInput, ...defaultStyles.rbgcpHexInput }}
       />
-      <div className={classes.rbgcpInputLabel}>HEX</div>
+      <div style={{ ...defaultStyles.rbgcpInputLabel }}>HEX</div>
     </div>
   )
 }
@@ -227,7 +227,7 @@ const CMKYInputs = () => {
 }
 
 const Inputs = () => {
-  const { handleChange, inputType, hideOpacity, hc, classes } = usePicker()
+  const { handleChange, inputType, hideOpacity, hc, defaultStyles } = usePicker()
 
   return (
     <div
@@ -235,9 +235,9 @@ const Inputs = () => {
         paddingTop: 14,
         display: 'flex',
         justifyContent: 'space-between',
+        ...defaultStyles.rbgcpInputsWrap,
       }}
       id="rbgcp-inputs-wrap"
-      className={classes.rbgcpInputsWrap}
     >
       {inputType !== 'cmyk' && <HexInput opacity={hc?.a} />}
       {inputType === 'hsl' && <HSLInputs />}

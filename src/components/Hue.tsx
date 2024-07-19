@@ -62,6 +62,7 @@ const Hue = () => {
       onMouseMove={(e) => handleMove(e)}
     >
       <div
+        tabIndex={0}
         role="button"
         style={{
           border: '2px solid white',

@@ -18,7 +18,7 @@ export type ColorPickerProps = {
   hideGradientControls?: boolean
   width?: number
   height?: number
-  style?: {}
+  style?: Styles
   className?: any
   locales?: LocalesProps
   disableDarkMode?: boolean
@@ -56,3 +56,5 @@ export type ThemeMode = {
   highlights?: string
   accent?: string
 }
+
+export type Styles = Record<string, Record<string, string | number>>

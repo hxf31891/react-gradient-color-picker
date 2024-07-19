@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect } from 'react'
 import { usePicker } from '../context.js'
 import { getHandleValue } from '../utils/utils.js'
 
 const Opacity = () => {
-  const { handleChange, hc = {}, squareWidth, classes } = usePicker()
+  const { handleChange, hc = {}, squareWidth, defaultStyles } = usePicker()
   const [dragging, setDragging] = useState(false)
   const { r, g, b } = hc
   const bg = `linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(${r},${g},${b},.5) 100%)`
@@ -61,17 +62,15 @@ const Opacity = () => {
       }}
     >
       <div
-        style={{ width: '100%', height: 14 }}
-        className={classes.rbgcpCheckered}
+        style={{ ...defaultStyles.rbgcpCheckered, width: '100%', height: 14 }}
       />
       <div
-        style={{ left: left * hc?.a, top: -2 }}
-        className={classes.rbgcpHandle}
+        style={{ ...defaultStyles.rbgcpHandle, left: left * hc?.a, top: -2 }}
       />
       <div
-        style={{ background: bg }}
+        style={{ ...defaultStyles.rbgcpOpacityOverlay, background: bg }}
         onClick={(e) => handleClick(e)}
-        className={classes.rbgcpOpacityOverlay}
+        
       />
     </div>
   )

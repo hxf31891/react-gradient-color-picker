@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import { usePicker } from '../context.js'
 import { fakePresets } from '../constants.js'

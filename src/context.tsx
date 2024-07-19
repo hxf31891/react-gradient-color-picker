@@ -7,19 +7,19 @@ import React, {
 } from 'react'
 import { isUpperCase, getColorObj, getDetails } from './utils/utils.js'
 import { low, high, getColors } from './utils/formatters.js'
-import { GradientProps } from './shared/types.js'
+import { GradientProps, Styles } from './shared/types.js'
 import tinycolor from 'tinycolor2'
 
 const PickerContext = createContext<PickerContextProps | null>(null)
 
 export default function PickerContextWrapper({
   value,
-  classes,
   children,
   onChange,
   squareWidth,
   hideOpacity,
   squareHeight,
+  defaultStyles,
 }: PCWProps) {
   const colors = getColors(value)
   const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
@@ -37,6 +37,7 @@ export default function PickerContextWrapper({
     } else {
       setHc({ ...rgba, ...hsv })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentColor])
 
   const createGradientStr = (newColors: GradientProps[]) => {
@@ -50,11 +51,9 @@ export default function PickerContextWrapper({
   }
 
   const handleGradient = (newColor: string, left?: number) => {
-    const remaining = colors?.filter(
-      (c: GradientProps) => !isUpperCase(c.value)
-    )
+    const remaining = colors?.filter((c: GradientProps) => !isUpperCase(c.value))
     const newColors = [
-      { value: newColor.toUpperCase(), left: left || currentLeft },
+      { value: newColor.toUpperCase(), left: left ?? currentLeft },
       ...remaining,
     ]
     createGradientStr(newColors)
@@ -88,7 +87,6 @@ export default function PickerContextWrapper({
     value,
     colors,
     degrees,
-    classes,
     onChange,
     previous,
     inputType,
@@ -104,6 +102,7 @@ export default function PickerContextWrapper({
     handleChange,
     currentColor,
     selectedColor,
+    defaultStyles,
     handleGradient,
     createGradientStr,
   }
@@ -126,18 +125,17 @@ export function usePicker() {
 }
 
 type PCWProps = {
-  classes: any
   value: string
   squareWidth: number
   children: ReactNode
   squareHeight: number
   hideOpacity: boolean
   onChange: (arg0: string) => void
+  defaultStyles: Styles
 }
 
 export type PickerContextProps = {
   hc: any
-  classes: any
   value: string
   colors: GradientProps[]
   degrees: number
@@ -158,6 +156,7 @@ export type PickerContextProps = {
   setHc: (arg0: any) => void
   handleGradient: (arg0: string, arg1?: number) => void
   createGradientStr: (arg0: GradientProps[]) => void
+  defaultStyles: Styles
   previous: {
     color?: string
     gradient?: string

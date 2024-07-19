@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useRef, useState, useEffect } from 'react'
 import usePaintSquare from '../hooks/usePaintSquare.js'
 import throttle from 'lodash.throttle'
@@ -9,7 +10,7 @@ import { config } from '../constants.js'
 const { crossSize } = config
 
 const Square = () => {
-  const { hc, classes, squareWidth, squareHeight, handleChange } = usePicker()
+  const { hc, defaultStyles, squareWidth, squareHeight, handleChange } = usePicker()
   const [dragging, setDragging] = useState(false)
   const canvas = useRef<HTMLCanvasElement>(null)
   const [x, y] = computeSquareXY(hc?.s, hc?.v * 100, squareWidth, squareHeight)
@@ -95,20 +96,17 @@ const Square = () => {
         onTouchStart={handleCanvasDown}
         onMouseMove={(e) => handleMove(e)}
         style={{ position: 'relative', cursor: 'ew-cross' }}
-        // onTouchMove={(e) => handleTouchMove(e)}
       >
         <div
-          className={classes.rbgcpHandle}
           style={{
-             transform: `translate(${dragPos?.x || 0}px, ${dragPos?.y || 0}px)`,
+            ...defaultStyles.rbgcpHandle,
+            transform: `translate(${dragPos?.x || 0}px, ${dragPos?.y || 0}px)`,
+            ...(dragging ? { transition: "" } : {}),
           }}
           onMouseDown={handleMouseDown}
-          role="button"
-          tabIndex={0}
         />
         <div
-          className={classes.rbgcpCanvasWrapper}
-          style={{ height: squareHeight }}
+          style={{ ...defaultStyles.rbgcpCanvasWrapper, height: squareHeight }}
           onClick={(e) => handleClick(e)}
         >
           <canvas

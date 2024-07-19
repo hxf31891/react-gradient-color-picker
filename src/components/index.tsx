@@ -1,10 +1,11 @@
+'use client'
 import React, { useRef } from 'react'
 import PickerContextWrapper from '../context.js'
 import Picker from './Picker.js'
 import { ColorPickerProps } from '../shared/types.js'
 import { defaultLocales } from '../constants.js'
 import { objectToString } from '../utils/utils.js'
-import coreCss from '../core.module.css'
+import { getStyles } from '../styles/styles.js'
 
 export function ColorPicker({
   value = 'rgba(175, 51, 242, 1)',
@@ -29,19 +30,25 @@ export function ColorPicker({
   height = 294,
   style = {},
   className,
+  disableDarkMode = false,
 }: ColorPickerProps) {
   const safeValue = objectToString(value)
   const contRef = useRef<HTMLDivElement>(null)
+  const defaultStyles = getStyles(disableDarkMode)
 
   return (
-    <div ref={contRef} className={className} style={{ ...style, width: width }}>
+    <div
+      ref={contRef}
+      className={className}
+      style={{ ...defaultStyles.body, ...style, width: width }}
+    >
       <PickerContextWrapper
         value={safeValue}
-        classes={coreCss}
         onChange={onChange}
         squareWidth={width}
         squareHeight={height}
         hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
       >
         <Picker
           hideControls={hideControls}

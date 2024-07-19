@@ -1,6 +1,6 @@
 {
   "name": "react-best-gradient-color-picker",
-  "version": "3.0.8",
+  "version": "3.0.10",
   "description": "An easy to use color/gradient picker for React.js",
   "type": "module",
   "sideEffects": [
@@ -15,7 +15,7 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     },
-    "./dist/Picker.css": "./dist/Picker.css"
+    "./dist/Calendar.css": "./dist/Picker.css"
   },
   "scripts": {
     "build": "yarn build-js && yarn copy-styles",
@@ -24,19 +24,15 @@
     "build-js-cjs": "tsc --project tsconfig.build.json --outDir dist/cjs --module commonjs --moduleResolution node --verbatimModuleSyntax false",
     "build-js-cjs-package": "echo '{\n  \"type\": \"commonjs\"\n}' > dist/cjs/package.json",
     "clean": "rimraf dist",
-    "copy-styles": "cpy 'src/**/*.css' dist/esm && cpy 'src/**/*.css' dist/cjs",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "copy-styles": "cpy 'src/**/*.css' dist",
+    "format": "biome format",
+    "lint": "biome lint",
     "prepack": "yarn clean && yarn build",
-    "prettier": "prettier --check . --cache",
-    "test": "yarn lint && yarn tsc && yarn prettier && yarn unit",
+    "test": "yarn lint && yarn tsc && yarn format && yarn unit",
     "tsc": "tsc",
     "unit": "vitest",
-    "watch": "yarn build-js-esm --watch & yarn build-js-cjs --watch & nodemon --watch src --ext css --exec \"yarn copy-styles\""
+    "watch": "yarn build-js-esm --watch & yarn build-js-cjs --watch & node --eval \"fs.watch('src', () => child_process.exec('yarn copy-styles'))\""
   },
-  "files": [
-    "dist",
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hxf31891/react-gradient-color-picker.git"
@@ -68,8 +64,6 @@
     "@types/reactcss": "^1.2.11",
     "@types/tinycolor2": "^1.4.6",
     "cpy-cli": "^3.1.1",
-    "eslint": "8.22.0",
-    "eslint-config-wojtekmaj": "^0.9.0",
     "happy-dom": "^12.6.0",
     "nodemon": "^3.0.0",
     "prettier": "^3.0.0",
@@ -80,15 +74,19 @@
     "vitest": "^1.0.2"
   },
   "peerDependencies": {
-    "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
       "optional": true
     }
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hxf31891/react-gradient-color-picker/issues"
