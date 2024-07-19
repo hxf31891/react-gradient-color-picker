@@ -88,7 +88,9 @@ function MyApp() {
 | hideGradientStop    | `boolean`    | `false`                 | (optional) hide the gradient point stop input (only relevant in gradient mode)|
 | hideGradientControls| `boolean`    | `false`                 | (optional) hide the all gradient controls (the bar that appears below top controls when in gradient mode)|
 | presets             | `array`      | ['rgba(0,0,0,1)', ...]  | (optional) pass in custom preset options ['rgba()', 'rgba()', ..]         |
-| locales             | `object`      | { CONTROLS: { SOLID: 'Solid', GRADIENT: 'Gradient' }}  | (optional) pass in custom locales |
+| locales             | `object`     | { CONTROLS: { SOLID: 'Solid', GRADIENT: 'Gradient' }}  | (optional) pass in custom locales |
+| disbaleDarkMode     | `boolean`    | false                    | (optional) disbale automatic dark mode style adjustments                 |
+| className           | `string`     | ''                       | (optional) a CSS class for the picker parent (see styling for more options)|
 
 <a id="item-five"></a>
 ### API
