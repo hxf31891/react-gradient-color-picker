@@ -142,6 +142,7 @@
   z-index: 1000;
   transition: all 10ms linear;
   box-sizing: border-box;
+  will-change: transform;
 }
 
 .rbgcpCanvasWrapper {
