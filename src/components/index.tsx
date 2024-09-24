@@ -57,7 +57,7 @@ export function ColorPicker({
     <div
       ref={contRef}
       className={className}
-      style={{ ...mergedComponentStyles.body, width: width }}
+      style={{ ...mergedComponentStyles.Container, width: width }}
     >
       <PickerContextWrapper
         value={safeValue}

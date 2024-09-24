@@ -100,7 +100,7 @@ const Square = () => {
       >
         <div
           style={{
-            ...componentStyles.rbgcpHandle,
+            ...componentStyles.Handle,
             transform: `translate(${dragPos?.x || 0}px, ${dragPos?.y || 0}px)`,
             ...(dragging ? { transition: '' } : {}),
           }}
@@ -108,7 +108,7 @@ const Square = () => {
         />
         <div
           style={{
-            ...componentStyles.rbgcpCanvasWrapper,
+            ...componentStyles.CanvasWrapper,
             height: squareHeight,
           }}
           onClick={(e) => handleClick(e)}

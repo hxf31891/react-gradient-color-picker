@@ -57,13 +57,13 @@ export const Handle = ({
       id={`gradient-handle-${i}`}
       onMouseDown={(e) => handleDown(e)}
       style={{
-        ...componentStyles.rbgcpGradientHandleWrap,
+        ...componentStyles.GradientHandleWrap,
         left: (left || 0) * leftMultiplyer,
       }}
     >
       <div
         style={{
-          ...componentStyles.rbgcpGradientHandle,
+          ...componentStyles.GradientHandle,
           ...(isSelected
             ? {
                 boxShadow: '0px 0px 5px 1px rgba(86, 140, 245,.95)',

@@ -39,7 +39,7 @@ const ColorTypeBtns = ({
         style={{
           display: 'flex',
           alignItems: 'center',
-          ...componentStyles.rbgcpControlBtnWrapper,
+          ...componentStyles.ControlBtnWrapper,
         }}
       >
         <div
@@ -94,7 +94,7 @@ const InputTypeDropdown = ({
         zIndex: openInputType ? '' : -100,
         opacity: openInputType ? 1 : 0,
         transition: `${oTrans}, ${vTrans}, ${zTrans}`,
-        ...componentStyles.rbgcpColorModelDropdown,
+        ...componentStyles.ColorModelDropdown,
       }}
     >
       <div
@@ -207,7 +207,7 @@ const Controls = ({
             <div
               style={{
                 display: noTools ? 'none' : '',
-                ...componentStyles.rbgcpControlBtnWrapper,
+                ...componentStyles.ControlBtnWrapper,
               }}
             >
               {!hideEyeDrop && <EyeDropper onSelect={handleChange} />}

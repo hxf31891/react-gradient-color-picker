@@ -62,13 +62,11 @@ const Opacity = () => {
       }}
     >
       <div
-        style={{ ...componentStyles.rbgcpCheckered, width: '100%', height: 14 }}
+        style={{ ...componentStyles.Checkered, width: '100%', height: 14 }}
       />
+      <div style={{ ...componentStyles.Handle, left: left * hc?.a, top: -2 }} />
       <div
-        style={{ ...componentStyles.rbgcpHandle, left: left * hc?.a, top: -2 }}
-      />
-      <div
-        style={{ ...componentStyles.rbgcpOpacityOverlay, background: bg }}
+        style={{ ...componentStyles.OpacityOverlay, background: bg }}
         onClick={(e) => handleClick(e)}
       />
     </div>

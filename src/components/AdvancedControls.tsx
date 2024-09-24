@@ -69,7 +69,7 @@ const AdvBar = ({
         style={{ cursor: 'resize', position: 'relative' }}
       >
         <div
-          style={{ left, top: handleTop, ...componentStyles.rbgcpHandle }}
+          style={{ left, top: handleTop, ...componentStyles.Handle }}
           onMouseDown={handleDown}
           role="button"
           tabIndex={0}

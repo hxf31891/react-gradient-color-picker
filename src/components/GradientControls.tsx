@@ -25,13 +25,13 @@ const GradientType = () => {
   }
 
   return (
-    <div style={componentStyles.rbgcpControlBtnWrapper}>
+    <div style={componentStyles.ControlBtnWrapper}>
       <div
         onClick={handleLinear}
         id="rbgcp-linear-btn"
         style={{
-          ...componentStyles.rbgcpControlBtn,
-          ...(isLinear && componentStyles.rbgcpControlBtnSelected),
+          ...componentStyles.ControlBtn,
+          ...(isLinear && componentStyles.ControlBtnSelected),
         }}
         tabIndex={0}
         role="button"
@@ -45,8 +45,8 @@ const GradientType = () => {
         onClick={handleRadial}
         id="rbgcp-radial-btn"
         style={{
-          ...componentStyles.rbgcpControlBtn,
-          ...(isRadial && componentStyles.rbgcpControlBtnSelected),
+          ...componentStyles.ControlBtn,
+          ...(isRadial && componentStyles.ControlBtnSelected),
         }}
         tabIndex={0}
         role="button"
@@ -71,9 +71,9 @@ const StopPicker = () => {
   return (
     <div
       style={{
-        ...componentStyles.rbgcpControlBtnWrapper,
-        ...componentStyles.rbgcpControlInputWrap,
-        ...componentStyles.rbgcpStopInputWrap,
+        ...componentStyles.ControlBtnWrapper,
+        ...componentStyles.ControlInputWrap,
+        ...componentStyles.StopInputWrap,
         paddingLeft: 8,
       }}
     >
@@ -83,8 +83,8 @@ const StopPicker = () => {
         id="rbgcp-stop-input"
         onChange={(e) => handleMove(e.target.value)}
         style={{
-          ...componentStyles.rbgcpControlInput,
-          ...componentStyles.rbgcpStopInput,
+          ...componentStyles.ControlInput,
+          ...componentStyles.topInput,
         }}
       />
     </div>
@@ -103,9 +103,9 @@ const DegreePicker = () => {
   return (
     <div
       style={{
-        ...componentStyles.rbgcpControlBtnWrapper,
-        ...componentStyles.rbgcpControlInputWrap,
-        ...componentStyles.rbgcpDegreeInputWrap,
+        ...componentStyles.ControlBtnWrapper,
+        ...componentStyles.ControlInputWrap,
+        ...componentStyles.DegreeInputWrap,
       }}
     >
       <DegreesIcon />
@@ -114,13 +114,13 @@ const DegreePicker = () => {
         id="rbgcp-degree-input"
         onChange={(e) => handleDegrees(e)}
         style={{
-          ...componentStyles.rbgcpControlInput,
-          ...componentStyles.rbgcpDegreeInput,
+          ...componentStyles.ControlInput,
+          ...componentStyles.DegreeInput,
         }}
       />
       <div
         style={{
-          ...componentStyles.rbgcpDegreeIcon,
+          ...componentStyles.DegreeIcon,
           position: 'absolute',
           right: degrees > 99 ? 0 : degrees < 10 ? 7 : 3,
           top: 1,
@@ -180,7 +180,7 @@ const GradientControls = ({
   return (
     <div
       style={{
-        ...componentStyles.rbgcpControlBtnWrapper,
+        ...componentStyles.ControlBtnWrapper,
         marginTop: 12,
         marginBottom: -4,
         justifyContent: 'space-between',

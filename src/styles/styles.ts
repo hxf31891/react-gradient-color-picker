@@ -2,11 +2,11 @@ import { darkStyles } from './darkStyles.js'
 import { Styles } from '../shared/types.js'
 
 export const styles: Styles = {
-  body: {
+  Container: {
     boxSizing: 'border-box',
     background: 'rgb(255, 255, 255)',
   },
-  rbgcpControlBtn: {
+  ControlBtn: {
     paddingLeft: '8px',
     paddingRight: '8px',
     lineHeight: '1',
@@ -22,10 +22,10 @@ export const styles: Styles = {
     boxShadow: '1px 1px 3px rgba(0, 0, 0, 0)',
     color: 'rgb(86, 86, 86)',
   },
-  rbgcpControlIcon: {
+  ControlIcon: {
     stroke: 'rgb(50, 49, 54)',
   },
-  rbgcpControlIconBtn: {
+  ControlIconBtn: {
     width: '30px',
     height: '24px',
     borderRadius: '4px',
@@ -34,7 +34,7 @@ export const styles: Styles = {
     justifyContent: 'center',
     position: 'relative',
   },
-  rbgcpControlBtnWrapper: {
+  ControlBtnWrapper: {
     height: '28px',
     background: '#e9e9f5',
     borderRadius: '6px',
@@ -44,7 +44,7 @@ export const styles: Styles = {
     alignItems: 'center',
     position: 'relative',
   },
-  rbgcpColorModelDropdown: {
+  ColorModelDropdown: {
     position: 'absolute',
     right: '-2px',
     top: '34px',
@@ -54,7 +54,7 @@ export const styles: Styles = {
     borderRadius: '6px',
     boxShadow: '1px 1px 14px 1px rgba(0, 0, 0, 0.25)',
   },
-  rbgcpEyedropperCover: {
+  EyedropperCover: {
     position: 'fixed',
     left: '0px',
     top: '0px',
@@ -63,7 +63,7 @@ export const styles: Styles = {
     height: '100vh',
     cursor: 'copy',
   },
-  rbgcpControlInput: {
+  ControlInput: {
     height: '24px',
     borderRadius: '4px',
     border: 'none',
@@ -75,14 +75,14 @@ export const styles: Styles = {
     fontSize: '13px',
     background: 'transparent',
   },
-  rbgcpInputLabel: {
+  InputLabel: {
     textAlign: 'center',
     lineHeight: '1.2',
     fontWeight: 700,
     color: 'rgb(86, 86, 86)',
     fontSize: '11px',
   },
-  rbgcpInput: {
+  Input: {
     height: '32px',
     borderRadius: '6px',
     border: '1px solid #bebebe',
@@ -93,7 +93,7 @@ export const styles: Styles = {
     fontWeight: 400,
     textAlign: 'center',
   },
-  rbgcpHandle: {
+  Handle: {
     position: 'absolute',
     border: '2px solid white',
     borderRadius: '50%',
@@ -106,12 +106,12 @@ export const styles: Styles = {
     willChange: 'transform',
     outline: 'none',
   },
-  rbgcpCanvasWrapper: {
+  CanvasWrapper: {
     borderRadius: '6px',
     overflow: 'hidden',
     height: '294px',
   },
-  rbgcpCheckered: {
+  Checkered: {
     background: `linear-gradient(
       45deg,
       rgba(0, 0, 0, 0.18) 25%,
@@ -141,7 +141,7 @@ export const styles: Styles = {
     transform: 'scaleX(1) scaleY(1) scaleZ(1)',
     borderRadius: '10px',
   },
-  rbgcpOpacityOverlay: {
+  OpacityOverlay: {
     position: 'absolute',
     left: '0px',
     top: '0px',
@@ -149,13 +149,13 @@ export const styles: Styles = {
     height: '100%',
     borderRadius: '10px',
   },
-  rbgcpGradientHandleWrap: {
+  GradientHandleWrap: {
     position: 'absolute',
     zIndex: 10000,
     top: '-2px',
     outline: 'none',
   },
-  rbgcpGradientHandle: {
+  GradientHandle: {
     border: '2px solid white',
     borderRadius: '50%',
     boxShadow: '0px 0px 3px rgba(0, 0, 0, 0.5)',
@@ -165,15 +165,15 @@ export const styles: Styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rbgcpControlIcon2: {
+  ControlIcon2: {
     fill: '#323136',
   },
-  rbgcpControlBtnSelected: {
+  ControlBtnSelected: {
     background: 'white',
     color: '#568cf5',
     boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
   },
-  rbgcpComparibleLabel: {
+  ComparibleLabel: {
     color: '#323136',
   },
 }
@@ -202,9 +202,9 @@ export const colorTypeBtnStyles = (
   styles: Styles
 ): React.CSSProperties => {
   if (selected) {
-    return { ...styles.rbgcpControlBtn, ...styles.rbgcpControlBtnSelected }
+    return { ...styles.ControlBtn, ...styles.ControlBtnSelected }
   } else {
-    return { ...styles.rbgcpControlBtn }
+    return { ...styles.ControlBtn }
   }
 }
 
@@ -213,9 +213,9 @@ export const controlBtnStyles = (
   styles: Styles
 ): React.CSSProperties => {
   if (selected) {
-    return { ...styles.rbgcpControlIconBtn, ...styles.rbgcpControlBtnSelected }
+    return { ...styles.ControlIconBtn, ...styles.ControlBtnSelected }
   } else {
-    return { ...styles.rbgcpControlIconBtn }
+    return { ...styles.ControlIconBtn }
   }
 }
 
@@ -225,12 +225,12 @@ export const modalBtnStyles = (
 ): React.CSSProperties => {
   if (selected) {
     return {
-      ...styles.rbgcpControlBtn,
-      ...styles.rbgcpColorModelDropdownBtn,
-      ...styles.rbgcpControlBtnSelected,
+      ...styles.ControlBtn,
+      ...styles.ColorModelDropdownBtn,
+      ...styles.ControlBtnSelected,
     }
   } else {
-    return { ...styles.rbgcpControlBtn, ...styles.rbgcpColorModelDropdownBtn }
+    return { ...styles.ControlBtn, ...styles.ColorModelDropdownBtn }
   }
 }
 

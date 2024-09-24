@@ -41,7 +41,7 @@ const ComparibleColors = ({
             position: 'absolute',
             top: 6.5,
             left: 2,
-            ...componentStyles.rbgcpComparibleLabel,
+            ...componentStyles.ComparibleLabel,
           }}
         >
           Color Guide
@@ -52,7 +52,7 @@ const ComparibleColors = ({
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
-            ...componentStyles.rbgcpComparibleLabel,
+            ...componentStyles.ComparibleLabel,
           }}
         >
           Analogous
@@ -72,7 +72,7 @@ const ComparibleColors = ({
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
-            ...componentStyles.rbgcpComparibleLabel,
+            ...componentStyles.ComparibleLabel,
           }}
         >
           Monochromatic
@@ -99,7 +99,7 @@ const ComparibleColors = ({
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
-            ...componentStyles.rbgcpComparibleLabel,
+            ...componentStyles.ComparibleLabel,
           }}
         >
           Triad
@@ -130,7 +130,7 @@ const ComparibleColors = ({
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
-            ...componentStyles.rbgcpComparibleLabel,
+            ...componentStyles.ComparibleLabel,
           }}
         >
           Tetrad

@@ -35,9 +35,9 @@ const Input = ({
         value={temp}
         id="rbgcp-input"
         onChange={(e) => onChange(e)}
-        style={{ ...componentStyles.rbgcpInput }}
+        style={{ ...componentStyles.Input }}
       />
-      <div style={{ ...componentStyles.rbgcpInputLabel }}>{label}</div>
+      <div style={{ ...componentStyles.InputLabel }}>{label}</div>
     </div>
   )
 }
@@ -81,11 +81,11 @@ const HexInput = ({ opacity }: { opacity: number }) => {
         id="rbgcp-hex-input"
         onChange={(e) => handleHex(e)}
         style={{
-          ...componentStyles.rbgcpInput,
-          ...componentStyles.rbgcpHexInput,
+          ...componentStyles.Input,
+          ...componentStyles.HexInput,
         }}
       />
-      <div style={{ ...componentStyles.rbgcpInputLabel }}>HEX</div>
+      <div style={{ ...componentStyles.InputLabel }}>HEX</div>
     </div>
   )
 }
@@ -239,7 +239,7 @@ const Inputs = () => {
         paddingTop: 14,
         display: 'flex',
         justifyContent: 'space-between',
-        ...componentStyles.rbgcpInputsWrap,
+        ...componentStyles.InputsWrap,
       }}
       id="rbgcp-inputs-wrap"
     >
