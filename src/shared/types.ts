@@ -57,4 +57,34 @@ export type ThemeMode = {
   accent?: string
 }
 
-export type Styles = Record<string, Record<string, string | number>>
+export type Styles = Partial<{
+  Container: React.CSSProperties
+  ControlBtn: React.CSSProperties
+  ControlIcon: React.CSSProperties
+  ControlIconBtn: React.CSSProperties
+  ControlBtnWrapper: React.CSSProperties
+  ColorModelDropdown: React.CSSProperties
+  EyedropperCover: React.CSSProperties
+  EyedropperBtn: React.CSSProperties
+  ControlInput: React.CSSProperties
+  InputLabel: React.CSSProperties
+  Input: React.CSSProperties
+  InputsWrap: React.CSSProperties
+  HexInput: React.CSSProperties
+  Handle: React.CSSProperties
+  CanvasWrapper: React.CSSProperties
+  Checkered: React.CSSProperties
+  OpacityOverlay: React.CSSProperties
+  GradientHandleWrap: React.CSSProperties
+  GradientHandle: React.CSSProperties
+  ControlIcon2: React.CSSProperties
+  ControlBtnSelected: React.CSSProperties
+  ComparibleLabel: React.CSSProperties
+  ColorModelDropdownBtn: React.CSSProperties
+  ControlInputWrap: React.CSSProperties
+  StopInputWrap: React.CSSProperties
+  StopInput: React.CSSProperties
+  DegreeInputWrap: React.CSSProperties
+  DegreeInput: React.CSSProperties
+  DegreeIcon: React.CSSProperties
+}>

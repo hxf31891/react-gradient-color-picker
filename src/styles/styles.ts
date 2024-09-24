@@ -1,12 +1,12 @@
-import { darkStyles } from './darkStyles.js';
-import { Styles } from '../shared/types.js';
+import { darkStyles } from './darkStyles.js'
+import { Styles } from '../shared/types.js'
 
-const styles: Styles = {
-  body: {
+export const styles: Styles = {
+  Container: {
     boxSizing: 'border-box',
     background: 'rgb(255, 255, 255)',
   },
-  rbgcpControlBtn: {
+  ControlBtn: {
     paddingLeft: '8px',
     paddingRight: '8px',
     lineHeight: '1',
@@ -22,10 +22,10 @@ const styles: Styles = {
     boxShadow: '1px 1px 3px rgba(0, 0, 0, 0)',
     color: 'rgb(86, 86, 86)',
   },
-  rbgcpControlIcon: {
+  ControlIcon: {
     stroke: 'rgb(50, 49, 54)',
   },
-  rbgcpControlIconBtn: {
+  ControlIconBtn: {
     width: '30px',
     height: '24px',
     borderRadius: '4px',
@@ -34,7 +34,7 @@ const styles: Styles = {
     justifyContent: 'center',
     position: 'relative',
   },
-  rbgcpControlBtnWrapper: {
+  ControlBtnWrapper: {
     height: '28px',
     background: '#e9e9f5',
     borderRadius: '6px',
@@ -44,7 +44,7 @@ const styles: Styles = {
     alignItems: 'center',
     position: 'relative',
   },
-  rbgcpColorModelDropdown: {
+  ColorModelDropdown: {
     position: 'absolute',
     right: '-2px',
     top: '34px',
@@ -54,7 +54,7 @@ const styles: Styles = {
     borderRadius: '6px',
     boxShadow: '1px 1px 14px 1px rgba(0, 0, 0, 0.25)',
   },
-  rbgcpEyedropperCover: {
+  EyedropperCover: {
     position: 'fixed',
     left: '0px',
     top: '0px',
@@ -63,7 +63,7 @@ const styles: Styles = {
     height: '100vh',
     cursor: 'copy',
   },
-  rbgcpControlInput: {
+  ControlInput: {
     height: '24px',
     borderRadius: '4px',
     border: 'none',
@@ -75,14 +75,14 @@ const styles: Styles = {
     fontSize: '13px',
     background: 'transparent',
   },
-  rbgcpInputLabel: {
+  InputLabel: {
     textAlign: 'center',
     lineHeight: '1.2',
     fontWeight: 700,
     color: 'rgb(86, 86, 86)',
     fontSize: '11px',
   },
-  rbgcpInput: {
+  Input: {
     height: '32px',
     borderRadius: '6px',
     border: '1px solid #bebebe',
@@ -93,7 +93,7 @@ const styles: Styles = {
     fontWeight: 400,
     textAlign: 'center',
   },
-  rbgcpHandle: {
+  Handle: {
     position: 'absolute',
     border: '2px solid white',
     borderRadius: '50%',
@@ -106,12 +106,12 @@ const styles: Styles = {
     willChange: 'transform',
     outline: 'none',
   },
-  rbgcpCanvasWrapper: {
+  CanvasWrapper: {
     borderRadius: '6px',
     overflow: 'hidden',
     height: '294px',
   },
-  rbgcpCheckered: {
+  Checkered: {
     background: `linear-gradient(
       45deg,
       rgba(0, 0, 0, 0.18) 25%,
@@ -141,7 +141,7 @@ const styles: Styles = {
     transform: 'scaleX(1) scaleY(1) scaleZ(1)',
     borderRadius: '10px',
   },
-  rbgcpOpacityOverlay: {
+  OpacityOverlay: {
     position: 'absolute',
     left: '0px',
     top: '0px',
@@ -149,13 +149,13 @@ const styles: Styles = {
     height: '100%',
     borderRadius: '10px',
   },
-  rbgcpGradientHandleWrap: {
+  GradientHandleWrap: {
     position: 'absolute',
     zIndex: 10000,
     top: '-2px',
     outline: 'none',
   },
-  rbgcpGradientHandle: {
+  GradientHandle: {
     border: '2px solid white',
     borderRadius: '50%',
     boxShadow: '0px 0px 3px rgba(0, 0, 0, 0.5)',
@@ -165,56 +165,72 @@ const styles: Styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rbgcpControlIcon2: {
+  ControlIcon2: {
     fill: '#323136',
   },
-  rbgcpControlBtnSelected: {
+  ControlBtnSelected: {
     background: 'white',
     color: '#568cf5',
     boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
   },
-  rbgcpComparibleLabel: {
+  ComparibleLabel: {
     color: '#323136',
-  }
-};
+  },
+}
 
 export const getStyles = (disableDarkMode: boolean) => {
-  if (typeof window === 'undefined' || disableDarkMode) return styles;
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  if (typeof window === 'undefined' || disableDarkMode) return styles
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     for (const key in darkStyles) {
       if (Object.prototype.hasOwnProperty.call(darkStyles, key)) {
-        (styles as Record<string, any>)[key] = {
-          ...(Object.prototype.hasOwnProperty.call(styles, key) ? (styles as Record<string, any>)[key] : {}),
+        ;(styles as Record<string, any>)[key] = {
+          ...(Object.prototype.hasOwnProperty.call(styles, key)
+            ? (styles as Record<string, any>)[key]
+            : {}),
           ...(darkStyles as Record<string, any>)[key],
-        };
+        }
       }
     }
 
-    return styles;
-  } 
-  return styles;
-};
+    return styles
+  }
+  return styles
+}
 
-export const colorTypeBtnStyles = (selected: boolean, styles: Styles): React.CSSProperties => {
+export const colorTypeBtnStyles = (
+  selected: boolean,
+  styles: Styles
+): React.CSSProperties => {
   if (selected) {
-    return {...styles.rbgcpControlBtn, ...styles.rbgcpControlBtnSelected}
+    return { ...styles.ControlBtn, ...styles.ControlBtnSelected }
   } else {
-    return { ...styles.rbgcpControlBtn }
+    return { ...styles.ControlBtn }
   }
 }
 
-export const controlBtnStyles = (selected: boolean, styles: Styles): React.CSSProperties => {
+export const controlBtnStyles = (
+  selected: boolean,
+  styles: Styles
+): React.CSSProperties => {
   if (selected) {
-    return { ...styles.rbgcpControlIconBtn, ...styles.rbgcpControlBtnSelected }
+    return { ...styles.ControlIconBtn, ...styles.ControlBtnSelected }
   } else {
-    return { ...styles.rbgcpControlIconBtn }
+    return { ...styles.ControlIconBtn }
   }
 }
 
-export const modalBtnStyles = (selected: boolean, styles: Styles): React.CSSProperties => {
+export const modalBtnStyles = (
+  selected: boolean,
+  styles: Styles
+): React.CSSProperties => {
   if (selected) {
-    return { ...styles.rbgcpControlBtn, ...styles.rbgcpColorModelDropdownBtn, ...styles.rbgcpControlBtnSelected }
+    return {
+      ...styles.ControlBtn,
+      ...styles.ColorModelDropdownBtn,
+      ...styles.ControlBtnSelected,
+    }
   } else {
-    return { ...styles.rbgcpControlBtn, ...styles.rbgcpColorModelDropdownBtn }
+    return { ...styles.ControlBtn, ...styles.ColorModelDropdownBtn }
   }
 }
+
