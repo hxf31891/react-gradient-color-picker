@@ -2,10 +2,26 @@
 import React, { useRef } from 'react'
 import PickerContextWrapper from '../context.js'
 import Picker from './Picker.js'
-import { ColorPickerProps } from '../shared/types.js'
+import type { ColorPickerProps, Styles } from '../shared/types.js'
 import { defaultLocales } from '../constants.js'
 import { objectToString } from '../utils/utils.js'
 import { getStyles } from '../styles/styles.js'
+
+// function to merge default styles with user styles
+function mergeStyles(componentStyles: Styles, styles: Styles) {
+  const mergedStyles = { ...componentStyles }
+  for (const key in styles) {
+    if (Object.prototype.hasOwnProperty.call(styles, key)) {
+      mergedStyles[key as keyof Styles] = {
+        ...(Object.prototype.hasOwnProperty.call(mergedStyles, key)
+          ? mergedStyles[key as keyof Styles]
+          : {}),
+        ...styles[key as keyof Styles],
+      }
+    }
+  }
+  return mergedStyles
+}
 
 export function ColorPicker({
   value = 'rgba(175, 51, 242, 1)',
@@ -34,13 +50,14 @@ export function ColorPicker({
 }: ColorPickerProps) {
   const safeValue = objectToString(value)
   const contRef = useRef<HTMLDivElement>(null)
-  const defaultStyles = getStyles(disableDarkMode)
+  const defaultComponentStyles = getStyles(disableDarkMode)
+  const mergedComponentStyles = mergeStyles(defaultComponentStyles, style)
 
   return (
     <div
       ref={contRef}
       className={className}
-      style={{ ...defaultStyles.body, ...style, width: width }}
+      style={{ ...mergedComponentStyles.body, width: width }}
     >
       <PickerContextWrapper
         value={safeValue}
@@ -48,7 +65,7 @@ export function ColorPicker({
         squareWidth={width}
         squareHeight={height}
         hideOpacity={hideOpacity}
-        defaultStyles={defaultStyles}
+        componentStyles={mergedComponentStyles}
       >
         <Picker
           hideControls={hideControls}

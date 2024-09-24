@@ -6,7 +6,7 @@ const ComparibleColors = ({
 }: {
   openComparibles: boolean
 }) => {
-  const { tinyColor, handleChange, defaultStyles } = usePicker()
+  const { tinyColor, handleChange, componentStyles } = usePicker()
 
   const analogous = tinyColor.analogous()
   const monochromatic = tinyColor.monochromatic()
@@ -41,7 +41,7 @@ const ComparibleColors = ({
             position: 'absolute',
             top: 6.5,
             left: 2,
-            ...defaultStyles.rbgcpComparibleLabel,
+            ...componentStyles.rbgcpComparibleLabel,
           }}
         >
           Color Guide
@@ -52,7 +52,7 @@ const ComparibleColors = ({
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
-            ...defaultStyles.rbgcpComparibleLabel,
+            ...componentStyles.rbgcpComparibleLabel,
           }}
         >
           Analogous
@@ -72,7 +72,7 @@ const ComparibleColors = ({
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
-            ...defaultStyles.rbgcpComparibleLabel,
+            ...componentStyles.rbgcpComparibleLabel,
           }}
         >
           Monochromatic
@@ -99,7 +99,7 @@ const ComparibleColors = ({
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
-            ...defaultStyles.rbgcpComparibleLabel,
+            ...componentStyles.rbgcpComparibleLabel,
           }}
         >
           Triad
@@ -130,7 +130,7 @@ const ComparibleColors = ({
             fontSize: 12,
             fontWeight: 500,
             marginTop: 3,
-            ...defaultStyles.rbgcpComparibleLabel,
+            ...componentStyles.rbgcpComparibleLabel,
           }}
         >
           Tetrad

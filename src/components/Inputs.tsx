@@ -16,7 +16,7 @@ const Input = ({
   callback: (arg0: number) => void
 }) => {
   const [temp, setTemp] = useState(value)
-  const { hideOpacity, defaultStyles } = usePicker()
+  const { hideOpacity, componentStyles } = usePicker()
   const width = hideOpacity ? '22%' : '18%'
 
   useEffect(() => {
@@ -35,15 +35,15 @@ const Input = ({
         value={temp}
         id="rbgcp-input"
         onChange={(e) => onChange(e)}
-        style={{ ...defaultStyles.rbgcpInput }}
+        style={{ ...componentStyles.rbgcpInput }}
       />
-      <div style={{ ...defaultStyles.rbgcpInputLabel }}>{label}</div>
+      <div style={{ ...componentStyles.rbgcpInputLabel }}>{label}</div>
     </div>
   )
 }
 
 const HexInput = ({ opacity }: { opacity: number }) => {
-  const { handleChange, tinyColor, defaultStyles } = usePicker()
+  const { handleChange, tinyColor, componentStyles } = usePicker()
   const [disable, setDisable] = useState('')
   const hex = tinyColor.toHex()
   const [newHex, setNewHex] = useState(hex)
@@ -80,9 +80,12 @@ const HexInput = ({ opacity }: { opacity: number }) => {
         onFocus={hexFocus}
         id="rbgcp-hex-input"
         onChange={(e) => handleHex(e)}
-        style={{ ...defaultStyles.rbgcpInput, ...defaultStyles.rbgcpHexInput }}
+        style={{
+          ...componentStyles.rbgcpInput,
+          ...componentStyles.rbgcpHexInput,
+        }}
       />
-      <div style={{ ...defaultStyles.rbgcpInputLabel }}>HEX</div>
+      <div style={{ ...componentStyles.rbgcpInputLabel }}>HEX</div>
     </div>
   )
 }
@@ -227,7 +230,8 @@ const CMKYInputs = () => {
 }
 
 const Inputs = () => {
-  const { handleChange, inputType, hideOpacity, hc, defaultStyles } = usePicker()
+  const { handleChange, inputType, hideOpacity, hc, componentStyles } =
+    usePicker()
 
   return (
     <div
@@ -235,7 +239,7 @@ const Inputs = () => {
         paddingTop: 14,
         display: 'flex',
         justifyContent: 'space-between',
-        ...defaultStyles.rbgcpInputsWrap,
+        ...componentStyles.rbgcpInputsWrap,
       }}
       id="rbgcp-inputs-wrap"
     >

@@ -8,7 +8,7 @@ import tc from 'tinycolor2'
 import { usePicker } from '../context.js'
 
 const DropperIcon = ({ color }: { color: string }) => {
-  const { defaultStyles } = usePicker()
+  const { componentStyles } = usePicker()
   const col = color || ''
   return (
     <svg
@@ -24,7 +24,7 @@ const DropperIcon = ({ color }: { color: string }) => {
         style={{
           fill: 'none',
           strokeWidth: '1.4px',
-          ...defaultStyles.rbgcpControlIcon,
+          ...componentStyles.rbgcpControlIcon,
           ...(col && { stroke: col }),
         }}
         d="M15.6,7h0L7.78,14.86c-.37.37-1.61.38-2,.75s-.5,1.53-.76,2a3.53,3.53,0,0,1-.52.52,1.6,1.6,0,0,1-2.27-.06l-.32-.32a1.61,1.61,0,0,1-.06-2.27A3.25,3.25,0,0,1,2.4,15c.47-.26,1.65-.35,2-.73s.34-1.64.71-2c1.68-1.73,5.61-5.65,7.91-7.93h0l1.14,1.38L15.6,7Z"
@@ -34,7 +34,7 @@ const DropperIcon = ({ color }: { color: string }) => {
         strokeLinejoin="round"
         style={{
           strokeWidth: '1.4px',
-          ...defaultStyles.rbgcpControlIcon2,
+          ...componentStyles.rbgcpControlIcon2,
           ...(col && { stroke: col, fill: col }),
         }}
         points="15.7 8.87 11.13 4.29 12.69 2.73 17.25 7.31 15.7 8.87"
@@ -44,7 +44,7 @@ const DropperIcon = ({ color }: { color: string }) => {
         strokeLinejoin="round"
         style={{
           strokeWidth: '1.4px',
-          ...defaultStyles.rbgcpControlIcon2,
+          ...componentStyles.rbgcpControlIcon2,
           ...(col && { stroke: col, fill: col }),
         }}
         d="M18.18,3.71,16.36,5.53a1.33,1.33,0,0,1-1.88,0h0a1.34,1.34,0,0,1,0-1.89l1.81-1.82a1.34,1.34,0,0,1,1.89,0h0A1.34,1.34,0,0,1,18.18,3.71Z"
@@ -54,7 +54,7 @@ const DropperIcon = ({ color }: { color: string }) => {
 }
 
 const Dropper = ({ onSelect }: { onSelect: (arg0: string) => void }) => {
-  const { defaultStyles } = usePicker()
+  const { componentStyles } = usePicker()
   const [pickerCanvas, setPickerCanvas] =
     useState<CanvasRenderingContext2D | null>(null)
   const [coverUp, setCoverUp] = useState(false)
@@ -123,8 +123,8 @@ const Dropper = ({ onSelect }: { onSelect: (arg0: string) => void }) => {
         onClick={getEyeDrop}
         id="rbgcp-eyedropper-btn"
         style={{
-          ...defaultStyles.rbgcpEyedropperBtn,
-          ...controlBtnStyles(coverUp, defaultStyles),
+          ...componentStyles.rbgcpEyedropperBtn,
+          ...controlBtnStyles(coverUp, componentStyles),
         }}
       >
         <DropperIcon color={isPicking ? 'rgb(86, 140, 245)' : ''} />
@@ -134,7 +134,7 @@ const Dropper = ({ onSelect }: { onSelect: (arg0: string) => void }) => {
         <Portal>
           <div
             onClick={(e) => getColorLegacy(e)}
-            style={defaultStyles.rbgcpEyedropperCover}
+            style={componentStyles.rbgcpEyedropperCover}
           />
         </Portal>
       )}

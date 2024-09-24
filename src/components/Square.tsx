@@ -10,7 +10,8 @@ import { config } from '../constants.js'
 const { crossSize } = config
 
 const Square = () => {
-  const { hc, defaultStyles, squareWidth, squareHeight, handleChange } = usePicker()
+  const { hc, componentStyles, squareWidth, squareHeight, handleChange } =
+    usePicker()
   const [dragging, setDragging] = useState(false)
   const canvas = useRef<HTMLCanvasElement>(null)
   const [x, y] = computeSquareXY(hc?.s, hc?.v * 100, squareWidth, squareHeight)
@@ -99,14 +100,17 @@ const Square = () => {
       >
         <div
           style={{
-            ...defaultStyles.rbgcpHandle,
+            ...componentStyles.rbgcpHandle,
             transform: `translate(${dragPos?.x || 0}px, ${dragPos?.y || 0}px)`,
-            ...(dragging ? { transition: "" } : {}),
+            ...(dragging ? { transition: '' } : {}),
           }}
           onMouseDown={handleMouseDown}
         />
         <div
-          style={{ ...defaultStyles.rbgcpCanvasWrapper, height: squareHeight }}
+          style={{
+            ...componentStyles.rbgcpCanvasWrapper,
+            height: squareHeight,
+          }}
           onClick={(e) => handleClick(e)}
         >
           <canvas

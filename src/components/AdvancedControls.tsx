@@ -21,7 +21,7 @@ const AdvBar = ({
   openAdvanced: boolean
   label: string
 }) => {
-  const { squareWidth, defaultStyles } = usePicker()
+  const { squareWidth, componentStyles } = usePicker()
   const [dragging, setDragging] = useState<boolean>(false)
   const [handleTop, setHandleTop] = useState<number>(2)
   const left = value * (squareWidth - 18)
@@ -69,7 +69,7 @@ const AdvBar = ({
         style={{ cursor: 'resize', position: 'relative' }}
       >
         <div
-          style={{ left, top: handleTop, ...defaultStyles.rbgcpHandle }}
+          style={{ left, top: handleTop, ...componentStyles.rbgcpHandle }}
           onMouseDown={handleDown}
           role="button"
           tabIndex={0}

@@ -20,7 +20,7 @@ export const Handle = ({
     colors,
     selectedColor,
     squareWidth,
-    defaultStyles,
+    componentStyles,
     createGradientStr,
   } = usePicker()
   const isSelected = selectedColor === i
@@ -57,14 +57,19 @@ export const Handle = ({
       id={`gradient-handle-${i}`}
       onMouseDown={(e) => handleDown(e)}
       style={{
-        ...defaultStyles.rbgcpGradientHandleWrap,
+        ...componentStyles.rbgcpGradientHandleWrap,
         left: (left || 0) * leftMultiplyer,
       }}
     >
       <div
         style={{
-          ...defaultStyles.rbgcpGradientHandle,
-          ...(isSelected ? { boxShadow: '0px 0px 5px 1px rgba(86, 140, 245,.95)', border: '2px solid white' } : {}),
+          ...componentStyles.rbgcpGradientHandle,
+          ...(isSelected
+            ? {
+                boxShadow: '0px 0px 5px 1px rgba(86, 140, 245,.95)',
+                border: '2px solid white',
+              }
+            : {}),
         }}
       >
         {isSelected && (
@@ -89,7 +94,7 @@ const GradientBar = () => {
     colors,
     value,
     handleGradient,
-    squareWidth
+    squareWidth,
   } = usePicker()
   const [dragging, setDragging] = useState(false)
   // const [inFocus, setInFocus] = useState<string | null>(null)
@@ -122,7 +127,7 @@ const GradientBar = () => {
   }
 
   const handleDown = (e: any) => {
-    if (dragging) return;
+    if (dragging) return
     addPoint(e)
     setDragging(true)
   }

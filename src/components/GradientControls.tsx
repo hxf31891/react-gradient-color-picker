@@ -10,7 +10,7 @@ import TrashIcon, {
 } from './icon.js'
 
 const GradientType = () => {
-  const { gradientType, onChange, value, defaultStyles } = usePicker()
+  const { gradientType, onChange, value, componentStyles } = usePicker()
   const isLinear = gradientType === 'linear-gradient'
   const isRadial = gradientType === 'radial-gradient'
 
@@ -25,11 +25,14 @@ const GradientType = () => {
   }
 
   return (
-    <div style={defaultStyles.rbgcpControlBtnWrapper}>
+    <div style={componentStyles.rbgcpControlBtnWrapper}>
       <div
         onClick={handleLinear}
         id="rbgcp-linear-btn"
-        style={{ ...defaultStyles.rbgcpControlBtn, ...(isLinear && defaultStyles.rbgcpControlBtnSelected) }}
+        style={{
+          ...componentStyles.rbgcpControlBtn,
+          ...(isLinear && componentStyles.rbgcpControlBtnSelected),
+        }}
         tabIndex={0}
         role="button"
         onKeyDown={() => {
@@ -41,7 +44,10 @@ const GradientType = () => {
       <div
         onClick={handleRadial}
         id="rbgcp-radial-btn"
-        style={{ ...defaultStyles.rbgcpControlBtn, ...(isRadial && defaultStyles.rbgcpControlBtnSelected) }}
+        style={{
+          ...componentStyles.rbgcpControlBtn,
+          ...(isRadial && componentStyles.rbgcpControlBtnSelected),
+        }}
         tabIndex={0}
         role="button"
         onKeyDown={() => {
@@ -55,7 +61,8 @@ const GradientType = () => {
 }
 
 const StopPicker = () => {
-  const { currentLeft, handleGradient, currentColor, defaultStyles } = usePicker()
+  const { currentLeft, handleGradient, currentColor, componentStyles } =
+    usePicker()
 
   const handleMove = (newVal: string) => {
     handleGradient(currentColor, formatInputValues(parseInt(newVal), 0, 100))
@@ -64,9 +71,9 @@ const StopPicker = () => {
   return (
     <div
       style={{
-        ...defaultStyles.rbgcpControlBtnWrapper,
-        ...defaultStyles.rbgcpControlInputWrap,
-        ...defaultStyles.rbgcpStopInputWrap,
+        ...componentStyles.rbgcpControlBtnWrapper,
+        ...componentStyles.rbgcpControlInputWrap,
+        ...componentStyles.rbgcpStopInputWrap,
         paddingLeft: 8,
       }}
     >
@@ -75,14 +82,17 @@ const StopPicker = () => {
         value={currentLeft}
         id="rbgcp-stop-input"
         onChange={(e) => handleMove(e.target.value)}
-        style={{ ...defaultStyles.rbgcpControlInput, ...defaultStyles.rbgcpStopInput }}
+        style={{
+          ...componentStyles.rbgcpControlInput,
+          ...componentStyles.rbgcpStopInput,
+        }}
       />
     </div>
   )
 }
 
 const DegreePicker = () => {
-  const { degrees, onChange, value, defaultStyles } = usePicker()
+  const { degrees, onChange, value, componentStyles } = usePicker()
 
   const handleDegrees = (e: any) => {
     const newValue = formatInputValues(e.target.value, 0, 360)
@@ -93,9 +103,9 @@ const DegreePicker = () => {
   return (
     <div
       style={{
-        ...defaultStyles.rbgcpControlBtnWrapper,
-        ...defaultStyles.rbgcpControlInputWrap,
-        ...defaultStyles.rbgcpDegreeInputWrap,
+        ...componentStyles.rbgcpControlBtnWrapper,
+        ...componentStyles.rbgcpControlInputWrap,
+        ...componentStyles.rbgcpDegreeInputWrap,
       }}
     >
       <DegreesIcon />
@@ -104,13 +114,13 @@ const DegreePicker = () => {
         id="rbgcp-degree-input"
         onChange={(e) => handleDegrees(e)}
         style={{
-          ...defaultStyles.rbgcpControlInput,
-          ...defaultStyles.rbgcpDegreeInput,
+          ...componentStyles.rbgcpControlInput,
+          ...componentStyles.rbgcpDegreeInput,
         }}
       />
       <div
         style={{
-          ...defaultStyles.rbgcpDegreeIcon,
+          ...componentStyles.rbgcpDegreeIcon,
           position: 'absolute',
           right: degrees > 99 ? 0 : degrees < 10 ? 7 : 3,
           top: 1,
@@ -125,7 +135,8 @@ const DegreePicker = () => {
 }
 
 const DeleteBtn = () => {
-  const { colors, selectedColor, createGradientStr, defaultStyles } = usePicker()
+  const { colors, selectedColor, createGradientStr, componentStyles } =
+    usePicker()
 
   const deletePoint = () => {
     if (colors?.length > 2) {
@@ -143,7 +154,7 @@ const DeleteBtn = () => {
   return (
     <div
       onClick={deletePoint}
-      style={{ ...controlBtnStyles(false, defaultStyles), width: 28 }}
+      style={{ ...controlBtnStyles(false, componentStyles), width: 28 }}
       id="rbgcp-point-delete-btn"
       tabIndex={0}
       role="button"
@@ -165,11 +176,11 @@ const GradientControls = ({
   hideGradientAngle?: boolean
   hideGradientStop?: boolean
 }) => {
-  const { gradientType, defaultStyles } = usePicker()
+  const { gradientType, componentStyles } = usePicker()
   return (
     <div
       style={{
-        ...defaultStyles.rbgcpControlBtnWrapper,
+        ...componentStyles.rbgcpControlBtnWrapper,
         marginTop: 12,
         marginBottom: -4,
         justifyContent: 'space-between',

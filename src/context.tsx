@@ -19,7 +19,7 @@ export default function PickerContextWrapper({
   squareWidth,
   hideOpacity,
   squareHeight,
-  defaultStyles,
+  componentStyles,
 }: PCWProps) {
   const colors = getColors(value)
   const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
@@ -37,7 +37,7 @@ export default function PickerContextWrapper({
     } else {
       setHc({ ...rgba, ...hsv })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentColor])
 
   const createGradientStr = (newColors: GradientProps[]) => {
@@ -51,7 +51,9 @@ export default function PickerContextWrapper({
   }
 
   const handleGradient = (newColor: string, left?: number) => {
-    const remaining = colors?.filter((c: GradientProps) => !isUpperCase(c.value))
+    const remaining = colors?.filter(
+      (c: GradientProps) => !isUpperCase(c.value)
+    )
     const newColors = [
       { value: newColor.toUpperCase(), left: left ?? currentLeft },
       ...remaining,
@@ -102,7 +104,7 @@ export default function PickerContextWrapper({
     handleChange,
     currentColor,
     selectedColor,
-    defaultStyles,
+    componentStyles,
     handleGradient,
     createGradientStr,
   }
@@ -131,7 +133,7 @@ type PCWProps = {
   squareHeight: number
   hideOpacity: boolean
   onChange: (arg0: string) => void
-  defaultStyles: Styles
+  componentStyles: Styles
 }
 
 export type PickerContextProps = {
@@ -156,7 +158,7 @@ export type PickerContextProps = {
   setHc: (arg0: any) => void
   handleGradient: (arg0: string, arg1?: number) => void
   createGradientStr: (arg0: GradientProps[]) => void
-  defaultStyles: Styles
+  componentStyles: Styles
   previous: {
     color?: string
     gradient?: string

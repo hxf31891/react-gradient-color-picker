@@ -1,7 +1,7 @@
-import { darkStyles } from './darkStyles.js';
-import { Styles } from '../shared/types.js';
+import { darkStyles } from './darkStyles.js'
+import { Styles } from '../shared/types.js'
 
-const styles: Styles = {
+export const styles: Styles = {
   body: {
     boxSizing: 'border-box',
     background: 'rgb(255, 255, 255)',
@@ -175,35 +175,43 @@ const styles: Styles = {
   },
   rbgcpComparibleLabel: {
     color: '#323136',
-  }
-};
+  },
+}
 
 export const getStyles = (disableDarkMode: boolean) => {
-  if (typeof window === 'undefined' || disableDarkMode) return styles;
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  if (typeof window === 'undefined' || disableDarkMode) return styles
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     for (const key in darkStyles) {
       if (Object.prototype.hasOwnProperty.call(darkStyles, key)) {
-        (styles as Record<string, any>)[key] = {
-          ...(Object.prototype.hasOwnProperty.call(styles, key) ? (styles as Record<string, any>)[key] : {}),
+        ;(styles as Record<string, any>)[key] = {
+          ...(Object.prototype.hasOwnProperty.call(styles, key)
+            ? (styles as Record<string, any>)[key]
+            : {}),
           ...(darkStyles as Record<string, any>)[key],
-        };
+        }
       }
     }
 
-    return styles;
-  } 
-  return styles;
-};
+    return styles
+  }
+  return styles
+}
 
-export const colorTypeBtnStyles = (selected: boolean, styles: Styles): React.CSSProperties => {
+export const colorTypeBtnStyles = (
+  selected: boolean,
+  styles: Styles
+): React.CSSProperties => {
   if (selected) {
-    return {...styles.rbgcpControlBtn, ...styles.rbgcpControlBtnSelected}
+    return { ...styles.rbgcpControlBtn, ...styles.rbgcpControlBtnSelected }
   } else {
     return { ...styles.rbgcpControlBtn }
   }
 }
 
-export const controlBtnStyles = (selected: boolean, styles: Styles): React.CSSProperties => {
+export const controlBtnStyles = (
+  selected: boolean,
+  styles: Styles
+): React.CSSProperties => {
   if (selected) {
     return { ...styles.rbgcpControlIconBtn, ...styles.rbgcpControlBtnSelected }
   } else {
@@ -211,10 +219,18 @@ export const controlBtnStyles = (selected: boolean, styles: Styles): React.CSSPr
   }
 }
 
-export const modalBtnStyles = (selected: boolean, styles: Styles): React.CSSProperties => {
+export const modalBtnStyles = (
+  selected: boolean,
+  styles: Styles
+): React.CSSProperties => {
   if (selected) {
-    return { ...styles.rbgcpControlBtn, ...styles.rbgcpColorModelDropdownBtn, ...styles.rbgcpControlBtnSelected }
+    return {
+      ...styles.rbgcpControlBtn,
+      ...styles.rbgcpColorModelDropdownBtn,
+      ...styles.rbgcpControlBtnSelected,
+    }
   } else {
     return { ...styles.rbgcpControlBtn, ...styles.rbgcpColorModelDropdownBtn }
   }
 }
+

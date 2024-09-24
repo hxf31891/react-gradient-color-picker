@@ -4,7 +4,7 @@ import { usePicker } from '../context.js'
 import { getHandleValue } from '../utils/utils.js'
 
 const Opacity = () => {
-  const { handleChange, hc = {}, squareWidth, defaultStyles } = usePicker()
+  const { handleChange, hc = {}, squareWidth, componentStyles } = usePicker()
   const [dragging, setDragging] = useState(false)
   const { r, g, b } = hc
   const bg = `linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(${r},${g},${b},.5) 100%)`
@@ -62,15 +62,14 @@ const Opacity = () => {
       }}
     >
       <div
-        style={{ ...defaultStyles.rbgcpCheckered, width: '100%', height: 14 }}
+        style={{ ...componentStyles.rbgcpCheckered, width: '100%', height: 14 }}
       />
       <div
-        style={{ ...defaultStyles.rbgcpHandle, left: left * hc?.a, top: -2 }}
+        style={{ ...componentStyles.rbgcpHandle, left: left * hc?.a, top: -2 }}
       />
       <div
-        style={{ ...defaultStyles.rbgcpOpacityOverlay, background: bg }}
+        style={{ ...componentStyles.rbgcpOpacityOverlay, background: bg }}
         onClick={(e) => handleClick(e)}
-        
       />
     </div>
   )

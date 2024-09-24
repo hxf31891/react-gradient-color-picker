@@ -9,7 +9,11 @@ import AdvancedControls from './AdvancedControls.js'
 import ComparibleColors from './ComparibleColors.js'
 import GradientControls from './GradientControls.js'
 import { LocalesProps } from '../shared/types.js'
-import { colorTypeBtnStyles, controlBtnStyles, modalBtnStyles } from '../styles/styles.js'
+import {
+  colorTypeBtnStyles,
+  controlBtnStyles,
+  modalBtnStyles,
+} from '../styles/styles.js'
 const { defaultColor, defaultGradient } = config
 
 const ColorTypeBtns = ({
@@ -25,7 +29,7 @@ const ColorTypeBtns = ({
   setGradient: () => void
   locales?: LocalesProps
 }) => {
-  const { defaultStyles } = usePicker()
+  const { componentStyles } = usePicker()
 
   if (hideColorTypeBtns) {
     return <div style={{ width: 1 }} />
@@ -35,20 +39,20 @@ const ColorTypeBtns = ({
         style={{
           display: 'flex',
           alignItems: 'center',
-          ...defaultStyles.rbgcpControlBtnWrapper,
+          ...componentStyles.rbgcpControlBtnWrapper,
         }}
       >
         <div
           onClick={setSolid}
           id="rbgcp-solid-btn"
-          style={colorTypeBtnStyles(!isGradient, defaultStyles)}
+          style={colorTypeBtnStyles(!isGradient, componentStyles)}
         >
           {locales?.CONTROLS?.SOLID}
         </div>
         <div
           onClick={setGradient}
           id="rbgcp-gradient-btn"
-          style={colorTypeBtnStyles(isGradient || false, defaultStyles)}
+          style={colorTypeBtnStyles(isGradient || false, componentStyles)}
         >
           {locales?.CONTROLS?.GRADIENT}
         </div>
@@ -64,7 +68,7 @@ const InputTypeDropdown = ({
   openInputType?: boolean
   setOpenInputType: (arg0: boolean) => void
 }) => {
-  const { inputType, setInputType, defaultStyles } = usePicker()
+  const { inputType, setInputType, componentStyles } = usePicker()
   const vTrans = openInputType
     ? 'visibility 0ms linear'
     : 'visibility 100ms linear 150ms'
@@ -90,30 +94,30 @@ const InputTypeDropdown = ({
         zIndex: openInputType ? '' : -100,
         opacity: openInputType ? 1 : 0,
         transition: `${oTrans}, ${vTrans}, ${zTrans}`,
-        ...defaultStyles.rbgcpColorModelDropdown,
+        ...componentStyles.rbgcpColorModelDropdown,
       }}
     >
       <div
         onClick={(e) => handleInputType(e, 'rgb')}
-        style={modalBtnStyles(inputType === 'rgb', defaultStyles)}
+        style={modalBtnStyles(inputType === 'rgb', componentStyles)}
       >
         RGB
       </div>
       <div
         onClick={(e) => handleInputType(e, 'hsl')}
-        style={modalBtnStyles(inputType === 'hsl', defaultStyles)}
+        style={modalBtnStyles(inputType === 'hsl', componentStyles)}
       >
         HSL
       </div>
       <div
         onClick={(e) => handleInputType(e, 'hsv')}
-        style={modalBtnStyles(inputType === 'hsv', defaultStyles)}
+        style={modalBtnStyles(inputType === 'hsv', componentStyles)}
       >
         HSV
       </div>
       <div
         onClick={(e) => handleInputType(e, 'cmyk')}
-        style={modalBtnStyles(inputType === 'cmyk', defaultStyles)}
+        style={modalBtnStyles(inputType === 'cmyk', componentStyles)}
       >
         CMYK
       </div>
@@ -144,7 +148,7 @@ const Controls = ({
   hideGradientAngle?: boolean
   hideGradientStop?: boolean
 }) => {
-  const { onChange, isGradient, handleChange, previous, defaultStyles } =
+  const { onChange, isGradient, handleChange, previous, componentStyles } =
     usePicker()
   const [openComparibles, setOpenComparibles] = useState(false)
   const [openInputType, setOpenInputType] = useState(false)
@@ -203,7 +207,7 @@ const Controls = ({
             <div
               style={{
                 display: noTools ? 'none' : '',
-                ...defaultStyles.rbgcpControlBtnWrapper,
+                ...componentStyles.rbgcpControlBtnWrapper,
               }}
             >
               {!hideEyeDrop && <EyeDropper onSelect={handleChange} />}
@@ -212,7 +216,7 @@ const Controls = ({
                 onClick={() => setOpenAdvanced(!openAdvanced)}
                 style={{
                   display: hideAdvancedSliders ? 'none' : 'flex',
-                  ...controlBtnStyles(openAdvanced, defaultStyles),
+                  ...controlBtnStyles(openAdvanced, componentStyles),
                 }}
               >
                 <SlidersIcon color={openAdvanced ? '#568CF5' : ''} />
@@ -221,7 +225,7 @@ const Controls = ({
                 id="rbgcp-comparibles-btn"
                 style={{
                   display: hideColorGuide ? 'none' : 'flex',
-                  ...controlBtnStyles(openComparibles, defaultStyles),
+                  ...controlBtnStyles(openComparibles, componentStyles),
                 }}
                 onClick={() => setOpenComparibles(!openComparibles)}
               >
@@ -232,7 +236,7 @@ const Controls = ({
                 onClick={() => setOpenInputType(!openInputType)}
                 style={{
                   display: hideInputType ? 'none' : 'flex',
-                  ...controlBtnStyles(openInputType, defaultStyles),
+                  ...controlBtnStyles(openInputType, componentStyles),
                 }}
               >
                 <InputsIcon color={openInputType ? '#568CF5' : ''} />
@@ -262,4 +266,4 @@ const Controls = ({
   }
 }
 
-export default Controls;
+export default Controls
