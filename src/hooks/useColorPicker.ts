@@ -12,12 +12,16 @@ export const useColorPicker = (
   value: string,
   onChange: (arg0: string) => void
 ) => {
-  const colors = getColors(value)
+  let colors = getColors(value)
   const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
   const { currentColor, selectedColor, currentLeft } = getColorObj(colors)
   const [previousColors, setPreviousColors] = useState([])
 
-  const getGradientObject = () => {
+  const getGradientObject = (currentValue: string) => {
+    if (currentValue)
+    {
+      colors = getColors(currentValue)
+    }
     if (value) {
       if (isGradient) {
         return {
