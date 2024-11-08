@@ -42,13 +42,15 @@ const ColorTypeBtns = ({
           onClick={setSolid}
           id="rbgcp-solid-btn"
           style={colorTypeBtnStyles(!isGradient, defaultStyles)}
+          // className="rbgcp-control-btn rbgcp-solid-btn"
         >
           {locales?.CONTROLS?.SOLID}
         </div>
         <div
           onClick={setGradient}
           id="rbgcp-gradient-btn"
-          style={colorTypeBtnStyles(isGradient || false, defaultStyles)}
+          style={colorTypeBtnStyles(isGradient ?? false, defaultStyles)}
+          // className="rbgcp-control-btn rbgcp-gradient-btn"
         >
           {locales?.CONTROLS?.GRADIENT}
         </div>
@@ -85,6 +87,7 @@ const InputTypeDropdown = ({
 
   return (
     <div
+      // className="rbgcp-color-model-dropdown"
       style={{
         visibility: openInputType ? 'visible' : 'hidden',
         zIndex: openInputType ? '' : -100,
@@ -153,8 +156,8 @@ const Controls = ({
   const noTools =
     hideEyeDrop && hideAdvancedSliders && hideColorGuide && hideInputType
 
-  const solidColor = previous?.color || defaultColor
-  const gradientColor = previous?.gradient || defaultGradient
+  const solidColor = previous?.color ?? defaultColor
+  const gradientColor = previous?.gradient ?? defaultGradient
 
   const setSolid = () => {
     onChange(solidColor)
@@ -190,6 +193,7 @@ const Controls = ({
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
+          // className="rbgcp-controls-wrapper"
         >
           <ColorTypeBtns
             hideColorTypeBtns={hideColorTypeBtns}
@@ -205,42 +209,43 @@ const Controls = ({
                 display: noTools ? 'none' : '',
                 ...defaultStyles.rbgcpControlBtnWrapper,
               }}
+              // className="rbgcp-control-btn-wrapper"
             >
               {!hideEyeDrop && <EyeDropper onSelect={handleChange} />}
-              <div
-                id="rbgcp-advanced-btn"
-                onClick={() => setOpenAdvanced(!openAdvanced)}
-                style={{
-                  display: hideAdvancedSliders ? 'none' : 'flex',
-                  ...controlBtnStyles(openAdvanced, defaultStyles),
-                }}
-              >
-                <SlidersIcon color={openAdvanced ? '#568CF5' : ''} />
-              </div>
-              <div
-                id="rbgcp-comparibles-btn"
-                style={{
-                  display: hideColorGuide ? 'none' : 'flex',
-                  ...controlBtnStyles(openComparibles, defaultStyles),
-                }}
-                onClick={() => setOpenComparibles(!openComparibles)}
-              >
-                <PaletteIcon color={openComparibles ? '#568CF5' : ''} />
-              </div>
-              <div
-                id="rbgcp-color-model-btn"
-                onClick={() => setOpenInputType(!openInputType)}
-                style={{
-                  display: hideInputType ? 'none' : 'flex',
-                  ...controlBtnStyles(openInputType, defaultStyles),
-                }}
-              >
-                <InputsIcon color={openInputType ? '#568CF5' : ''} />
-                <InputTypeDropdown
-                  openInputType={openInputType}
-                  setOpenInputType={setOpenInputType}
-                />
-              </div>
+              {!hideAdvancedSliders && (
+                <div
+                  id="rbgcp-advanced-btn"
+                  onClick={() => setOpenAdvanced(!openAdvanced)}
+                  // className="rbgcp-control-btn rbgcp-advanced-btn"
+                  style={controlBtnStyles(openAdvanced, defaultStyles)}
+                >
+                  <SlidersIcon color={openAdvanced ? '#568CF5' : ''} />
+                </div>
+              )}
+              {!hideColorGuide && (
+                <div
+                  style={controlBtnStyles(openComparibles, defaultStyles)}
+                  onClick={() => setOpenComparibles(!openComparibles)}
+                  // className="rbgcp-control-btn rbgcp-comparibles-btn"
+                  id="rbgcp-comparibles-btn"
+                >
+                  <PaletteIcon color={openComparibles ? '#568CF5' : ''} />
+                </div>
+              )}
+              {!hideInputType && (
+                <div
+                  id="rbgcp-color-model-btn"
+                  onClick={() => setOpenInputType(!openInputType)}
+                  // className="rbgcp-control-btn rbgcp-color-model-btn"
+                  style={controlBtnStyles(openInputType, defaultStyles)}
+                >
+                  <InputsIcon color={openInputType ? '#568CF5' : ''} />
+                  <InputTypeDropdown
+                    openInputType={openInputType}
+                    setOpenInputType={setOpenInputType}
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>

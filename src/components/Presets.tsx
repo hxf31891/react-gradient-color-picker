@@ -30,6 +30,7 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
         marginTop: 14,
         justifyContent: 'space-between',
       }}
+      // className="rbgcp-presets-wrap"
     >
       <div
         style={{
@@ -39,6 +40,7 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
           borderRadius: 6,
           flexShrink: 0,
         }}
+        // className="rbgcp-preset-color-preview"
       />
       <div
         style={{
@@ -47,6 +49,7 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
           width: squareWidth - 66,
           justifyContent: 'space-between',
         }}
+        // className="rbgcp-presets-list"
       >
         {getPresets().map((p: any, key: number) => (
           <div
@@ -59,6 +62,7 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
               marginBottom: 2,
               border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : '',
             }}
+            // className="rbgcp-preset-color"
             onClick={() => handlePresetClick(p)}
           />
         ))}

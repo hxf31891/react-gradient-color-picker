@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef } from 'react'
+import React from 'react'
 import PickerContextWrapper from '../context.js'
 import Picker from './Picker.js'
 import { ColorPickerProps } from '../shared/types.js'
@@ -31,14 +31,15 @@ export function ColorPicker({
   style = {},
   className,
   disableDarkMode = false,
+  disableLightMode = false,
 }: ColorPickerProps) {
   const safeValue = objectToString(value)
-  const contRef = useRef<HTMLDivElement>(null)
-  const defaultStyles = getStyles(disableDarkMode)
+  // const contRef = useRef<HTMLDivElement>(null)
+  const defaultStyles = getStyles(disableDarkMode, disableLightMode)
 
   return (
     <div
-      ref={contRef}
+      // ref={contRef}
       className={className}
       style={{ ...defaultStyles.body, ...style, width: width }}
     >

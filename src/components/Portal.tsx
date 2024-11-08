@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom'
 const Portal = ({ children }: { children: ReactNode }) => {
   const id = 'id' + Math.random().toString(16).slice(2)
   const el = useRef(
-    document.getElementById(id) || document.createElement('div')
+    document.getElementById(id) ?? document.createElement('div')
   )
   const [dynamic] = useState(!el.current.parentElement)
 

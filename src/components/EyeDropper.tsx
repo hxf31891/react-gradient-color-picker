@@ -9,7 +9,7 @@ import { usePicker } from '../context.js'
 
 const DropperIcon = ({ color }: { color: string }) => {
   const { defaultStyles } = usePicker()
-  const col = color || ''
+  const col = color ?? ''
   return (
     <svg
       id="Layer_1"

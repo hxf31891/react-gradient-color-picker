@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Hue from './Hue.js'
 import Inputs from './Inputs.js'
 import Square from './Square.js'

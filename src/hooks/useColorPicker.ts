@@ -85,12 +85,12 @@ export const useColorPicker = (
   }
 
   const setSolid = (startingColor: string) => {
-    const newValue = startingColor || defaultColor
+    const newValue = startingColor ?? defaultColor
     onChange(newValue)
   }
 
   const setGradient = (startingGradiant: string) => {
-    const newValue = startingGradiant || defaultGradient
+    const newValue = startingGradiant ?? defaultGradient
     onChange(newValue)
   }
 
@@ -107,7 +107,7 @@ export const useColorPicker = (
   const handleGradient = (newColor: string, left?: number) => {
     const remaining = colors?.filter((c: ColorsProps) => !isUpperCase(c.value))
     const newColors = [
-      { value: newColor.toUpperCase(), left: left || currentLeft },
+      { value: newColor.toUpperCase(), left: left ?? currentLeft },
       ...remaining,
     ]
     createGradientStr(newColors)
@@ -214,7 +214,7 @@ export const useColorPicker = (
 
   const deletePoint = (index: number) => {
     if (colors?.length > 2) {
-      const pointToDelete = index || selectedColor
+      const pointToDelete = index ?? selectedColor
       const remaining = colors?.filter(
         (rc: ColorsProps, i: number) => i !== pointToDelete
       )

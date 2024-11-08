@@ -92,6 +92,7 @@ const styles: Styles = {
     color: 'black',
     fontWeight: 400,
     textAlign: 'center',
+    background: 'transparent'
   },
   rbgcpHandle: {
     position: 'absolute',
@@ -178,9 +179,9 @@ const styles: Styles = {
   }
 };
 
-export const getStyles = (disableDarkMode: boolean) => {
+export const getStyles = (disableDarkMode: boolean, disableLightMode: boolean) => {
   if (typeof window === 'undefined' || disableDarkMode) return styles;
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches || disableLightMode) {
     const mergedStyles = { ...styles }
     for (const key in darkStyles) {
       if (Object.prototype.hasOwnProperty.call(darkStyles, key)) {
