@@ -182,16 +182,17 @@ const styles: Styles = {
 export const getStyles = (disableDarkMode: boolean, disableLightMode: boolean) => {
   if (typeof window === 'undefined' || disableDarkMode) return styles;
   if (window.matchMedia("(prefers-color-scheme: dark)").matches || disableLightMode) {
+    const mergedStyles = { ...styles }
     for (const key in darkStyles) {
       if (Object.prototype.hasOwnProperty.call(darkStyles, key)) {
-        (styles as Record<string, any>)[key] = {
-          ...(Object.prototype.hasOwnProperty.call(styles, key) ? (styles as Record<string, any>)[key] : {}),
+        (mergedStyles as Record<string, any>)[key] = {
+          ...(Object.prototype.hasOwnProperty.call(mergedStyles, key) ? (mergedStyles as Record<string, any>)[key] : {}),
           ...(darkStyles as Record<string, any>)[key],
         };
       }
     }
 
-    return styles;
+    return mergedStyles;
   } 
   return styles;
 };
