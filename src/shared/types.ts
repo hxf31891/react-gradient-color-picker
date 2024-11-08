@@ -22,6 +22,7 @@ export type ColorPickerProps = {
   className?: any
   locales?: LocalesProps
   disableDarkMode?: boolean
+  disableLightMode?: boolean
 }
 
 export type ColorsProps = {

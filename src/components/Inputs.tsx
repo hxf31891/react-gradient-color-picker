@@ -36,6 +36,7 @@ const Input = ({
         id="rbgcp-input"
         onChange={(e) => onChange(e)}
         style={{ ...defaultStyles.rbgcpInput }}
+        // className="rbgcp-input"
       />
       <div style={{ ...defaultStyles.rbgcpInputLabel }}>{label}</div>
     </div>

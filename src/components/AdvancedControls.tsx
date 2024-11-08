@@ -66,10 +66,12 @@ const AdvBar = ({
     <div style={{ width: '100%', padding: '3px 0px 3px 0px' }}>
       <div
         onMouseMove={(e) => handleMove(e)}
+        // className="rbgcp-advanced-bar-wrap"
         style={{ cursor: 'resize', position: 'relative' }}
       >
         <div
           style={{ left, top: handleTop, ...defaultStyles.rbgcpHandle }}
+          // className="rbgcp-advanced-bar-handle"
           onMouseDown={handleDown}
           role="button"
           tabIndex={0}
@@ -88,6 +90,7 @@ const AdvBar = ({
             zIndex: 10,
             textShadow: '1px 1px 1px rgba(0,0,0,.6)',
           }}
+          // className="rbgcp-advanced-bar-label"
           onMouseMove={(e) => handleMove(e)}
           onClick={(e) => handleClick(e)}
           tabIndex={0}
@@ -103,6 +106,7 @@ const AdvBar = ({
           height="14px"
           width={`${squareWidth}px`}
           onClick={(e) => handleClick(e)}
+          // className="rbgcp-advanced-bar-canvas"
           style={{ position: 'relative', borderRadius: 14 }}
         />
       </div>
@@ -147,6 +151,7 @@ const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
         width: '100%',
         transition: 'all 120ms linear',
       }}
+      // className="rbgcp-advanced-controls-wrap"
     >
       <div
         style={{
@@ -158,6 +163,7 @@ const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
           overflow: 'hidden',
           transition: 'height 100ms linear',
         }}
+        // className="rbgcp-advanced-controls-inner"
       >
         <AdvBar
           value={s}

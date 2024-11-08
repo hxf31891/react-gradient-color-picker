@@ -96,22 +96,26 @@ const Square = () => {
         onTouchStart={handleCanvasDown}
         onMouseMove={(e) => handleMove(e)}
         style={{ position: 'relative', cursor: 'ew-cross' }}
+        // className="rbgcp-square-wrap"
       >
         <div
           style={{
             ...defaultStyles.rbgcpHandle,
-            transform: `translate(${dragPos?.x || 0}px, ${dragPos?.y || 0}px)`,
-            ...(dragging ? { transition: "" } : {}),
+            transform: `translate(${dragPos?.x ?? 0}px, ${dragPos?.y ?? 0}px)`,
+            ...(dragging ? { transition: '' } : {}),
           }}
           onMouseDown={handleMouseDown}
+          // className="rbgcp-handle rbgcp-handle-square"
         />
         <div
           style={{ ...defaultStyles.rbgcpCanvasWrapper, height: squareHeight }}
+          // className="rbgcp-canvas-wrapper"
           onClick={(e) => handleClick(e)}
         >
           <canvas
             ref={canvas}
             id="paintSquare"
+            // className="rbgcp-canvas"
             width={`${squareWidth}px`}
             height={`${squareHeight}px`}
           />

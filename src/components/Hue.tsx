@@ -60,10 +60,12 @@ const Hue = () => {
         position: 'relative',
       }}
       onMouseMove={(e) => handleMove(e)}
+      // className="rbgcp-hue-wrap"
     >
       <div
         tabIndex={0}
         role="button"
+        // className="rbgcp-handle rbgcp-handle-hue"
         style={{
           border: '2px solid white',
           borderRadius: '50%',
@@ -83,6 +85,7 @@ const Hue = () => {
       <canvas
         ref={barRef}
         height="14px"
+        // className="rbgcp-hue-bar"
         width={`${squareWidth}px`}
         onClick={(e) => handleClick(e)}
         style={{ position: 'relative', borderRadius: 14, verticalAlign: 'top' }}

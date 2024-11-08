@@ -25,6 +25,7 @@ const ComparibleColors = ({
         width: '100%',
         transition: 'all 120ms linear',
       }}
+      // className="rbgcp-comparible-colors-wrap"
     >
       <div
         style={{
@@ -32,6 +33,7 @@ const ComparibleColors = ({
           display: openComparibles ? '' : 'none',
           position: 'relative',
         }}
+        // className="rbgcp-comparible-colors-inner"
       >
         <div
           style={{
@@ -43,6 +45,7 @@ const ComparibleColors = ({
             left: 2,
             ...defaultStyles.rbgcpComparibleLabel,
           }}
+          // className="rbgcp-comparible-colors-label"
         >
           Color Guide
         </div>
@@ -54,6 +57,7 @@ const ComparibleColors = ({
             marginTop: 3,
             ...defaultStyles.rbgcpComparibleLabel,
           }}
+          // className="rbgcp-comparible-colors-label"
         >
           Analogous
         </div>
@@ -74,6 +78,7 @@ const ComparibleColors = ({
             marginTop: 3,
             ...defaultStyles.rbgcpComparibleLabel,
           }}
+          // className="rbgcp-comparible-colors-label"
         >
           Monochromatic
         </div>
@@ -84,10 +89,12 @@ const ComparibleColors = ({
             display: 'flex',
             justifyContent: 'flex-end',
           }}
+          // className="rbgcp-comparible-colors-colors"
         >
           {monochromatic?.map((c: any, key: number) => (
             <div
               key={key}
+              // className="rbgcp-comparible-colors-color"
               style={{ width: '20%', height: 30, background: c.toHexString() }}
               onClick={() => handleClick(c)}
             />
@@ -101,6 +108,7 @@ const ComparibleColors = ({
             marginTop: 3,
             ...defaultStyles.rbgcpComparibleLabel,
           }}
+          // className="rbgcp-comparible-colors-label"
         >
           Triad
         </div>
@@ -111,10 +119,12 @@ const ComparibleColors = ({
             display: 'flex',
             justifyContent: 'flex-end',
           }}
+          // className="rbgcp-comparible-colors-colors"
         >
           {triad?.map((c: any, key: number) => (
             <div
               key={key}
+              // className="rbgcp-comparible-colors-color"
               style={{
                 width: 'calc(100% / 3)',
                 height: 28,
@@ -132,6 +142,7 @@ const ComparibleColors = ({
             marginTop: 3,
             ...defaultStyles.rbgcpComparibleLabel,
           }}
+          // className="rbgcp-comparible-colors-label"
         >
           Tetrad
         </div>
@@ -142,10 +153,12 @@ const ComparibleColors = ({
             display: 'flex',
             justifyContent: 'flex-end',
           }}
+          // className="rbgcp-comparible-colors-colors"
         >
           {tetrad?.map((c: any, key: number) => (
             <div
               key={key}
+              // className="rbgcp-comparible-colors-color"
               style={{ width: '25%', height: 28, background: c.toHexString() }}
               onClick={() => handleClick(c)}
             />

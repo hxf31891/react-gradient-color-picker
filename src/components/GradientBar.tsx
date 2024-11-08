@@ -56,12 +56,14 @@ export const Handle = ({
       // onFocus={handleFocus}
       id={`gradient-handle-${i}`}
       onMouseDown={(e) => handleDown(e)}
+      // className="rbgcp-gradient-handle-wrap"
       style={{
         ...defaultStyles.rbgcpGradientHandleWrap,
-        left: (left || 0) * leftMultiplyer,
+        left: (left ?? 0) * leftMultiplyer,
       }}
     >
       <div
+        // className="rbgcp-gradient-handle"
         style={{
           ...defaultStyles.rbgcpGradientHandle,
           ...(isSelected ? { boxShadow: '0px 0px 5px 1px rgba(86, 140, 245,.95)', border: '2px solid white' } : {}),
@@ -75,6 +77,7 @@ export const Handle = ({
               borderRadius: '50%',
               background: 'white',
             }}
+            // className="rbgcp-gradient-handle-selected-dot"
           />
         )}
       </div>
@@ -164,6 +167,7 @@ const GradientBar = () => {
         position: 'relative',
       }}
       id="gradient-bar"
+      // className="rbgcp-gradient-bar"
     >
       <div
         style={{
@@ -174,6 +178,7 @@ const GradientBar = () => {
         }}
         onMouseDown={(e) => handleDown(e)}
         onMouseMove={(e) => handleMove(e)}
+        // className="rbgcp-gradient-bar-canvas"
       />
       {colors?.map((c: any, i) => (
         <Handle

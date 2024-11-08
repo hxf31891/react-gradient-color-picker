@@ -60,15 +60,19 @@ const Opacity = () => {
         cursor: 'ew-resize',
         position: 'relative',
       }}
+      // className="rbgcp-opacity-wrap"
     >
       <div
+        // className="rbgcp-opacity-checkered"
         style={{ ...defaultStyles.rbgcpCheckered, width: '100%', height: 14 }}
       />
       <div
+        // className="rbgcp-handle rbgcp-handle-opacity"
         style={{ ...defaultStyles.rbgcpHandle, left: left * hc?.a, top: -2 }}
       />
       <div
         style={{ ...defaultStyles.rbgcpOpacityOverlay, background: bg }}
+        // className="rbgcp-opacity-overlay"
         onClick={(e) => handleClick(e)}
         
       />
