@@ -89,8 +89,8 @@ function MyApp() {
 | hideGradientControls| `boolean`    | `false`                 | (optional) hide the all gradient controls (the bar that appears below top controls when in gradient mode)|
 | presets             | `array`      | ['rgba(0,0,0,1)', ...]  | (optional) pass in custom preset options ['rgba()', 'rgba()', ..]         |
 | locales             | `object`     | { CONTROLS: { SOLID: 'Solid', GRADIENT: 'Gradient' }}  | (optional) pass in custom locales |
-| disbaleDarkMode     | `boolean`    | false                    | (optional) disbale automatic dark mode style adjustments                 |
-| disbaleLightMode    | `boolean`    | false                    | (optional) force the component to only use the dark mode styles          |
+| disableDarkMode     | `boolean`    | false                    | (optional) disable automatic dark mode style adjustments                 |
+| disableLightMode    | `boolean`    | false                    | (optional) force the component to only use the dark mode styles          |
 | className           | `string`     | ''                       | (optional) a CSS class for the picker parent (see styling for more options)|
 
 <a id="item-five"></a>
