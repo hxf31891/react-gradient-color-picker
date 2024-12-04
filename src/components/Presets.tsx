@@ -60,7 +60,7 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
               borderRadius: 4,
               background: p,
               marginBottom: 2,
-              border: p === 'rgba(255,255,255, 1)' ? '1px solid #96959c' : '',
+              border: p === 'rgba(255,255,255,1)' ? '1px solid #96959c' : '',
             }}
             // className="rbgcp-preset-color"
             onClick={() => handlePresetClick(p)}
