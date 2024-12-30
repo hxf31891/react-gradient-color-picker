@@ -118,6 +118,7 @@ export const useColorPicker = (
   }
 
   const handleChange = (newColor: string) => {
+    newColor = newColor?.replace(/\s+/g, '')
     if (isGradient) {
       handleGradient(newColor)
     } else {
