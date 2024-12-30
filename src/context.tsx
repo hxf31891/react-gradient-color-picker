@@ -16,6 +16,7 @@ export default function PickerContextWrapper({
   value,
   children,
   onChange,
+  isDarkMode,
   squareWidth,
   hideOpacity,
   squareHeight,
@@ -91,6 +92,7 @@ export default function PickerContextWrapper({
     previous,
     inputType,
     tinyColor,
+    isDarkMode,
     isGradient,
     squareWidth,
     hideOpacity,
@@ -132,6 +134,7 @@ type PCWProps = {
   hideOpacity: boolean
   onChange: (arg0: string) => void
   defaultStyles: Styles
+  isDarkMode: boolean
 }
 
 export type PickerContextProps = {
@@ -161,4 +164,5 @@ export type PickerContextProps = {
     color?: string
     gradient?: string
   }
+  isDarkMode: boolean
 }

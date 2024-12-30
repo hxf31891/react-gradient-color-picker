@@ -5,7 +5,7 @@ import { usePicker } from '../context.js'
 import { fakePresets } from '../constants.js'
 
 const Presets = ({ presets = [] }: { presets?: string[] }) => {
-  const { value, onChange, handleChange, squareWidth } = usePicker()
+  const { value, onChange, handleChange, squareWidth, isDarkMode } = usePicker()
 
   const getPresets = () => {
     if (presets?.length > 0) {
@@ -21,6 +21,15 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
     } else {
       handleChange(preset)
     }
+  }
+
+  const getBorder = (p: string) => {
+    if (!p || isDarkMode) return ''
+    const c = p?.replace(' ', '');
+    if (c === 'rgba(255,255,255,1)') {
+      return '1px solid #96959c'
+    }
+    return ''
   }
 
   return (
@@ -39,6 +48,7 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
           background: value,
           borderRadius: 6,
           flexShrink: 0,
+          border: getBorder(value),
         }}
         // className="rbgcp-preset-color-preview"
       />
@@ -60,7 +70,7 @@ const Presets = ({ presets = [] }: { presets?: string[] }) => {
               borderRadius: 4,
               background: p,
               marginBottom: 2,
-              border: p === 'rgba(255,255,255,1)' ? '1px solid #96959c' : '',
+              border: getBorder(p),
             }}
             // className="rbgcp-preset-color"
             onClick={() => handlePresetClick(p)}

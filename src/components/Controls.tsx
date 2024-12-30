@@ -185,7 +185,7 @@ const Controls = ({
     }
   } else {
     return (
-      <div style={{ paddingTop: 12, paddingBottom: 4 }}>
+      <div style={{ paddingBottom: 4 }}>
         <div
           style={{
             width: '100%',

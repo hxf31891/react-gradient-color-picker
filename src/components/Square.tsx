@@ -88,7 +88,7 @@ const Square = () => {
   }, [])
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', marginBottom: 12 }}>
       <div
         onMouseUp={stopDragging}
         onTouchEnd={stopDragging}
