@@ -148,15 +148,20 @@ const GradientBar = () => {
     stopDragging()
   }
 
+  // Register global event listeners for mouse and touch events
   useEffect(() => {
+    window.addEventListener('mousemove', handleMove)
+    window.addEventListener('touchmove', handleMove)
     window.addEventListener('mouseup', handleUp)
-    // window?.addEventListener('keydown', handleKeyboard)
+    window.addEventListener('touchend', handleUp)
 
     return () => {
+      window.removeEventListener('mousemove', handleMove)
+      window.removeEventListener('touchmove', handleMove)
       window.removeEventListener('mouseup', handleUp)
-      // window?.removeEventListener('keydown', handleKeyboard)
+      window.removeEventListener('touchend', handleUp)
     }
-  })
+  }, [dragging])
 
   return (
     <div
@@ -177,7 +182,8 @@ const GradientBar = () => {
           backgroundImage: force90degLinear(value),
         }}
         onMouseDown={(e) => handleDown(e)}
-        onMouseMove={(e) => handleMove(e)}
+        onTouchStart={(e) => handleDown(e)}
+        // onMouseMove={(e) => handleMove(e)}
         // className="rbgcp-gradient-bar-canvas"
       />
       {colors?.map((c: any, i) => (

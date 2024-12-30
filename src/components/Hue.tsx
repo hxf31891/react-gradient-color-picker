@@ -38,17 +38,23 @@ const Hue = () => {
     }
   }
 
-  useEffect(() => {
-    const handleUp = () => {
-      stopDragging()
-    }
+  const handleUp = () => {
+    stopDragging()
+  }
 
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMove)
+    window.addEventListener('touchmove', handleMove)
     window.addEventListener('mouseup', handleUp)
+    window.addEventListener('touchend', handleUp)
 
     return () => {
+      window.removeEventListener('mousemove', handleMove)
+      window.removeEventListener('touchmove', handleMove)
       window.removeEventListener('mouseup', handleUp)
+      window.removeEventListener('touchend', handleUp)
     }
-  }, [])
+  }, [dragging])
 
   return (
     <div
@@ -59,7 +65,7 @@ const Hue = () => {
         cursor: 'ew-resize',
         position: 'relative',
       }}
-      onMouseMove={(e) => handleMove(e)}
+      // onMouseMove={(e) => handleMove(e)}
       // className="rbgcp-hue-wrap"
     >
       <div
@@ -81,6 +87,7 @@ const Hue = () => {
           boxSizing: 'border-box',
         }}
         onMouseDown={handleDown}
+        onTouchStart={handleDown}
       />
       <canvas
         ref={barRef}

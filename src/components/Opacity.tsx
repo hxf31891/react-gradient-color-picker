@@ -37,22 +37,29 @@ const Opacity = () => {
 
   const left = squareWidth - 18
 
-  useEffect(() => {
-    const handleUp = () => {
-      stopDragging()
-    }
+  const handleUp = () => {
+    stopDragging()
+  }
 
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMove)
+    window.addEventListener('touchmove', handleMove)
     window.addEventListener('mouseup', handleUp)
+    window.addEventListener('touchend', handleUp)
 
     return () => {
+      window.removeEventListener('mousemove', handleMove)
+      window.removeEventListener('touchmove', handleMove)
       window.removeEventListener('mouseup', handleUp)
+      window.removeEventListener('touchend', handleUp)
     }
-  }, [])
+  }, [dragging])
 
   return (
     <div
       onMouseDown={handleDown}
-      onMouseMove={(e) => handleMove(e)}
+      onTouchStart={handleDown}
+      // onMouseMove={(e) => handleMove(e)}
       style={{
         height: 14,
         marginTop: 17,
@@ -74,7 +81,6 @@ const Opacity = () => {
         style={{ ...defaultStyles.rbgcpOpacityOverlay, background: bg }}
         // className="rbgcp-opacity-overlay"
         onClick={(e) => handleClick(e)}
-        
       />
     </div>
   )
