@@ -88,11 +88,13 @@ function MyApp() {
 | hideGradientStop    | `boolean`    | `false`                 | (optional) hide the gradient point stop input (only relevant in gradient mode)|
 | hideGradientControls| `boolean`    | `false`                 | (optional) hide the all gradient controls (the bar that appears below top controls when in gradient mode)|
 | hidePickerSquare    | `boolean`    | `false`                 | (optional) hide the main picker color swatch (the square that appears at the top)|
+| showHexAlpha        | `boolean`    | `false`                 | (optional) add alpha (AA) channel to hex value which represents the opacity of the color|
 | presets             | `array`      | ['rgba(0,0,0,1)', ...]  | (optional) pass in custom preset options ['rgba()', 'rgba()', ..]         |
 | locales             | `object`     | { CONTROLS: { SOLID: 'Solid', GRADIENT: 'Gradient' }}  | (optional) pass in custom locales |
 | disableDarkMode     | `boolean`    | false                    | (optional) disable automatic dark mode style adjustments                 |
 | disableLightMode    | `boolean`    | false                    | (optional) force the component to only use the dark mode styles          |
 | className           | `string`     | ''                       | (optional) a CSS class for the picker parent (see styling for more options)|
+| idSuffix            | `string`     | ''                       | (optional) Adds a suffix to all the ids of the picker elements, useful when using multiple pickers on the same page|
 
 <a id="item-five"></a>
 ### API
