@@ -379,17 +379,40 @@ function MyApp() {
 
 <a id="item-fifteen"></a>
 ## Styling
-Many of the pickers components have css classnames you can target to change styles. Below are some of the more common, others can be found using the elements inspector.
+Most of the pickers components have inline styles applied to them. In order to update, identify the key being applied to the desired component and add it as a nest object to the style object which can be passed into the picker. See below list of style keys and example.
 
-| Class                       | Description                                                      |
-| --------------------------- | ---------------------------------------------------------------- |
-| rbgcp-control-btn-wrapper   | grey area around the buttons                                     |
-| rbgcp-control-icon-btn      | icon buttons                                                     |
-| rbgcp-control-btn           | text buttons                                                     |
-| rbgcp-control-btn-selected  | selected buttons, icon and text                                  |
-| rbgcp-color-model-dropdown  | dropdown to select between color modes                           |
-| rbgcp-control-input         | inputs on the gradient control bar, angle and stop               |
-| rbgcp-input                 | color value inputs, hex, rgba etc                                |
+<br />
+
+| Key              | Description                                                      |
+| -------------------------------- | ------------------------------------------------ |
+| body                             | ComingSoon |
+| rbgcpControlBtnWrapper           | ComingSoon |
+| rbgcpControlBtn                  | ComingSoon |
+| rbgcpControlIconBtn              | ComingSoon |
+| rbgcpControlIcon                 | ComingSoon |
+| rbgcpColorModelDropdown          | ComingSoon |
+| rbgcpEyedropperCover             | ComingSoon |
+| rbgcpControlInputWrap            | ComingSoon |
+| rbgcpControlInput                | ComingSoon |
+| rbgcpInputLabel                  | ComingSoon |
+| rbgcpInput                       | ComingSoon |
+| rbgcpHandle                      | ComingSoon |
+| rbgcpCanvasWrapper               | ComingSoon |
+| rbgcpOpacityOverlay              | ComingSoon |
+| rbgcpGradientHandleWrap          | ComingSoon |
+| rbgcpGradientHandle              | ComingSoon |
+| rbgcpControlIcon2                | ComingSoon |
+| rbgcpControlBtnSelected          | ComingSoon |
+| rbgcpComparibleLabel             | ComingSoon |
+| rbgcpColorModelDropdownBtn       | ComingSoon |
+| rbgcpStopInputWrap               | ComingSoon |
+| rbgcpStopInput                   | ComingSoon |
+| rbgcpDegreeInputWrap             | ComingSoon |
+| rbgcpDegreeInput                 | ComingSoon |
+| rbgcpDegreeIcon                  | ComingSoon |
+| rbgcpEyedropperBtn               | ComingSoon |
+| rbgcpHexInput                    | ComingSoon |
+| rbgcpInputsWrap                  | ComingSoon |
 
 <br />
 
