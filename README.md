@@ -379,7 +379,7 @@ function MyApp() {
 
 <a id="item-fifteen"></a>
 ## Styling
-Most of the pickers components have inline styles applied to them. In order to update, identify the key being applied to the desired component and add it as a nest object to the style object which can be passed into the picker. See below list of style keys and example.
+Most of the pickers components have inline styles applied to them, these essential function as classNames. In order to update, identify the key being applied to the desired component and add any styles as a nested object to the `style` object which can be passed into the picker. See below list of style keys and example.
 
 <br />
 
