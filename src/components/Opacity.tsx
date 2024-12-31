@@ -5,6 +5,7 @@ import { getHandleValue } from '../utils/utils.js'
 
 const Opacity = () => {
   const {
+    config,
     hc = {},
     squareWidth,
     handleChange,
@@ -14,6 +15,7 @@ const Opacity = () => {
   const [dragging, setDragging] = useState(false)
   const { r, g, b } = hc
   const bg = `linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(${r},${g},${b},.5) 100%)`
+  const { barSize } = config
 
   const stopDragging = () => {
     setDragging(false)
@@ -24,7 +26,7 @@ const Opacity = () => {
   }
 
   const handleOpacity = (e: any) => {
-    const newO = getHandleValue(e) / 100
+    const newO = getHandleValue(e, barSize) / 100
     const newColor = `rgba(${r}, ${g}, ${b}, ${newO})`
     handleChange(newColor)
   }

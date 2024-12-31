@@ -6,8 +6,9 @@ import tinycolor from 'tinycolor2'
 
 const Hue = () => {
   const barRef = useRef<HTMLCanvasElement>(null)
-  const { handleChange, squareWidth, hc, setHc, pickerIdSuffix } = usePicker()
+  const { config, handleChange, squareWidth, hc, setHc, pickerIdSuffix } = usePicker()
   const [dragging, setDragging] = useState(false)
+  const { barSize } = config
   usePaintHue(barRef, squareWidth)
 
   const stopDragging = () => {
@@ -19,7 +20,7 @@ const Hue = () => {
   }
 
   const handleHue = (e: any) => {
-    const newHue = getHandleValue(e) * 3.6
+    const newHue = getHandleValue(e, barSize) * 3.6
     const tinyHsv = tinycolor({ h: newHue, s: hc?.s, v: hc?.v })
     const { r, g, b } = tinyHsv.toRgb()
     handleChange(`rgba(${r}, ${g}, ${b}, ${hc.a})`)

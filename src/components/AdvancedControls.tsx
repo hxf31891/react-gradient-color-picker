@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { Styles, Config } from '../shared/types.js'
 import { getHandleValue } from '../utils/utils.js'
-import { Styles } from '../shared/types.js'
 import { usePicker } from '../context.js'
 import {
   usePaintSat,
@@ -13,6 +13,7 @@ const AdvBar = ({
   value,
   reffy,
   label,
+  config,
   callback,
   squareWidth,
   openAdvanced,
@@ -22,12 +23,14 @@ const AdvBar = ({
   reffy: any
   value: number
   label: string
+  config: Config
   squareWidth: number
   openAdvanced: boolean
   defaultStyles: Styles
   pickerIdSuffix: string
   callback: (arg0: number) => void
 }) => {
+  const { barSize } = config
   const [dragging, setDragging] = useState<boolean>(false)
   const [handleTop, setHandleTop] = useState<number>(2)
   const left = value * (squareWidth - 18)
@@ -42,13 +45,13 @@ const AdvBar = ({
 
   const handleMove = (e: any) => {
     if (dragging) {
-      callback(getHandleValue(e))
+      callback(getHandleValue(e, barSize))
     }
   }
 
   const handleClick = (e: any) => {
     if (!dragging) {
-      callback(getHandleValue(e))
+      callback(getHandleValue(e, barSize))
     }
   }
 
@@ -125,7 +128,7 @@ const AdvBar = ({
 }
 
 const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
-  const { tinyColor, handleChange, squareWidth, hc, defaultStyles, pickerIdSuffix } = usePicker()
+  const { config, tinyColor, handleChange, squareWidth, hc, defaultStyles, pickerIdSuffix } = usePicker()
   const { s, l } = tinyColor.toHsl()
 
   const satRef = useRef(null)
@@ -180,8 +183,9 @@ const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
         <AdvBar
           value={s}
           reffy={satRef}
-          callback={satDesat}
+          config={config}
           label="Saturation"
+          callback={satDesat}
           squareWidth={squareWidth}
           openAdvanced={openAdvanced}
           defaultStyles={defaultStyles}
@@ -189,6 +193,7 @@ const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
         />
         <AdvBar
           value={l}
+          config={config}
           reffy={lightRef}
           label="Lightness"
           callback={setLight}
@@ -199,6 +204,7 @@ const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
         />
         <AdvBar
           value={hc?.v}
+          config={config}
           reffy={brightRef}
           label="Brightness"
           callback={setBright}

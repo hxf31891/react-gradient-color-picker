@@ -180,9 +180,10 @@ const styles: Styles = {
   }
 };
 
-export const getStyles = (isDarkMode: boolean) => {
+export const getStyles = (isDarkMode: boolean, passedStyles: Styles) => {
+  const mergedStyles = { ...styles }
+
   if (isDarkMode) {
-    const mergedStyles = { ...styles }
     for (const key in darkStyles) {
       if (Object.prototype.hasOwnProperty.call(darkStyles, key)) {
         ;(mergedStyles as Record<string, any>)[key] = {
@@ -193,10 +194,20 @@ export const getStyles = (isDarkMode: boolean) => {
         }
       }
     }
-
-    return mergedStyles
   }
-  return styles
+
+  for (const key in passedStyles) {
+    if (Object.prototype.hasOwnProperty.call(passedStyles, key)) {
+      ;(mergedStyles as Record<string, any>)[key] = {
+        ...(Object.prototype.hasOwnProperty.call(mergedStyles, key)
+          ? (mergedStyles as Record<string, any>)[key]
+          : {}),
+        ...(passedStyles as Record<string, any>)[key],
+      }
+    }
+  }
+
+  return mergedStyles
 }
 
 export const colorTypeBtnStyles = (selected: boolean, styles: Styles): React.CSSProperties => {

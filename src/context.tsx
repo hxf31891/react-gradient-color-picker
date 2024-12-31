@@ -1,13 +1,13 @@
 import React, {
   createContext,
   useContext,
-  useState,
   ReactNode,
   useEffect,
+  useState,
 } from 'react'
+import { GradientProps, Styles, PassedConfig, Config } from './shared/types.js'
 import { isUpperCase, getColorObj, getDetails } from './utils/utils.js'
 import { low, high, getColors } from './utils/formatters.js'
-import { GradientProps, Styles } from './shared/types.js'
 import tinycolor from 'tinycolor2'
 
 const PickerContext = createContext<PickerContextProps | null>(null)
@@ -21,12 +21,21 @@ export default function PickerContextWrapper({
   hideOpacity,
   showHexAlpha,
   squareHeight,
+  passedConfig,
   defaultStyles,
   pickerIdSuffix,
 }: PCWProps) {
-  const colors = getColors(value)
+  const config: Config = {
+    barSize: passedConfig.barSize ?? defaultConfig.barSize,
+    crossSize: passedConfig.crossSize ?? defaultConfig.crossSize,
+    defaultColor: passedConfig.defaultColor ?? defaultConfig.defaultColor,
+    defaultGradient:
+      passedConfig.defaultGradient ?? defaultConfig.defaultGradient,
+  }
+
+  const colors = getColors(value, config.defaultColor, config.defaultGradient)
   const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
-  const { currentColor, selectedColor, currentLeft } = getColorObj(colors)
+  const { currentColor, selectedColor, currentLeft } = getColorObj(colors, config.defaultGradient)
   const [inputType, setInputType] = useState('rgb')
   const [previous, setPrevious] = useState({})
   const tinyColor = tinycolor(currentColor)
@@ -91,6 +100,7 @@ export default function PickerContextWrapper({
     setHc,
     value,
     colors,
+    config,
     degrees,
     onChange,
     previous,
@@ -143,10 +153,12 @@ type PCWProps = {
   isDarkMode: boolean
   pickerIdSuffix: string
   showHexAlpha: boolean
+  passedConfig: PassedConfig
 }
 
 export type PickerContextProps = {
   hc: any
+  config: Config
   value: string
   colors: GradientProps[]
   degrees: number
@@ -175,4 +187,14 @@ export type PickerContextProps = {
   isDarkMode: boolean
   pickerIdSuffix: string
   showHexAlpha: boolean
+}
+
+const defaultConfig = {
+  barSize: 18,
+  crossSize: 18,
+  inputSize: 40,
+  delay: 150,
+  defaultColor: 'rgba(175, 51, 242, 1)',
+  defaultGradient:
+    'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)',
 }

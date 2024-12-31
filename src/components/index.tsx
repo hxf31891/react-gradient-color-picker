@@ -35,6 +35,7 @@ export function ColorPicker({
   disableLightMode = false,
   hidePickerSquare = false,
   showHexAlpha = false,
+  config = {},
 }: ColorPickerProps) {
   const safeValue = objectToString(value)
   const isDarkMode =
@@ -45,7 +46,7 @@ export function ColorPicker({
         ? true
         : false
   // const contRef = useRef<HTMLDivElement>(null)
-  const defaultStyles = getStyles(isDarkMode)
+  const defaultStyles = getStyles(isDarkMode, style)
   const pickerIdSuffix = isDarkMode
     ? `-dark${idSuffix ? `-${idSuffix}` : ''}`
     : idSuffix
@@ -56,12 +57,13 @@ export function ColorPicker({
     <div
       // ref={contRef}
       className={className}
-      style={{ ...defaultStyles.body, ...style, width: width }}
+      style={{ ...defaultStyles.body, width: width }}
     >
       <PickerContextWrapper
         value={safeValue}
         onChange={onChange}
         squareWidth={width}
+        passedConfig={config}
         squareHeight={height}
         isDarkMode={isDarkMode}
         hideOpacity={hideOpacity}

@@ -1,26 +1,31 @@
+import tc from 'tinycolor2'
 import { useState, useEffect } from 'react'
+import { rgb2cmyk } from '../utils/converters.js'
+import { ColorsProps, GradientProps, Config } from '../shared/types.js'
 import { isUpperCase, getDetails, getColorObj } from '../utils/utils.js'
 import { low, high, getColors, formatInputValues } from '../utils/formatters.js'
-import { rgb2cmyk } from '../utils/converters.js'
-import { config } from '../constants.js'
-import tc from 'tinycolor2'
-import { ColorsProps, GradientProps } from '../shared/types.js'
-
-const { defaultColor, defaultGradient } = config
 
 export const useColorPicker = (
   value: string,
-  onChange: (arg0: string) => void
+  onChange: (arg0: string) => void,
+  config?: Config
 ) => {
-  let colors = getColors(value)
+  const {
+    defaultColor = 'rgba(175, 51, 242, 1)',
+    defaultGradient = 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)',
+  } = config ?? {}
+
+  let colors = getColors(value, defaultColor, defaultGradient)
   const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
-  const { currentColor, selectedColor, currentLeft } = getColorObj(colors)
+  const { currentColor, selectedColor, currentLeft } = getColorObj(
+    colors,
+    defaultGradient
+  )
   const [previousColors, setPreviousColors] = useState([])
 
   const getGradientObject = (currentValue: string) => {
-    if (currentValue)
-    {
-      colors = getColors(currentValue)
+    if (currentValue) {
+      colors = getColors(currentValue, defaultColor, defaultGradient)
     }
     if (value) {
       if (isGradient) {
@@ -89,12 +94,15 @@ export const useColorPicker = (
   }
 
   const setSolid = (startingColor: string) => {
-    const newValue = startingColor ?? defaultColor
+    const newValue = startingColor ?? defaultColor ?? 'rgba(175, 51, 242, 1)'
     onChange(newValue)
   }
 
   const setGradient = (startingGradiant: string) => {
-    const newValue = startingGradiant ?? defaultGradient
+    const newValue =
+      startingGradiant ??
+      defaultGradient ??
+      'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)'
     onChange(newValue)
   }
 
