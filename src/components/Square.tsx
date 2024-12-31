@@ -1,16 +1,23 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import { computePickerPosition, computeSquareXY } from '../utils/utils.js'
 import React, { useRef, useState, useEffect } from 'react'
 import usePaintSquare from '../hooks/usePaintSquare.js'
-import throttle from 'lodash.throttle'
 import { usePicker } from '../context.js'
-import tinycolor from 'tinycolor2'
-import { computePickerPosition, computeSquareXY } from '../utils/utils.js'
 import { config } from '../constants.js'
+import throttle from 'lodash.throttle'
+import tinycolor from 'tinycolor2'
 
 const { crossSize } = config
 
 const Square = () => {
-  const { hc, defaultStyles, squareWidth, squareHeight, handleChange } = usePicker()
+  const {
+    hc,
+    squareWidth,
+    squareHeight,
+    handleChange,
+    defaultStyles,
+    pickerIdSuffix,
+  } = usePicker()
   const [dragging, setDragging] = useState(false)
   const canvas = useRef<HTMLCanvasElement>(null)
   const [x, y] = computeSquareXY(hc?.s, hc?.v * 100, squareWidth, squareHeight)
@@ -88,13 +95,17 @@ const Square = () => {
   }, [])
 
   return (
-    <div style={{ position: 'relative', marginBottom: 12 }}>
+    <div
+      style={{ position: 'relative', marginBottom: 12 }}
+      id={`rbgcp-square-wrapper${pickerIdSuffix}`}
+    >
       <div
         onMouseUp={stopDragging}
         onTouchEnd={stopDragging}
         onMouseDown={handleCanvasDown}
         onTouchStart={handleCanvasDown}
         onMouseMove={(e) => handleMove(e)}
+        id={`rbgcp-square${pickerIdSuffix}`}
         style={{ position: 'relative', cursor: 'ew-cross' }}
         // className="rbgcp-square-wrap"
       >
@@ -105,19 +116,21 @@ const Square = () => {
             ...(dragging ? { transition: '' } : {}),
           }}
           onMouseDown={handleMouseDown}
+          id={`rbgcp-square-handle${pickerIdSuffix}`}
           // className="rbgcp-handle rbgcp-handle-square"
         />
         <div
           style={{ ...defaultStyles.rbgcpCanvasWrapper, height: squareHeight }}
+          id={`rbgcp-square-canvas-wrapper${pickerIdSuffix}`}
           // className="rbgcp-canvas-wrapper"
           onClick={(e) => handleClick(e)}
         >
           <canvas
             ref={canvas}
-            id="paintSquare"
             // className="rbgcp-canvas"
             width={`${squareWidth}px`}
             height={`${squareHeight}px`}
+            id={`rbgcp-square-canvas${pickerIdSuffix}`}
           />
         </div>
       </div>

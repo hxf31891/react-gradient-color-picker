@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { usePicker } from '../context.js'
 import { getHandleValue } from '../utils/utils.js'
+import { Styles } from '../shared/types.js'
+import { usePicker } from '../context.js'
 import {
   usePaintSat,
   usePaintLight,
@@ -10,18 +11,23 @@ import tinycolor from 'tinycolor2'
 
 const AdvBar = ({
   value,
-  callback,
   reffy,
-  openAdvanced,
   label,
+  callback,
+  squareWidth,
+  openAdvanced,
+  defaultStyles,
+  pickerIdSuffix,
 }: {
-  value: number
-  callback: (arg0: number) => void
   reffy: any
-  openAdvanced: boolean
+  value: number
   label: string
+  squareWidth: number
+  openAdvanced: boolean
+  defaultStyles: Styles
+  pickerIdSuffix: string
+  callback: (arg0: number) => void
 }) => {
-  const { squareWidth, defaultStyles } = usePicker()
   const [dragging, setDragging] = useState<boolean>(false)
   const [handleTop, setHandleTop] = useState<number>(2)
   const left = value * (squareWidth - 18)
@@ -68,9 +74,11 @@ const AdvBar = ({
         onMouseMove={(e) => handleMove(e)}
         // className="rbgcp-advanced-bar-wrap"
         style={{ cursor: 'resize', position: 'relative' }}
+        id={`rbgcp-advanced-bar-${label}-wrapper${pickerIdSuffix}`}
       >
         <div
           style={{ left, top: handleTop, ...defaultStyles.rbgcpHandle }}
+          id={`rbgcp-advanced-bar-${label}-handle${pickerIdSuffix}`}
           // className="rbgcp-advanced-bar-handle"
           onMouseDown={handleDown}
           role="button"
@@ -90,6 +98,7 @@ const AdvBar = ({
             zIndex: 10,
             textShadow: '1px 1px 1px rgba(0,0,0,.6)',
           }}
+          id={`rbgcp-advanced-bar-${label}-label${pickerIdSuffix}`}
           // className="rbgcp-advanced-bar-label"
           onMouseMove={(e) => handleMove(e)}
           onClick={(e) => handleClick(e)}
@@ -108,6 +117,7 @@ const AdvBar = ({
           onClick={(e) => handleClick(e)}
           // className="rbgcp-advanced-bar-canvas"
           style={{ position: 'relative', borderRadius: 14 }}
+          id={`rbgcp-advanced-bar-${label}-canvas${pickerIdSuffix}`}
         />
       </div>
     </div>
@@ -115,7 +125,7 @@ const AdvBar = ({
 }
 
 const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
-  const { tinyColor, handleChange, squareWidth, hc } = usePicker()
+  const { tinyColor, handleChange, squareWidth, hc, defaultStyles, pickerIdSuffix } = usePicker()
   const { s, l } = tinyColor.toHsl()
 
   const satRef = useRef(null)
@@ -147,10 +157,11 @@ const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
   return (
     <div
       style={{
-        height: openAdvanced ? 98 : 0,
         width: '100%',
+        height: openAdvanced ? 98 : 0,
         transition: 'all 120ms linear',
       }}
+      id={`rbgcp-advanced-controls-wrapper${pickerIdSuffix}`}
       // className="rbgcp-advanced-controls-wrap"
     >
       <div
@@ -163,28 +174,38 @@ const AdvancedControls = ({ openAdvanced }: { openAdvanced: boolean }) => {
           overflow: 'hidden',
           transition: 'height 100ms linear',
         }}
+        id={`rbgcp-advanced-controls-inner${pickerIdSuffix}`}
         // className="rbgcp-advanced-controls-inner"
       >
         <AdvBar
           value={s}
           reffy={satRef}
           callback={satDesat}
-          openAdvanced={openAdvanced}
           label="Saturation"
+          squareWidth={squareWidth}
+          openAdvanced={openAdvanced}
+          defaultStyles={defaultStyles}
+          pickerIdSuffix={pickerIdSuffix}
         />
         <AdvBar
           value={l}
           reffy={lightRef}
           label="Lightness"
           callback={setLight}
+          squareWidth={squareWidth}
           openAdvanced={openAdvanced}
+          defaultStyles={defaultStyles}
+          pickerIdSuffix={pickerIdSuffix}
         />
         <AdvBar
           value={hc?.v}
           reffy={brightRef}
           label="Brightness"
           callback={setBright}
+          squareWidth={squareWidth}
           openAdvanced={openAdvanced}
+          defaultStyles={defaultStyles}
+          pickerIdSuffix={pickerIdSuffix}
         />
       </div>
     </div>

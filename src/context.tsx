@@ -19,8 +19,10 @@ export default function PickerContextWrapper({
   isDarkMode,
   squareWidth,
   hideOpacity,
+  showHexAlpha,
   squareHeight,
   defaultStyles,
+  pickerIdSuffix,
 }: PCWProps) {
   const colors = getColors(value)
   const { degrees, degreeStr, isGradient, gradientType } = getDetails(value)
@@ -38,7 +40,7 @@ export default function PickerContextWrapper({
     } else {
       setHc({ ...rgba, ...hsv })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentColor])
 
   const createGradientStr = (newColors: GradientProps[]) => {
@@ -52,7 +54,9 @@ export default function PickerContextWrapper({
   }
 
   const handleGradient = (newColor: string, left?: number) => {
-    const remaining = colors?.filter((c: GradientProps) => !isUpperCase(c.value))
+    const remaining = colors?.filter(
+      (c: GradientProps) => !isUpperCase(c.value)
+    )
     const newColors = [
       { value: newColor.toUpperCase(), left: left ?? currentLeft },
       ...remaining,
@@ -98,6 +102,7 @@ export default function PickerContextWrapper({
     hideOpacity,
     currentLeft,
     deletePoint,
+    showHexAlpha,
     squareHeight,
     setInputType,
     gradientType,
@@ -106,6 +111,7 @@ export default function PickerContextWrapper({
     selectedColor,
     defaultStyles,
     handleGradient,
+    pickerIdSuffix,
     createGradientStr,
   }
 
@@ -135,6 +141,8 @@ type PCWProps = {
   onChange: (arg0: string) => void
   defaultStyles: Styles
   isDarkMode: boolean
+  pickerIdSuffix: string
+  showHexAlpha: boolean
 }
 
 export type PickerContextProps = {
@@ -165,4 +173,6 @@ export type PickerContextProps = {
     gradient?: string
   }
   isDarkMode: boolean
+  pickerIdSuffix: string
+  showHexAlpha: boolean
 }

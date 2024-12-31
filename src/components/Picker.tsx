@@ -13,7 +13,6 @@ const Picker = ({
   locales,
   presets,
   hideHue,
-  pickerId,
   hideInputs,
   hidePresets,
   hideOpacity,
@@ -29,10 +28,10 @@ const Picker = ({
   hideAdvancedSliders,
   hideGradientControls,
 }: PickerProps) => {
-  const { isGradient } = usePicker()
+  const { isGradient, pickerIdSuffix } = usePicker()
 
   return (
-    <div style={{ userSelect: 'none' }} id={pickerId ?? 'rbgcp-color-picker'}>
+    <div style={{ userSelect: 'none' }} id={`rbgcp-color-picker${pickerIdSuffix}`}>
       {!hidePickerSquare && <Square />}
       {!hideControls && (
         <Controls
@@ -76,6 +75,5 @@ type PickerProps = {
   hideGradientStop?: boolean
   hideGradientControls?: boolean
   locales?: LocalesProps
-  pickerId?: string
   hidePickerSquare?: boolean
 }

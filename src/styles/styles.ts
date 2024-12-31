@@ -92,7 +92,8 @@ const styles: Styles = {
     color: 'black',
     fontWeight: 400,
     textAlign: 'center',
-    background: 'transparent'
+    background: 'transparent',
+    fontSize: '15px',
   },
   rbgcpHandle: {
     position: 'absolute',

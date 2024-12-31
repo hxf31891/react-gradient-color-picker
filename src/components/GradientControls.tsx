@@ -10,7 +10,8 @@ import TrashIcon, {
 } from './icon.js'
 
 const GradientType = () => {
-  const { gradientType, onChange, value, defaultStyles } = usePicker()
+  const { gradientType, onChange, value, defaultStyles, pickerIdSuffix } =
+    usePicker()
   const isLinear = gradientType === 'linear-gradient'
   const isRadial = gradientType === 'radial-gradient'
 
@@ -28,7 +29,7 @@ const GradientType = () => {
     <div style={defaultStyles.rbgcpControlBtnWrapper}>
       <div
         onClick={handleLinear}
-        id="rbgcp-linear-btn"
+        id={`rbgcp-linear-btn${pickerIdSuffix}`}
         // className="rbgcp-control-icon-btn rbgcp-linear-btn"
         style={{
           ...defaultStyles.rbgcpControlBtn,
@@ -44,7 +45,7 @@ const GradientType = () => {
       </div>
       <div
         onClick={handleRadial}
-        id="rbgcp-radial-btn"
+        id={`rbgcp-radial-btn${pickerIdSuffix}`}
         // className="rbgcp-control-icon-btn rbgcp-radial-btn"
         style={{
           ...defaultStyles.rbgcpControlBtn,
@@ -63,7 +64,13 @@ const GradientType = () => {
 }
 
 const StopPicker = () => {
-  const { currentLeft, handleGradient, currentColor, defaultStyles } = usePicker()
+  const {
+    currentLeft,
+    currentColor,
+    defaultStyles,
+    handleGradient,
+    pickerIdSuffix,
+  } = usePicker()
 
   const handleMove = (newVal: string) => {
     handleGradient(currentColor, formatInputValues(parseInt(newVal), 0, 100))
@@ -78,11 +85,12 @@ const StopPicker = () => {
         ...defaultStyles.rbgcpStopInputWrap,
         paddingLeft: 8,
       }}
+      id={`rbgcp-stop-input-wrapper${pickerIdSuffix}`}
     >
       <StopIcon />
       <input
         value={currentLeft}
-        id="rbgcp-stop-input"
+        id={`rbgcp-stop-input${pickerIdSuffix}`}
         onChange={(e) => handleMove(e.target.value)}
         style={{
           ...defaultStyles.rbgcpControlInput,
@@ -95,7 +103,8 @@ const StopPicker = () => {
 }
 
 const DegreePicker = () => {
-  const { degrees, onChange, value, defaultStyles } = usePicker()
+  const { degrees, onChange, value, defaultStyles, pickerIdSuffix } =
+    usePicker()
 
   const handleDegrees = (e: any) => {
     const newValue = formatInputValues(e.target.value, 0, 360)
@@ -111,12 +120,13 @@ const DegreePicker = () => {
         ...defaultStyles.rbgcpControlInputWrap,
         ...defaultStyles.rbgcpDegreeInputWrap,
       }}
+      id={`rbgcp-degree-input-wrapper${pickerIdSuffix}`}
     >
       <DegreesIcon />
       <input
         value={degrees}
-        id="rbgcp-degree-input"
         onChange={(e) => handleDegrees(e)}
+        id={`rbgcp-degree-input${pickerIdSuffix}`}
         // className="rbgcp-control-input rbgcp-degree-input"
         style={{
           ...defaultStyles.rbgcpControlInput,
@@ -141,7 +151,8 @@ const DegreePicker = () => {
 }
 
 const DeleteBtn = () => {
-  const { colors, selectedColor, createGradientStr, defaultStyles } = usePicker()
+  const { colors, selectedColor, createGradientStr, defaultStyles, pickerIdSuffix } =
+    usePicker()
 
   const deletePoint = () => {
     if (colors?.length > 2) {
@@ -160,7 +171,7 @@ const DeleteBtn = () => {
     <div
       onClick={deletePoint}
       style={{ ...controlBtnStyles(false, defaultStyles), width: 28 }}
-      id="rbgcp-point-delete-btn"
+      id={`rbgcp-point-delete-btn${pickerIdSuffix}`}
       // className="rbgcp-control-btn rbgcp-point-delete-btn"
       tabIndex={0}
       role="button"
@@ -182,7 +193,7 @@ const GradientControls = ({
   hideGradientAngle?: boolean
   hideGradientStop?: boolean
 }) => {
-  const { gradientType, defaultStyles } = usePicker()
+  const { gradientType, defaultStyles, pickerIdSuffix } = usePicker()
   return (
     <div
       style={{
@@ -192,7 +203,7 @@ const GradientControls = ({
         justifyContent: 'space-between',
         paddingLeft: hideGradientType ? 4 : 0,
       }}
-      id="rbgcp-gradient-controls-wrap"
+      id={`rbgcp-gradient-controls-wrap${pickerIdSuffix}`}
       // className="rbgcp-gradient-controls-wrap"
     >
       {!hideGradientType && <GradientType />}

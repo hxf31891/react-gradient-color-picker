@@ -8,7 +8,7 @@ import { objectToString } from '../utils/utils.js'
 import { getStyles } from '../styles/styles.js'
 
 export function ColorPicker({
-  id,
+  idSuffix,
   value = 'rgba(175, 51, 242, 1)',
   onChange,
   hideControls = false,
@@ -34,24 +34,23 @@ export function ColorPicker({
   disableDarkMode = false,
   disableLightMode = false,
   hidePickerSquare = false,
+  showHexAlpha = false,
 }: ColorPickerProps) {
   const safeValue = objectToString(value)
-    const isDarkMode =
-      typeof window === 'undefined' || disableDarkMode
-        ? false
-        : window.matchMedia('(prefers-color-scheme: dark)').matches ||
-            disableLightMode
-          ? true
-          : false
+  const isDarkMode =
+    typeof window === 'undefined' || disableDarkMode
+      ? false
+      : window.matchMedia('(prefers-color-scheme: dark)').matches ||
+          disableLightMode
+        ? true
+        : false
   // const contRef = useRef<HTMLDivElement>(null)
   const defaultStyles = getStyles(isDarkMode)
-  const pickerId = id
-    ? id
-    : !disableDarkMode && !disableLightMode
-      ? 'rbgcp-color-picker'
-      : disableDarkMode
-        ? 'rbgcp-color-picker-light'
-        : 'rbgcp-color-picker-dark'
+  const pickerIdSuffix = isDarkMode
+    ? `-dark${idSuffix ? `-${idSuffix}` : ''}`
+    : idSuffix
+      ? `-${idSuffix}`
+      : ''
 
   return (
     <div
@@ -66,10 +65,11 @@ export function ColorPicker({
         squareHeight={height}
         isDarkMode={isDarkMode}
         hideOpacity={hideOpacity}
+        showHexAlpha={showHexAlpha}
         defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
       >
         <Picker
-          pickerId={pickerId}
           hideControls={hideControls}
           hideInputs={hideInputs}
           hidePresets={hidePresets}

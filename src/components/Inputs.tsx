@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import { Styles } from '../shared/types.js'
 import { formatInputValues, round } from '../utils/formatters.js'
-import { rgb2cmyk, cmykToRgb } from '../utils/converters.js'
+import { rgb2cmyk, cmykToRgb, getHexAlpha } from '../utils/converters.js'
 import { usePicker } from '../context.js'
 import tc from 'tinycolor2'
 
 const Input = ({
+  label,
   value,
   callback,
   max = 100,
-  label,
+  hideOpacity,
+  defaultStyles,
+  pickerIdSuffix,
 }: {
   max?: number
   label: string
   value: number
+  hideOpacity: boolean
+  defaultStyles: Styles
+  pickerIdSuffix: string
   callback: (arg0: number) => void
 }) => {
   const [temp, setTemp] = useState(value)
-  const { hideOpacity, defaultStyles } = usePicker()
-  const width = hideOpacity ? '22%' : '18%'
+  const width = hideOpacity ? '25%' : '20%'
 
   useEffect(() => {
     setTemp(value)
@@ -30,12 +36,15 @@ const Input = ({
   }
 
   return (
-    <div style={{ width: width }}>
+    <div
+      style={{ width: width, flexShrink: 1 }}
+      id={`rbgcp-${label}-input-wrapper${pickerIdSuffix}`}
+    >
       <input
         value={temp}
-        id="rbgcp-input"
         onChange={(e) => onChange(e)}
         style={{ ...defaultStyles.rbgcpInput }}
+        id={`rbgcp-${label}-input${pickerIdSuffix}`}
         // className="rbgcp-input"
       />
       <div style={{ ...defaultStyles.rbgcpInputLabel }}>{label}</div>
@@ -43,8 +52,21 @@ const Input = ({
   )
 }
 
-const HexInput = ({ opacity }: { opacity: number }) => {
-  const { handleChange, tinyColor, defaultStyles } = usePicker()
+const HexInput = ({
+  opacity,
+  tinyColor,
+  showHexAlpha,
+  handleChange,
+  defaultStyles,
+  pickerIdSuffix,
+}: {
+  tinyColor: any
+  opacity: number
+  showHexAlpha: boolean
+  defaultStyles: Styles
+  pickerIdSuffix: string
+  handleChange: (arg0: string) => void
+}) => {
   const [disable, setDisable] = useState('')
   const hex = tinyColor.toHex()
   const [newHex, setNewHex] = useState(hex)
@@ -73,24 +95,41 @@ const HexInput = ({ opacity }: { opacity: number }) => {
     }
   }
 
+  const displayValue = showHexAlpha ? `${newHex}${getHexAlpha(opacity)}` : newHex
+  const label = showHexAlpha ? 'HEXA' : 'HEX'
+  const width = showHexAlpha ? 88 : 76
+
   return (
-    <div style={{ width: '23%' }}>
+    <div
+      style={{ width, flexShrink: 0 }}
+      id={`rbgcp-hex-input-wrapper${pickerIdSuffix}`}
+    >
       <input
-        value={newHex}
         onBlur={hexBlur}
         onFocus={hexFocus}
-        id="rbgcp-hex-input"
         onChange={(e) => handleHex(e)}
+        value={displayValue?.toUpperCase()}
+        id={`rbgcp-hex-input${pickerIdSuffix}`}
         style={{ ...defaultStyles.rbgcpInput, ...defaultStyles.rbgcpHexInput }}
       />
-      <div style={{ ...defaultStyles.rbgcpInputLabel }}>HEX</div>
+      <div style={{ ...defaultStyles.rbgcpInputLabel }}>{label}</div>
     </div>
   )
 }
 
-const RGBInputs = () => {
-  const { handleChange, hc } = usePicker()
-
+const RGBInputs = ({
+  hc,
+  hideOpacity,
+  handleChange,
+  defaultStyles,
+  pickerIdSuffix,
+}: {
+  hc: any
+  hideOpacity: boolean
+  defaultStyles: Styles
+  pickerIdSuffix: string
+  handleChange: (arg0: string) => void
+}) => {
   const handleRgb = ({ r, g, b }: { r: number; g: number; b: number }) => {
     handleChange(`rgba(${r}, ${g}, ${b}, ${hc?.a})`)
   }
@@ -98,29 +137,53 @@ const RGBInputs = () => {
   return (
     <>
       <Input
-        value={hc?.r}
-        callback={(newVal) => handleRgb({ r: newVal, g: hc?.g, b: hc?.b })}
         label="R"
         max={255}
+        value={hc?.r}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleRgb({ r: newVal, g: hc?.g, b: hc?.b })}
       />
       <Input
-        value={hc?.g}
-        callback={(newVal) => handleRgb({ r: hc?.r, g: newVal, b: hc?.b })}
         label="G"
         max={255}
+        value={hc?.g}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleRgb({ r: hc?.r, g: newVal, b: hc?.b })}
       />
       <Input
-        value={hc?.b}
-        callback={(newVal) => handleRgb({ r: hc?.r, g: hc?.g, b: newVal })}
         label="B"
         max={255}
+        value={hc?.b}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleRgb({ r: hc?.r, g: hc?.g, b: newVal })}
       />
     </>
   )
 }
 
-const HSLInputs = () => {
-  const { handleChange, tinyColor, setHc, hc } = usePicker()
+const HSLInputs = ({
+  hc,
+  setHc,
+  tinyColor,
+  hideOpacity,
+  handleChange,
+  defaultStyles,
+  pickerIdSuffix,
+}: {
+  hc: any
+  tinyColor: any
+  hideOpacity: boolean
+  defaultStyles: Styles
+  pickerIdSuffix: string
+  setHc: (arg0: any) => void
+  handleChange: (arg0: string) => void
+}) => {
   const { s, l } = tinyColor.toHsl()
 
   const handleH = (h: number, s: number, l: number) => {
@@ -137,28 +200,49 @@ const HSLInputs = () => {
   return (
     <>
       <Input
-        value={round(hc?.h)}
-        callback={(newVal) => handleH(newVal, s, l)}
         label="H"
         max={360}
+        value={round(hc?.h)}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleH(newVal, s, l)}
       />
       <Input
-        value={round(s * 100)}
-        callback={(newVal) => handleSl({ h: hc?.h, s: newVal, l: l })}
         label="S"
+        value={round(s * 100)}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleSl({ h: hc?.h, s: newVal, l: l })}
       />
       <Input
-        value={round(l * 100)}
-        callback={(newVal) => handleSl({ h: hc?.h, s: s, l: newVal })}
         label="L"
+        value={round(l * 100)}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleSl({ h: hc?.h, s: s, l: newVal })}
       />
     </>
   )
 }
 
-const HSVInputs = () => {
-  const { handleChange, setHc, hc } = usePicker()
-
+const HSVInputs = ({
+  hc,
+  setHc,
+  hideOpacity,
+  handleChange,
+  defaultStyles,
+  pickerIdSuffix,
+}: {
+  hc: any
+  hideOpacity: boolean
+  defaultStyles: Styles
+  pickerIdSuffix: string
+  setHc: (arg0: any) => void
+  handleChange: (arg0: string) => void
+}) => {
   const handleH = (h: number, s: number, v: number) => {
     const { r, g, b } = tc({ h: h, s: s, v: v }).toRgb()
     handleChange(`rgba(${r}, ${g}, ${b}, ${hc?.a})`)
@@ -173,27 +257,48 @@ const HSVInputs = () => {
   return (
     <>
       <Input
-        value={round(hc?.h)}
-        callback={(newVal) => handleH(newVal, hc?.s, hc?.v)}
         label="H"
         max={360}
+        value={round(hc?.h)}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleH(newVal, hc?.s, hc?.v)}
       />
       <Input
-        value={round(hc?.s * 100)}
-        callback={(newVal) => handleSV({ h: hc?.h, s: newVal, v: hc?.v })}
         label="S"
+        hideOpacity={hideOpacity}
+        value={round(hc?.s * 100)}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleSV({ h: hc?.h, s: newVal, v: hc?.v })}
       />
       <Input
-        value={round(hc?.v * 100)}
-        callback={(newVal) => handleSV({ h: hc?.h, s: hc?.s, v: newVal })}
         label="V"
+        hideOpacity={hideOpacity}
+        value={round(hc?.v * 100)}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleSV({ h: hc?.h, s: hc?.s, v: newVal })}
       />
     </>
   )
 }
 
-const CMKYInputs = () => {
-  const { handleChange, hc } = usePicker()
+const CMKYInputs = ({
+  hc,
+  hideOpacity,
+  handleChange,
+  defaultStyles,
+
+  pickerIdSuffix,
+}: {
+  hc: any
+  hideOpacity: boolean
+  defaultStyles: Styles
+  pickerIdSuffix: string
+  handleChange: (arg0: string) => void
+}) => {
   const { c, m, y, k } = rgb2cmyk(hc?.r, hc?.g, hc?.b)
 
   const handleCmyk = (value: any) => {
@@ -204,55 +309,125 @@ const CMKYInputs = () => {
   return (
     <>
       <Input
-        value={round(c * 100)}
-        callback={(newVal) => handleCmyk({ c: newVal / 100, m: m, y: y, k: k })}
         label="C"
+        value={round(c * 100)}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleCmyk({ c: newVal / 100, m: m, y: y, k: k })}
       />
       <Input
-        value={round(m * 100)}
-        callback={(newVal) => handleCmyk({ c: c, m: newVal / 100, y: y, k: k })}
         label="M"
+        value={round(m * 100)}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleCmyk({ c: c, m: newVal / 100, y: y, k: k })}
       />
       <Input
-        value={round(y * 100)}
-        callback={(newVal) => handleCmyk({ c: c, m: m, y: newVal / 100, k: k })}
         label="Y"
+        value={round(y * 100)}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleCmyk({ c: c, m: m, y: newVal / 100, k: k })}
       />
       <Input
-        value={round(k * 100)}
-        callback={(newVal) => handleCmyk({ c: c, m: m, y: y, k: newVal / 100 })}
         label="K"
+        value={round(k * 100)}
+        hideOpacity={hideOpacity}
+        defaultStyles={defaultStyles}
+        pickerIdSuffix={pickerIdSuffix}
+        callback={(newVal) => handleCmyk({ c: c, m: m, y: y, k: newVal / 100 })}
       />
     </>
   )
 }
 
 const Inputs = () => {
-  const { handleChange, inputType, hideOpacity, hc, defaultStyles } = usePicker()
+  const {
+    hc,
+    setHc,
+    inputType,
+    tinyColor,
+    hideOpacity,
+    showHexAlpha,
+    handleChange,
+    defaultStyles,
+    pickerIdSuffix,
+  } = usePicker()
 
   return (
     <div
       style={{
+        columnGap: 6,
         paddingTop: 14,
         display: 'flex',
         justifyContent: 'space-between',
         ...defaultStyles.rbgcpInputsWrap,
       }}
-      id="rbgcp-inputs-wrap"
+      id={`rbgcp-inputs-wrap${pickerIdSuffix}`}
     >
-      {inputType !== 'cmyk' && <HexInput opacity={hc?.a} />}
-      {inputType === 'hsl' && <HSLInputs />}
-      {inputType === 'rgb' && <RGBInputs />}
-      {inputType === 'hsv' && <HSVInputs />}
-      {inputType === 'cmyk' && <CMKYInputs />}
+      {inputType !== 'cmyk' && (
+        <HexInput
+          opacity={hc?.a}
+          tinyColor={tinyColor}
+          showHexAlpha={showHexAlpha}
+          handleChange={handleChange}
+          defaultStyles={defaultStyles}
+          pickerIdSuffix={pickerIdSuffix}
+        />
+      )}
+      {inputType === 'hsl' && (
+        <HSLInputs
+          hc={hc}
+          setHc={setHc}
+          tinyColor={tinyColor}
+          hideOpacity={hideOpacity}
+          handleChange={handleChange}
+          defaultStyles={defaultStyles}
+          pickerIdSuffix={pickerIdSuffix}
+        />
+      )}
+      {inputType === 'rgb' && (
+        <RGBInputs
+          hc={hc}
+          hideOpacity={hideOpacity}
+          handleChange={handleChange}
+          defaultStyles={defaultStyles}
+          pickerIdSuffix={pickerIdSuffix}
+        />
+      )}
+      {inputType === 'hsv' && (
+        <HSVInputs
+          hc={hc}
+          setHc={setHc}
+          hideOpacity={hideOpacity}
+          handleChange={handleChange}
+          defaultStyles={defaultStyles}
+          pickerIdSuffix={pickerIdSuffix}
+        />
+      )}
+      {inputType === 'cmyk' && (
+        <CMKYInputs
+          hc={hc}
+          hideOpacity={hideOpacity}
+          handleChange={handleChange}
+          defaultStyles={defaultStyles}
+          pickerIdSuffix={pickerIdSuffix}
+        />
+      )}
 
       {!hideOpacity && (
         <Input
+          label="A"
+          hideOpacity={hideOpacity}
+          defaultStyles={defaultStyles}
           value={Math.round(hc?.a * 100)}
+          pickerIdSuffix={pickerIdSuffix}
           callback={(newVal: number) =>
             handleChange(`rgba(${hc?.r}, ${hc?.g}, ${hc?.b}, ${newVal / 100})`)
           }
-          label="A"
         />
       )}
     </div>

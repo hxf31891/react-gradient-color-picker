@@ -18,9 +18,10 @@ export const Handle = ({
 }) => {
   const {
     colors,
-    selectedColor,
     squareWidth,
+    selectedColor,
     defaultStyles,
+    pickerIdSuffix,
     createGradientStr,
   } = usePicker()
   const isSelected = selectedColor === i
@@ -54,8 +55,8 @@ export const Handle = ({
       // tabIndex={0}
       // onBlur={handleBlur}
       // onFocus={handleFocus}
-      id={`gradient-handle-${i}`}
       onMouseDown={(e) => handleDown(e)}
+      id={`rbgcp-gradient-handle-${i}${pickerIdSuffix}`}
       // className="rbgcp-gradient-handle-wrap"
       style={{
         ...defaultStyles.rbgcpGradientHandleWrap,
@@ -66,8 +67,14 @@ export const Handle = ({
         // className="rbgcp-gradient-handle"
         style={{
           ...defaultStyles.rbgcpGradientHandle,
-          ...(isSelected ? { boxShadow: '0px 0px 5px 1px rgba(86, 140, 245,.95)', border: '2px solid white' } : {}),
+          ...(isSelected
+            ? {
+                boxShadow: '0px 0px 5px 1px rgba(86, 140, 245,.95)',
+                border: '2px solid white',
+              }
+            : {}),
         }}
+        id={`rbgcp-gradient-handle-${i}-dot${pickerIdSuffix}`}
       >
         {isSelected && (
           <div
@@ -77,7 +84,7 @@ export const Handle = ({
               borderRadius: '50%',
               background: 'white',
             }}
-            // className="rbgcp-gradient-handle-selected-dot"
+            id={`rbgcp-gradient-handle-${i}-selected-dot${pickerIdSuffix}`}
           />
         )}
       </div>
@@ -87,12 +94,13 @@ export const Handle = ({
 
 const GradientBar = () => {
   const {
-    currentColor,
-    createGradientStr,
-    colors,
     value,
+    colors,
+    squareWidth,
+    currentColor,
     handleGradient,
-    squareWidth
+    pickerIdSuffix,
+    createGradientStr,
   } = usePicker()
   const [dragging, setDragging] = useState(false)
   // const [inFocus, setInFocus] = useState<string | null>(null)
@@ -166,7 +174,7 @@ const GradientBar = () => {
         marginBottom: 4,
         position: 'relative',
       }}
-      id="gradient-bar"
+      id={`rbgcp-gradient-bar${pickerIdSuffix}`}
       // className="rbgcp-gradient-bar"
     >
       <div
@@ -178,6 +186,7 @@ const GradientBar = () => {
         }}
         onMouseDown={(e) => handleDown(e)}
         onMouseMove={(e) => handleMove(e)}
+        id={`rbgcp-gradient-bar-canvas${pickerIdSuffix}`}
         // className="rbgcp-gradient-bar-canvas"
       />
       {colors?.map((c: any, i) => (

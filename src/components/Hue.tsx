@@ -6,7 +6,7 @@ import tinycolor from 'tinycolor2'
 
 const Hue = () => {
   const barRef = useRef<HTMLCanvasElement>(null)
-  const { handleChange, squareWidth, hc, setHc } = usePicker()
+  const { handleChange, squareWidth, hc, setHc, pickerIdSuffix } = usePicker()
   const [dragging, setDragging] = useState(false)
   usePaintHue(barRef, squareWidth)
 
@@ -60,6 +60,7 @@ const Hue = () => {
         position: 'relative',
       }}
       onMouseMove={(e) => handleMove(e)}
+      id={`rbgcp-hue-wrap${pickerIdSuffix}`}
       // className="rbgcp-hue-wrap"
     >
       <div
@@ -81,6 +82,7 @@ const Hue = () => {
           boxSizing: 'border-box',
         }}
         onMouseDown={handleDown}
+        id={`rbgcp-hue-handle${pickerIdSuffix}`}
       />
       <canvas
         ref={barRef}
@@ -88,7 +90,12 @@ const Hue = () => {
         // className="rbgcp-hue-bar"
         width={`${squareWidth}px`}
         onClick={(e) => handleClick(e)}
-        style={{ position: 'relative', borderRadius: 14, verticalAlign: 'top' }}
+        id={`rbgcp-hue-bar${pickerIdSuffix}`}
+        style={{
+          borderRadius: 14,
+          position: 'relative',
+          verticalAlign: 'top',
+        }}
       />
     </div>
   )

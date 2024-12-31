@@ -1,5 +1,5 @@
 export type ColorPickerProps = {
-  id?: string
+  idSuffix?: string
   value?: string
   onChange: (value: string) => void
   hideControls?: boolean
@@ -25,6 +25,7 @@ export type ColorPickerProps = {
   disableDarkMode?: boolean
   disableLightMode?: boolean
   hidePickerSquare?: boolean
+  showHexAlpha?: boolean
 }
 
 export type ColorsProps = {
